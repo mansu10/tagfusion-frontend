@@ -1,0 +1,36 @@
+/* 自定义滚动条样式 */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 12px; /* 滚动条的宽度 */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #dc4210; /* 滚动条的颜色 */
+    border-radius: 10px; /* 滚动条的圆角 */
+    border: 3px solid #000000; /* 滚动条的外边框 */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #1a1a1a; /* 滚动条轨道的颜色 */
+}
+/* 在 customStyles.css 中添加渐变背景样式 */
+/*.bg-gradient-blue {*/
+/*    background: linear-gradient(to right, #3a7bd5, #a1c4fd);*/
+/*}*/
+.bg-gradient-blue {
+    background: linear-gradient(to right, #ee800d, #afdea5);
+}
+
+/* copy my profile */
+.copy-success-message {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
