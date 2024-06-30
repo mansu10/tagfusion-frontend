@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const config = {
-    endpoint: 'http://127.0.0.1:8000/'
+    endpoint: 'http://43.135.26.222:8000/'
 };
 
 const axiosInstance = axios.create({
