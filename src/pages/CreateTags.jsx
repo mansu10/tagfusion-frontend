@@ -52,7 +52,7 @@ const CreateTags = () => {
 
             const offlineSigner = window.getOfflineSigner(chainId);
             const signingClient = await SigningStargateClient.connectWithSigner(
-                "http://43.135.26.222:26657", // 替换为你的节点 RPC URL
+                "http://127.0.0.1:26657", // 替换为你的节点 RPC URL
                 offlineSigner
             );
 
