@@ -28,7 +28,7 @@ const CustomForm = () => {
       formData.append("link", link);
 
       try {
-         const response = await axiosInstance.post("/tagfusion/api/create_info", formData, {
+         const response = await axiosInstance.post("/tagfusion/api/create_info/", formData, {
             headers: {
                "Content-Type": "multipart/form-data",
             },

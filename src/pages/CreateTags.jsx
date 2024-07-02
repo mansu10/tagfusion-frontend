@@ -4,6 +4,7 @@ import { SigningStargateClient, assertIsBroadcastTxSuccess, GasPrice } from "@co
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { axiosInstance } from "../config/config.js";
+import axios from "axios";
 
 const CreateTags = () => {
    const [selectedTag, setSelectedTag] = useState(null);
@@ -24,7 +25,9 @@ const CreateTags = () => {
 
       const fetchCategories = async () => {
          try {
-            const response = await axiosInstance.get('tagfusion/api/get_cards');
+
+
+            const response = await axiosInstance.get('tagfusion/api/get_cards/');
             const result = await response.data;
             if (result.code === 0) {
                setCategories(result.data);

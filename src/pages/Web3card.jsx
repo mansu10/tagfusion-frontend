@@ -32,7 +32,7 @@ const Web3card = () => {
    useEffect(() => {
       const fetchData = async () => {
          const address = await getAddress();
-         const response = await axiosInstance.get('tagfusion/api/login/get_info', {
+         const response = await axiosInstance.get('tagfusion/api/login/get_info/', {
             params: { address }
          });
          setData(response.data);
