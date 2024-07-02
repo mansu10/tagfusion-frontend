@@ -48,20 +48,46 @@ const Web3card = () => {
       }
    }, [location]);
 
+   // const copyProfile = () => {
+   //    const profileText = `
+   //       Username: ${data.info.username[0]}
+   //       Address: ${data.info.address}
+   //       Bio: ${data.info.bio[0]}
+   //       Link: ${data.info.link[0]}
+   //       Tag: ${selectedTag ? selectedTag.tag_name : ''}
+   //    `;
+   //    navigator.clipboard.writeText(profileText).then(() => {
+   //       setCopySuccess(true);
+   //       setTimeout(() => setCopySuccess(false), 3000); // 提示信息显示3秒后消失
+   //    }).catch(err => {
+   //       console.error("Could not copy text: ", err);
+   //    });
+   // };
    const copyProfile = () => {
       const profileText = `
-         Username: ${data.info.username[0]}
-         Address: ${data.info.address}
-         Bio: ${data.info.bio[0]}
-         Link: ${data.info.link[0]}
-         Tag: ${selectedTag ? selectedTag.tag_name : ''}
-      `;
-      navigator.clipboard.writeText(profileText).then(() => {
+        Username: ${data.info.username[0]}
+        Address: ${data.info.address}
+        Bio: ${data.info.bio[0]}
+        Link: ${data.info.link[0]}
+        Tag: ${selectedTag ? selectedTag.tag_name : ''}
+    `;
+
+      const textArea = document.createElement("textarea");
+      textArea.value = profileText;
+      textArea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+         document.execCommand('copy');
          setCopySuccess(true);
          setTimeout(() => setCopySuccess(false), 3000); // 提示信息显示3秒后消失
-      }).catch(err => {
+      } catch (err) {
          console.error("Could not copy text: ", err);
-      });
+      }
+
+      document.body.removeChild(textArea);
    };
 
    let profileImageUrl = ""
