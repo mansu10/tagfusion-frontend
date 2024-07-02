@@ -69,7 +69,7 @@ const Web3card = () => {
         Address: ${data.info.address}
         Bio: ${data.info.bio[0]}
         Link: ${data.info.link[0]}
-        Tag: ${selectedTag ? selectedTag.tag_name : ''}
+        tag_name: ${selectedTag ? selectedTag.tag_name : ''}
     `;
 
       const textArea = document.createElement("textarea");
@@ -151,6 +151,7 @@ const Web3card = () => {
                             <div className="mt-12 text-lg font-bold">{data.info.username[0] }</div>
                             {/*<div className="mt-8 text-sm text-white/80 underline">{data.info.address || "Loading..."}</div>*/}
                             <div className="mt-8 text-lg text-sm text-white/80 underline">{data.info.address}</div>
+                            <div className="mt-8 text-lg text-sm text-white/80 underline">{data.info.link || ""}</div>
                             <div className="mt-8 text-lg text-center text-xs">
                                <p>{data.info.bio[0] }</p>
                             </div>
