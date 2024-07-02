@@ -80,7 +80,7 @@ const Home = () => {
                        onClick={handleWalletButtonClick}
                        className="text-green-500 w-[600px] hover:bg-gradient-red-orange hover:shadow-custom-shadow hover:border-0"
                    />
-                   <Link >
+                   <Link to="/card">
                       <Button text="set up your profile"  className="text-green-500 w-[600px] hover:bg-gradient-red-orange hover:shadow-custom-shadow hover:border-0" />
                    </Link>
                    <Link >
