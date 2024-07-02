@@ -81,7 +81,7 @@ const Home = () => {
                        className="text-green-500 w-[600px] hover:bg-gradient-red-orange hover:shadow-custom-shadow hover:border-0"
                    />
                    <Link to="/card">
-                      <Button text="set up your profile"  className="text-green-500 w-[600px] hover:bg-gradient-red-orange hover:shadow-custom-shadow hover:border-0" />
+                      <Button text="set up your profile" link="/card" className="text-green-500 w-[600px] hover:bg-gradient-red-orange hover:shadow-custom-shadow hover:border-0" />
                    </Link>
                    <Link >
                       <Button text="Get some $TF"  className="text-green-500 w-[600px] hover:bg-gradient-red-orange hover:shadow-custom-shadow hover:border-0" />
