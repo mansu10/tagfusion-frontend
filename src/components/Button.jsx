@@ -18,7 +18,7 @@ const Button = ({ className = "", text = "", onClick = () => {}, to = "", link =
 
    return (
        <button
-           className={`text-white font-semibold border border-primary-default rounded-full min-w-[140px] h-[50px] capitalize flex items-center justify-center ${className}`}
+           className={` font-semibold border border-primary-default rounded-full min-w-[140px] h-[50px] capitalize flex items-center justify-center ${className}`}
            onClick={handleClick}
        >
           {text}

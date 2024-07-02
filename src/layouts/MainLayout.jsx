@@ -6,7 +6,7 @@ const MainLayout = () => {
     return (
         <div className="relative bg-black min-h-screen flex flex-col overflow-auto">
             <ParticleBackground />
-            <div className="z-10 px-32 mx-32">
+            <div className="z-50 px-32 mx-32">
                 <Header />
             </div>
             <div className="z-10 flex-1 px-32 mx-32">

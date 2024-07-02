@@ -36,6 +36,7 @@ const CustomForm = () => {
          if(response.data.code === 0){
             navigate("/card"); // 表单提交成功后重定向到 /card 页面
          }
+         localStorage.setItem("tura_login_status", true);
       } catch (error) {
          console.error("Error submitting form:", error);
       }
