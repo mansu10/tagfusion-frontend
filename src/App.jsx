@@ -4,8 +4,13 @@ import Home from "./pages/Home";
 import Customdid from "./pages/Customdid";
 import Web3card from "./pages/Web3card";
 import CreateTags from "./pages/CreateTags";
+import { ToastContainer, toast } from "react-toastify";
+
+
 const App = () => {
+
   return (
+
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
@@ -14,6 +19,7 @@ const App = () => {
         <Route path="/create_tags" element={<CreateTags />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
+
     </Routes>
   )
 };

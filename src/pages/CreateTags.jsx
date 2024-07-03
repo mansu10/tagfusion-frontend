@@ -124,13 +124,13 @@ const CreateTags = () => {
        <div className="w-full h-full flex justify-center items-center p-8 my-8">
           <div className="flex mt-24">
              {/* 左侧导航 */}
-             <div className="w-[200px] h-[700px] flex flex-col space-y-4 p-4 bg-gray-800 bg-opacity-50 rounded-3xl text-white mr-4 overflow-y-auto custom-scrollbar">
+             <div className="w-[200px] h-[700px] flex flex-col space-y-4 p-4 bg-opacity-50 rounded-3xl text-white mr-4 overflow-y-auto custom-scrollbar">
                 {categories.map((category) => (
                     <button
                         key={category.category_name}
-                        className={`p-2 text-center rounded-xl border-2 transition-all duration-200 ${
-                            selectedCategory === category.category_name ? 'bg-blue-400 border-whilt' : 'bg-blue-400 border-transparent'
-                        } hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+                        className={`p-2 text-center text-green-600 rounded-xl border border-[#BE7123] transition-all duration-200 
+                        ${selectedCategory === category.category_name ? 'outline outline-1 outline-[#BE7123]' : ''} 
+                        hover:shadow-[0_0_0_2px_#BE7123]`}
                         onClick={() => handleCategoryClick(category.category_name)}
                     >
                        {category.category_name}
@@ -139,12 +139,18 @@ const CreateTags = () => {
              </div>
 
 
+
+
+
              {/* 卡片 */}
              <div className="w-[460px] h-[700px] flex flex-col items-center justify-center ">
-                <div className="w-[460px] h-[700px] w-full flex flex-col p-7 justify-center items-center shadow-lg rounded-3xl bg-clip-padding bg-opacity-5 border border-[#BE7123] backdrop-blur-[5px]">
-                   <h1 className="text-3xl uppercase font-bold text-primary-default">mytags</h1>
+                <div className="w-[460px] h-[700px] w-full flex flex-col p-7 justify-center items-center shadow-lg rounded-3xl bg-clip-padding bg-opacity-5 border-2 border-[#BE7123] backdrop-blur-[5px]">
+                   <h1 className="text-3xl uppercase font-bold text-green-600">mytags</h1>
                    <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-4 w-full">
-                      <div className="w-[400px] h-[500px] mb-9 w-full gradient-button rounded-2xl overflow-hidden shadow-lg relative text-white flex flex-col p-4 overflow-y-auto bg-gray-800 custom-scrollbar">
+                      {/*<div className="w-[400px] h-[500px] mb-9 w-full gradient-button rounded-2xl overflow-hidden shadow-lg relative text-white flex flex-col p-4 overflow-y-auto bg-gray-800 custom-scrollbar">*/}
+                      {/*<div className="bg-opacity-5 w-[400px] h-[500px] mb-9 w-full bg-white text-gray-700 rounded-2xl overflow-hidden shadow-lg relative flex flex-col p-4 overflow-y-auto border border-gray-300 custom-scrollbar">*/}
+                      <div className="bg-opacity-5 w-[400px] h-[500px] mb-9 w-full border border-[#BE7123] text-gray-700 rounded-2xl overflow-hidden shadow-lg relative flex flex-col p-4 overflow-y-auto custom-scrollbar">
+
                          <div className="flex flex-col space-y-2">
                             {categories
                                 .filter((category) => category.category_name === selectedCategory)
@@ -154,19 +160,22 @@ const CreateTags = () => {
                                         type="button"
                                         key={tag}
                                         onClick={() => handleClick(tag)}
-                                        className={`p-2 bg-gradient-blue rounded-xl cursor-pointer ${selectedTag === tag ? 'outline outline-2 outline-blue-500 shadow-lg' : ''}`}
+                                        className={`p-2 border border-[#BE7123] rounded-xl cursor-pointer text-green-600 transition-all duration-200 ${selectedTag === tag ? 'outline outline-1 outline-[#BE7123] shadow-lg' : ''} hover:shadow-[0_0_0_2px_#BE7123]`}
                                     >
                                        {tag}
                                     </button>
                                 ))}
                          </div>
+
                       </div>
+
                       <button
                           type="submit"
-                          className="px-4 py-2 font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                          className="px-4 py-2 font-medium text-green-600 rounded-xl border border-[#BE7123] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]"
                       >
-                         添加标签
+                         Add Tag
                       </button>
+                      {/*focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2*/}
                    </form>
                 </div>
              </div>

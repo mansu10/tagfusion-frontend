@@ -4,14 +4,22 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #dc4210; /* 滚动条的颜色 */
+    /*background-color: #dc4210; !* 滚动条的颜色 *!*/
+    background: linear-gradient(213deg, rgba(255,100,0,0.8) 0%, rgba(255,30,0,0.7) 100%); /* 滚动条的渐变颜色 */
+
+    /*background-color: #0baf4e; !* 滚动条的颜色 *!*/
+
     border-radius: 10px; /* 滚动条的圆角 */
-    border: 3px solid #000000; /* 滚动条的外边框 */
+    /*border: 3px solid #000000; !* 滚动条的外边框 *!*/
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-    background-color: #1a1a1a; /* 滚动条轨道的颜色 */
+    /*background-color: #1a1a1a; !* 滚动条轨道的颜色 *!*/
+    background-color: #ffffff; /* 滚动条轨道的颜色 */
 }
+
+
+
 /* 在 customStyles.css 中添加渐变背景样式 */
 /*.bg-gradient-blue {*/
 /*    background: linear-gradient(to right, #3a7bd5, #a1c4fd);*/
@@ -34,3 +42,17 @@
     align-items: center;
     gap: 10px;
 }
+
+
+
+
+.particle-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: #ffffff; /* 将背景颜色设置为白色 */
+}
+

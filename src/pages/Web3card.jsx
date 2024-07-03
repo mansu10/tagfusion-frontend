@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { axiosInstance, profileImageUrlPrefix } from "../config/config";
 import Web3CreateCard from "../components/Web3CreateCard";
 import {useLocation, useNavigate} from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import '../assets/customStyles.css'; // 引入自定义CSS文件
 
 const getAddress = async () => {
@@ -12,6 +13,7 @@ const getAddress = async () => {
 };
 
 const Web3card = () => {
+
    const [data, setData] = useState({
       code: 2,
       info: {
@@ -25,20 +27,36 @@ const Web3card = () => {
    });
    const [selectedTag, setSelectedTag] = useState(null);
    const [copySuccess, setCopySuccess] = useState(false);
-   const [status, setStatus] = useState(false);
+   // const [status, setStatus] = useState(false);
    const location = useLocation();
-   const navigate = useNavigate();
+
 
    useEffect(() => {
+
       const fetchData = async () => {
          const address = await getAddress();
+         toast.info("Loading...", {
+            position: "top-right", // 设置位置为右上角
+            autoClose: false,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            theme: "colored",
+            type: "info",
+            icon: false
+
+         });
          const response = await axiosInstance.get('tagfusion/api/login/get_info/', {
             params: { address }
          });
+
          setData(response.data);
          if(response.data.code === 0){
+            toast.dismiss();
             localStorage.setItem("tura_login_status", true);
-            setStatus(true)
+            // setStatus(true)
          }
 
       };
@@ -104,21 +122,20 @@ const Web3card = () => {
           <div className="w-full h-full flex justify-around items-center p-8">
              {/* 标签部分 */}
              <div className="w-[460px] h-[650px] flex flex-col items-center justify-center my-28">
-                <div className="w-[460px] h-[650px] flex flex-col p-7 justify-center items-center shadow-lg rounded-3xl bg-clip-padding bg-opacity-5 border border-[#BE7123] backdrop-blur-[5px]">
-                   <h1 className="text-3xl uppercase font-bold text-primary-default">mytags</h1>
-                   <div className="mb-9 w-[400px] h-[500px] w-full gradient-button rounded-2xl overflow-hidden shadow-lg relative text-white flex flex-col p-4 overflow-y-auto bg-gray-800 custom-scrollbar">
+                <div className="w-[460px] h-[650px] flex flex-col p-7 justify-center items-center shadow-lg rounded-3xl bg-clip-padding bg-opacity-5 border-2 border-[#BE7123] backdrop-blur-[5px]">
+                   <h1 className="text-3xl uppercase font-bold text-green-600">mytags</h1>
+                   <div className="border border-[#BE7123] bg-opacity-5 mb-9 w-[400px] h-[500px] w-full bg-white text-gray-700 rounded-2xl overflow-hidden shadow-lg relative flex flex-col p-4 overflow-y-auto custom-scrollbar">
                       {data.info.address === "" ? (
                           <>
                              {/*<div className="p-2 bg-gradient-blue rounded-xl mb-2 cursor-pointer">*/}
                              {/*   <div>Loading...</div>*/}
                              {/*</div>*/}
-
                           </>
                       ) : (
                           data.info.tags.map((tag, index) => (
                               <div
                                   key={index}
-                                  className={`p-2 bg-gradient-blue rounded-xl mb-2 cursor-pointer ${selectedTag === tag ? 'outline outline-2 outline-blue-500 shadow-lg' : ''}`}
+                                  className={`transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123] p-2 text-center text-green-600 border border-[#BE7123] rounded-xl mb-2 cursor-pointer ${selectedTag === tag ? 'outline outline-1 outline-borderorange shadow-lg' : ''}`}
                                   onClick={() => setSelectedTag(tag)}
                               >
                                  <div>{tag.tag_name} ({tag.status ? 'Verified' : 'Not Verified'})</div>
@@ -126,22 +143,23 @@ const Web3card = () => {
                           ))
                       )}
                    </div>
+
                 </div>
              </div>
 
              {/* 卡片部分 */}
              <div className="w-[460px] h-[650px] flex flex-col items-center justify-center my-28">
-                <div className="w-[460px] h-[650px] flex flex-col p-7 justify-center items-center shadow-lg rounded-3xl bg-clip-padding bg-opacity-5 border border-[#BE7123] backdrop-blur-[5px]">
-                   <h1 className="text-3xl uppercase font-bold text-primary-default">profile</h1>
-                   <div className="w-[400px] h-[500px] w-full gradient-button rounded-2xl overflow-hidden shadow-lg relative text-white flex flex-col">
+                <div className="w-[460px] h-[650px] flex flex-col p-7 justify-center items-center shadow-lg rounded-3xl bg-clip-padding bg-opacity-10 border-2 border-[#BE7123] backdrop-blur-[5px]">
+                   <h1 className="text-3xl uppercase font-bold text-green-600">profile</h1>
+                   <div className="w-[400px] h-[500px] w-full gradient-button rounded-2xl overflow-hidden shadow-lg relative text-white flex flex-col ">
                       <div className="px-8 py-5">
                          <div className="mt-2 flex flex-col items-center">
                             {profileImageUrl === "" ? (
-                                <>
-                                   <div className="w-28 h-28  rounded-full overflow-hidden">
-                                   </div>
-                                </>
-                            ):
+                                    <>
+                                       <div className="w-28 h-28  rounded-full overflow-hidden">
+                                       </div>
+                                    </>
+                                ):
                                 (
                                     <div className="w-28 h-28 bg-gray-200 rounded-full overflow-hidden">
                                        <img src={profileImageUrl} alt="Profile" className="w-full h-full object-cover" />
@@ -168,9 +186,7 @@ const Web3card = () => {
                          </div>
 
                       </div>
-                      <div className="text-lg font-bold mt-auto px-8 py-4 bg-black/20 backdrop-blur-3xl flex justify-end items-center gap-2">
-                         <img src="/icons/logo.png" alt="logo" className="w-10 object-contain rounded" />
-                      </div>
+
                    </div>
                    <div className="w-full flex justify-between pt-4">
                       <div className="text-white underline flex gap-2 items-center cursor-pointer" onClick={copyProfile}>
@@ -180,6 +196,7 @@ const Web3card = () => {
                    </div>
                 </div>
              </div>
+             <ToastContainer />
           </div>
       )   }
 };

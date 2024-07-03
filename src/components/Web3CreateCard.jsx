@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {Link, useNavigate} from "react-router-dom";
-import {axiosInstance} from "../config/config";
+import { Link, useNavigate } from "react-router-dom";
+import { axiosInstance } from "../config/config";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const CustomForm = () => {
    const [nickname, setNickname] = useState("");
@@ -28,17 +30,70 @@ const CustomForm = () => {
       formData.append("link", link);
 
       try {
+         if (!address) {
+            toast.error("Please connect wallet");
+            return;
+         }
+         if (!bio) {
+            toast.error("Please add bio");
+            return;
+         }
+
+   // 显示正在创建中的提示
+   //       toast.info("Creating...", {
+   //          position: "top-center", // 设置位置为右上角
+   //          autoClose: false,
+   //          hideProgressBar: true,
+   //          closeOnClick: false,
+   //          pauseOnHover: false,
+   //          draggable: false,
+   //          progress: undefined,
+   //          theme: "colored",
+   //          type: "info",
+   //          icon: false,
+   //          style: {
+   //             backgroundColor: "yellow",
+   //             color: "black",
+   //             border: "2px solid #BE7123", // 设置边框
+   //             borderRadius: "8px", // 设置边框圆角
+   //             left: "50%", // 调整位置
+   //             transform: "translateX(50%)" // 水平居中偏移
+   //          }
+   //       });
+
+// 显示正在创建中的提示
+         toast.info("Creating...", {
+            position: "top-right", // 设置位置为右上角
+            autoClose: false,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            theme: "colored",
+            type: "info",
+            icon: false
+
+         });
+
+
          const response = await axiosInstance.post("/tagfusion/api/create_info/", formData, {
             headers: {
                "Content-Type": "multipart/form-data",
             },
          });
-         if(response.data.code === 0){
+
+         // 关闭正在创建中的提示
+         toast.dismiss();
+
+         if (response.data.code === 0) {
             navigate("/card"); // 表单提交成功后重定向到 /card 页面
+            localStorage.setItem("tura_login_status", true);
          }
-         localStorage.setItem("tura_login_status", true);
       } catch (error) {
          console.error("Error submitting form:", error);
+         toast.dismiss(); // 关闭正在创建中的提示
+         toast.error("Error submitting form.");
       }
    };
 
@@ -147,6 +202,7 @@ const CustomForm = () => {
                 </form>
              </div>
           </div>
+          <ToastContainer />
        </div>
    );
 };
