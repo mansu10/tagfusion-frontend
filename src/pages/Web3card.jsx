@@ -51,10 +51,9 @@ const Web3card = () => {
          const response = await axiosInstance.get('tagfusion/api/login/get_info/', {
             params: { address }
          });
-
+         toast.dismiss();
          setData(response.data);
          if(response.data.code === 0){
-            toast.dismiss();
             localStorage.setItem("tura_login_status", true);
             // setStatus(true)
          }
