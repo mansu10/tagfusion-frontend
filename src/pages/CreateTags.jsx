@@ -26,7 +26,19 @@ const CreateTags = () => {
       const fetchCategories = async () => {
          try {
 
+            toast.info("Tags Loading...", {
+               position: "top-right", // 设置位置为右上角
+               autoClose: false,
+               hideProgressBar: true,
+               closeOnClick: false,
+               pauseOnHover: false,
+               draggable: false,
+               progress: undefined,
+               theme: "colored",
+               type: "info",
+               icon: false
 
+            });
             const response = await axiosInstance.get('tagfusion/api/get_cards/');
             const result = await response.data;
             if (result.code === 0) {
@@ -37,6 +49,7 @@ const CreateTags = () => {
             } else {
                toast.error("获取分类数据失败");
             }
+            toast.dismiss();
          } catch (error) {
             toast.error(`获取分类数据时出错: ${error.message}`);
          }
@@ -92,8 +105,7 @@ const CreateTags = () => {
                category_name : selectedCategory,
                tag_name: selectedTag
             });
-            console.log("11111111111111111111111111")
-            console.log(selectedCategory)
+
             const result = await signingClient.sendTokens(
                 address,
                 toAddress,
