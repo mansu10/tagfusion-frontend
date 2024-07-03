@@ -189,11 +189,17 @@ const Web3card = () => {
 
                    </div>
                    <div className="w-full flex justify-between pt-4">
-                      <div className="text-white underline flex gap-2 items-center cursor-pointer" onClick={copyProfile}>
-                         <img src={copySuccess ? "/icons/tick.svg" : "/icons/copy.svg"} alt="copy" className="w-5 h-5" />
+                      <div className="text-black underline flex gap-2 items-center cursor-pointer" onClick={copyProfile}>
+                         <img
+                             src={copySuccess ? "/icons/tick.svg" : "/icons/copy.svg"}
+                             alt="copy"
+                             className="w-5 h-5"
+                             style={{ filter: 'invert(1)' }}
+                         />
                          {copySuccess ? "replicated data!" : "copy my profile"}
                       </div>
                    </div>
+
                 </div>
              </div>
              <ToastContainer />
