@@ -83,11 +83,18 @@ const Web3card = () => {
    // };
    const copyProfile = () => {
       const profileText = `
-        Username: ${data.info.username[0]}
+        UserName: ${data.info.username[0]}
         Address: ${data.info.address}
         Bio: ${data.info.bio[0]}
         Link: ${data.info.link[0]}
-        tag_name: ${selectedTag ? selectedTag.tag_name : ''}
+        TagName: ${selectedTag ? selectedTag.tag_name : ''}
+        VerifyInfoMemo:
+        {
+         "tag_version":"tag1.0",
+         "type":"verifyTag",
+         "tag_name":"${selectedTag ? selectedTag.tag_name : ''}",
+         "recognization":"positive"
+        }
     `;
 
       const textArea = document.createElement("textarea");
