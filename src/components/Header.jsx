@@ -7,7 +7,7 @@ const Header = () => {
         <div className="fixed top-0 left-0 right-0 w-full flex justify-between items-center px-56 py-4 z-50">
             <div className="flex items-center gap-4">
                 <Link to="/" className="w-fit flex items-center gap-1">
-                    <img src="/icons/logo.png"  alt="logo" className="w-20 object-contain rounded" />
+                    <img src="/icons/logo.png"  alt="logo" className="w-28 object-contain rounded" />
                 </Link>
 
                 {/*<Link to="/" className="text-white font-semibold capitalize hover:underline">home</Link>*/}
