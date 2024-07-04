@@ -80,7 +80,7 @@ const CreateTags = () => {
             const chainId = "turatest"; // 替换为你的链 ID
             const address = localStorage.getItem('tura_address');
             if (!address) {
-               toast.error("");
+               toast.error("Please connect wallet");
                return;
             }
 
@@ -135,8 +135,10 @@ const CreateTags = () => {
    return (
        <div className="w-full h-full flex justify-center items-center p-8 my-8">
           <div className="flex mt-24">
+
              {/* 左侧导航 */}
              <div className="w-[200px] h-[700px] flex flex-col space-y-4 p-4 bg-opacity-50 rounded-3xl text-white mr-4 overflow-y-auto custom-scrollbar">
+
                 {categories.map((category) => (
                     <button
                         key={category.category_name}

@@ -131,7 +131,7 @@ const Home = () => {
 
 
 
-          <div className="flex justify-center items-center mt-auto py-4">
+          <div className="flex justify-center items-center mt-28 py-4">
              <div className="flex flex-col justify-center items-center gap-1">
                 <div className="text-green-600 text-center font-semibold text-xl">
                    Powered by TagFusion

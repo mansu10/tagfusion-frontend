@@ -113,14 +113,14 @@ const CustomForm = () => {
                 </Link>
 
                 <p className="text-[#F7D5B4] text-xl sm:text-3xl md:text-5xl font-extrabold leading-snug">
-                   CLAIM MY TAGFUSION CARD
+                   CREATE MY TAGFUSION CARD
                 </p>
              </div>
              <div className="flex flex-col my-2 md:my-10 p-4 sm:p-6 gap-4 w-full">
                 <form onSubmit={handleSubmit} className="space-y-4">
                    <div className="flex flex-col">
                       <label className="mb-2 text-sm font-medium text-gray-300" htmlFor="nickname">
-                         Nickname
+                         User Name
                       </label>
                       <input
                           type="text"
