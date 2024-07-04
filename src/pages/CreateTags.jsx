@@ -19,7 +19,7 @@ const CreateTags = () => {
             await window.keplr.enable("turatest"); // 替换为你的链 ID
             setKeplrLoaded(true);
          } else {
-            toast.error("请安装 Keplr 插件");
+            toast.error("Please install the Keplr plug-in");
          }
       };
 
@@ -47,11 +47,11 @@ const CreateTags = () => {
                   setSelectedCategory(result.data[0].category_name); // 默认选中第一个标签类别
                }
             } else {
-               toast.error("获取分类数据失败");
+               toast.error(`ERROR`);
             }
             toast.dismiss();
          } catch (error) {
-            toast.error(`获取分类数据时出错: ${error.message}`);
+            toast.error(`ERROR : ${error.message}`);
          }
       };
 
@@ -72,7 +72,7 @@ const CreateTags = () => {
       event.preventDefault();
       if (selectedTag) {
          if (!keplrLoaded) {
-            toast.error("Keplr 未加载");
+            toast.error("Keplr is not loaded");
             return;
          }
 
@@ -118,17 +118,17 @@ const CreateTags = () => {
                 fee,
                 memo
             );
-            toast.success(`交易成功: ${selectedTag}`);
+            toast.success(`Transaction Successfully: ${selectedTag}`);
             // navigate("/some-path");
          } catch (error) {
             if (error.message === "Invalid string. Length must be a multiple of 4") {
-               toast.success(`交易成功: ${selectedTag}`);
+               toast.success(`Transaction Successfully: ${selectedTag}`);
             } else {
-               toast.error(`提交表单时出错: ${error.message}`);
+               toast.error(`Submit Error: ${error.message}`);
             }
          }
       } else {
-         toast.error("请在提交前选择一个标签。");
+         toast.error("Please select tag");
       }
    };
 
