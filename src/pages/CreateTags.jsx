@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { SigningStargateClient, assertIsBroadcastTxSuccess, GasPrice } from "@cosmjs/stargate";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { axiosInstance } from "../config/config.js";
+import { axiosInstance, turaChainId} from "../config/config.js";
 import axios from "axios";
 
 const CreateTags = () => {
@@ -16,7 +16,7 @@ const CreateTags = () => {
    useEffect(() => {
       const loadKeplr = async () => {
          if (window.keplr) {
-            await window.keplr.enable("turatest"); // 替换为你的链 ID
+            await window.keplr.enable(turaChainId); // 替换为你的链 ID
             setKeplrLoaded(true);
          } else {
             toast.error("Please install the Keplr plug-in");
@@ -77,7 +77,7 @@ const CreateTags = () => {
          }
 
          try {
-            const chainId = "turatest"; // 替换为你的链 ID
+            const chainId = turaChainId; // 替换为你的链 ID
             const address = localStorage.getItem('tura_address');
             if (!address) {
                toast.error("Please connect wallet");
@@ -85,7 +85,7 @@ const CreateTags = () => {
             }
 
             const toAddress = address;
-            const denom = "uTURA";
+            const denom = "utura";
             const toSend = "100000000"; // 最小交易金额
 
             const offlineSigner = window.getOfflineSigner(chainId);
@@ -95,7 +95,7 @@ const CreateTags = () => {
             );
 
             const fee = {
-               amount: [{ denom: "uTURA", amount: "500" }], // 调整为你的交易费用
+               amount: [{ denom: "utura", amount: "500" }], // 调整为你的交易费用
                gas: "200000",
             };
 
