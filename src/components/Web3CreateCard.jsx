@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import '../assets/customStyles.css'
 
 const CustomForm = () => {
    const [nickname, setNickname] = useState("");
@@ -172,13 +173,33 @@ const CustomForm = () => {
                       <label className="mb-2 text-sm font-medium text-gray-300" htmlFor="uploadPic">
                          Upload Pic
                       </label>
-                      <input
-                          type="file"
-                          id="uploadPic"
-                          onChange={(e) => setUploadPic(e.target.files[0])}
-                          className="p-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                      />
+                      <div className="flex items-center p-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                         <label
+                             htmlFor="uploadPic"
+                             className="p-2 text-blue-700 border border-gray-600 rounded-md cursor-pointer bg-white hover:bg-blue-50 font-semibold font-sans"
+                         >
+                            Select
+                            <input
+                                type="file"
+                                id="uploadPic"
+                                onChange={(e) => setUploadPic(e.target.files[0])}
+                                className="hidden"
+                            />
+                         </label>
+                         {uploadPic && (
+                             <span className="ml-2 text-gray-300">{uploadPic.name}</span>
+                         )}
+                      </div>
                    </div>
+
+
+
+
+
+
+
+
+
 
 
 
