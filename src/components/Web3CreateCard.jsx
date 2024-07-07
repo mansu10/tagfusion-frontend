@@ -176,9 +176,11 @@ const CustomForm = () => {
                           type="file"
                           id="uploadPic"
                           onChange={(e) => setUploadPic(e.target.files[0])}
-                          className="p-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+                          className="p-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                       />
                    </div>
+
+
 
                    <div className="flex items-center mt-4">
                       <div className="flex items-center justify-center">

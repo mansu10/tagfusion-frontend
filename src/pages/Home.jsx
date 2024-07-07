@@ -15,7 +15,7 @@ const Home = () => {
 
    const handleWalletButtonClick = async () => {
       if (walletAddress) {
-         const confirmed = window.confirm("确认退出当前账户?");
+         const confirmed = window.confirm("Confirm to log out of the current account?");
          if (confirmed) {
             localStorage.removeItem("tura_address");
             localStorage.removeItem("tura_login_status");
@@ -101,9 +101,12 @@ const Home = () => {
                    <Link to="/card">
                       <Button text="set up your profile" link="/card" className="text-green-600 w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
                    </Link>
-                   <Link>
-                      <Button text="Get some $TF" className="text-green-600 w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
-                   </Link>
+
+                   <a href="https://tagfusion.gitbook.io/announcement" target="_blank" rel="noopener noreferrer">
+                      <Button text="Get Some Gas" className="text-green-600 w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
+                   </a>
+
+
                    <Link to="/create_tags">
                       <Button text="Create tags" link="/create_tags" className="text-green-600 w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
                    </Link>
