@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { SigningStargateClient, assertIsBroadcastTxSuccess, GasPrice } from "@cosmjs/stargate";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { axiosInstance, turaChainId} from "../config/config.js";
+import { axiosInstance, turaChainId ,endpoint_rpc} from "../config/config.js";
 import axios from "axios";
 
 const CreateTags = () => {
@@ -90,7 +90,7 @@ const CreateTags = () => {
 
             const offlineSigner = window.getOfflineSigner(chainId);
             const signingClient = await SigningStargateClient.connectWithSigner(
-                "http://43.135.26.222:26657", // 替换为你的节点 RPC URL
+                endpoint_rpc, // 替换为你的节点 RPC URL
                 offlineSigner
             );
 
