@@ -138,10 +138,16 @@ const Home = () => {
           <div className="flex justify-center items-center mt-28 py-4">
              <div className="flex flex-col justify-center items-center gap-1">
                 <div className="text-green-600 text-center font-semibold text-xl">
-                   Powered by TagFusion
+                   Powered by TagFusion |&nbsp;
+                   <a href="https://tagfusion.gitbook.io/announcement/user-manual/create-tags" target="_blank" rel="noopener noreferrer" className="text-green-600 font-semibold text-xl underline">
+                      Docs
+                   </a>
                 </div>
              </div>
           </div>
+
+
+
 
 
 
