@@ -24,7 +24,7 @@ const axiosInstance = axios.create({
 
 
 
-const turaChainId = "turatest";
+const turaChainId = "testnet-tura";
 // const turaChainId = "mainnet-tura";
 
 const profileImageUrlPrefix = config.endpoint + "media";
