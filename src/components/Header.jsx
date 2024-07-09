@@ -11,14 +11,14 @@ const Header = () => {
             </div>
             <div className="flex items-center gap-6">
                 <div className="flex items-center gap-2">
-                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 p-2 bg-[#10850012] rounded-full flex items-center justify-center hover:bg-[#10850033]">
+                    <a href="https://x.com/tagfusion0707" target="_blank" rel="noopener noreferrer" className="w-10 h-10 p-2 bg-[#10850012] rounded-full flex items-center justify-center hover:bg-[#10850033]">
                         <img src="/icons/twitter-x.svg" alt="Twitter" className="w-5 h-5" />
                     </a>
-                    <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 p-2 bg-[#10850012] rounded-full flex items-center justify-center hover:bg-[#10850033]">
-                        <img src="/icons/discord.svg" alt="Discord" className="w-5 h-5" />
+                    <a href="https://web.telegram.org/a/#-4284772083" target="_blank" rel="noopener noreferrer" className="w-10 h-10 p-2 bg-[#10850012] rounded-full flex items-center justify-center hover:bg-[#10850033]">
+                        <img src="/icons/telegram-green.svg" alt="Telegram" className="w-5 h-5" />
                     </a>
-                    <a href="https://telegram.org" target="_blank" rel="noopener noreferrer" className="w-10 h-10 p-2 bg-[#10850012] rounded-full flex items-center justify-center hover:bg-[#10850033]">
-                        <img src="/icons/telegram.svg" alt="Telegram" className="w-5 h-5" />
+                    <a href="https://discord.gg/hK9Nw3UYJT" target="_blank" rel="noopener noreferrer" className="w-10 h-10 p-2 bg-[#10850012] rounded-full flex items-center justify-center hover:bg-[#10850033]">
+                        <img src="/icons/discord-green.svg" alt="Discord" className="w-5 h-5" />
                     </a>
                 </div>
                 <Link className="z-50">

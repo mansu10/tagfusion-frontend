@@ -159,7 +159,7 @@ const CreateTags = () => {
              {/* 卡片 */}
              <div className="w-[460px] h-[700px] flex flex-col items-center justify-center ">
                 <div className="w-[460px] h-[700px] w-full flex flex-col p-7 justify-center items-center shadow-lg rounded-3xl bg-clip-padding bg-opacity-5 border-2 border-[#BE7123] backdrop-blur-[5px]">
-                   <h1 className="text-3xl uppercase font-bold text-green-600">mytags</h1>
+                   <h1 className="text-3xl uppercase font-bold text-green-600">tags</h1>
                    <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-4 w-full">
                       {/*<div className="w-[400px] h-[500px] mb-9 w-full gradient-button rounded-2xl overflow-hidden shadow-lg relative text-white flex flex-col p-4 overflow-y-auto bg-gray-800 custom-scrollbar">*/}
                       {/*<div className="bg-opacity-5 w-[400px] h-[500px] mb-9 w-full bg-white text-gray-700 rounded-2xl overflow-hidden shadow-lg relative flex flex-col p-4 overflow-y-auto border border-gray-300 custom-scrollbar">*/}
