@@ -14,11 +14,11 @@ const Header = () => {
                     <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 p-2 bg-[#10850012] rounded-full flex items-center justify-center hover:bg-[#10850033]">
                         <img src="/icons/twitter-x.svg" alt="Twitter" className="w-5 h-5" />
                     </a>
-                    <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 p-2 bg-[#10850012] rounded-full flex items-center justify-center hover:bg-[#10850033]">
-                        <img src="/icons/discord.svg" alt="Discord" className="w-5 h-5" />
-                    </a>
-                    <a href="https://telegram.org" target="_blank" rel="noopener noreferrer" className="w-10 h-10 p-2 bg-[#10850012] rounded-full flex items-center justify-center hover:bg-[#10850033]">
+                    <a href="https://telegram-green.org" target="_blank" rel="noopener noreferrer" className="w-10 h-10 p-2 bg-[#10850012] rounded-full flex items-center justify-center hover:bg-[#10850033]">
                         <img src="/icons/telegram.svg" alt="Telegram" className="w-5 h-5" />
+                    </a>
+                    <a href="https://discord-green.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 p-2 bg-[#10850012] rounded-full flex items-center justify-center hover:bg-[#10850033]">
+                        <img src="/icons/discord.svg" alt="Discord" className="w-5 h-5" />
                     </a>
                 </div>
                 <Link className="z-50">
