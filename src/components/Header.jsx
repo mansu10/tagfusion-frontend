@@ -3,7 +3,7 @@ import Button from "./Button";
 
 const Header = () => {
     return (
-        <div className="fixed top-0 left-0 right-0 w-full flex justify-between items-center px-56 py-4 z-50">
+        <div className="fixed top-0 left-0 right-0 w-full flex justify-between items-center px-6 sm:px-12 md:px-24 lg:px-56 py-4 z-50">
             <div className="flex items-center gap-4">
                 <Link to="/" className="w-fit flex items-center gap-1">
                     <img src="/icons/logo-title.png" alt="logo" className="w-28 object-contain rounded" />
