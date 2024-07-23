@@ -69,7 +69,6 @@ const Web3card = () => {
    if (data.code === 0) {
       profileImageUrl = profileImageUrlPrefix + `/${data.profile_image}`; // 替换成你的基本 URL
    }
-   console.log(data.top50)
       return (
          <>
             <div className="w-full h-full flex flex-wrap justify-center md:justify-around items-center max-w-[1200px] mx-auto py-12">
