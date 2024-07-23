@@ -99,12 +99,16 @@ const Home = () => {
                      <Button text="set up your profile" link="/card" className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
                   </Link>
 
-                  <a href="https://tagfusion.gitbook.io/announcement" target="_blank" rel="noopener noreferrer" className="w-full flex justify-center">
+                  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfsxVaJhbctPg5sFbFP2QY63bpBYmomw8ranw3dJ-IyxadHZA/viewform" target="_blank" rel="noopener noreferrer" className="w-full flex justify-center">
                      <Button text="Get Some Gas" className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
                   </a>
 
                   <Link to="/create_tags" className="w-full flex justify-center">
                      <Button text="Create tags" link="/create_tags" className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
+                  </Link>
+
+                  <Link to="/award" className="w-full flex justify-center">
+                     <Button text="Tags Score" link="/award" className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
                   </Link>
                </div>
             </div>
