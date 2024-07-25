@@ -13,7 +13,7 @@ const getAddress = async () => {
    }
 };
 
-const Web3card = () => {
+const Web3TagAward = () => {
 
    const [data, setData] = useState({
       code : 1,
@@ -152,4 +152,4 @@ const Web3card = () => {
 
 };
 
-export default Web3card;
+export default Web3TagAward;

@@ -27,6 +27,8 @@ const Web3card = () => {
    });
    const [selectedTag, setSelectedTag] = useState(null);
    const [copySuccess, setCopySuccess] = useState(false);
+   const [copyVerifySuccess, setCopyVerifySuccess] = useState(false); // Add state for the new button
+
    // const [status, setStatus] = useState(false);
    const location = useLocation();
 
@@ -82,6 +84,19 @@ const Web3card = () => {
    //    });
    // };
    const copyProfile = () => {
+
+      if (!selectedTag) {
+         alert('Select the tag you want to verify');
+         return;
+      }
+      const currentDomain = window.location.origin;
+      const to_address =  localStorage.getItem("tura_address");
+      const tagVersion = 'tag1.0';
+      const type = 'verifyTag';
+      const tagName = selectedTag ? selectedTag.tag_name : '';
+      const recognition = 'positive';
+      const url = `${currentDomain}/tgcreate_tag?to_address=${encodeURIComponent(to_address)}&tag_version=${encodeURIComponent(tagVersion)}&type=${encodeURIComponent(type)}&tag_name=${encodeURIComponent(tagName)}&recognization=${encodeURIComponent(recognition)}`;
+
       const profileText = `
         UserName: ${data.info.username[0]}
         Address: ${data.info.address}
@@ -90,11 +105,13 @@ const Web3card = () => {
         TagName: ${selectedTag ? selectedTag.tag_name : ''}
         VerifyInfoMemo:
         {
-         "tag_version":"tag1.0",
-         "type":"verifyTag",
-         "tag_name":"${selectedTag ? selectedTag.tag_name : ''}",
-         "recognization":"positive"
+         "tag_version":${tagVersion},
+         "type":${type},
+         "tag_name":${tagName},
+         "recognization":${recognition},
         }
+        VerifyInfoLink:
+        ${url}
     `;
 
       const textArea = document.createElement("textarea");
@@ -181,7 +198,7 @@ const Web3card = () => {
                               <div className="mt-8 w-full h-5 mt-4 text-center text-xs rounded flex items-center justify-center">
                                  {selectedTag ? (
                                     <div>
-                                       <p>Tag: {selectedTag.tag_name}</p>
+                                       <p>{selectedTag.tag_name}</p>
                                     </div>
                                  ) : (
                                     <p></p> // 空的 p 标签确保该部分始终显示，即使没有内容
@@ -193,13 +210,14 @@ const Web3card = () => {
                      <div className="w-full flex justify-between pt-4">
                         <div className="text-black underline flex gap-2 items-center cursor-pointer" onClick={copyProfile}>
                            <img
-                              src={copySuccess ? "/icons/tick.svg" : "/icons/copy.svg"}
-                              alt="copy"
-                              className="w-5 h-5"
-                              style={{ filter: 'invert(1)' }}
+                               src={copySuccess ? "/icons/tick.svg" : "/icons/copy.svg"}
+                               alt="copy"
+                               className="w-5 h-5"
+                               style={{ filter: 'invert(1)' }}
                            />
-                           {copySuccess ? "replicated data!" : "copy my profile"}
+                           {copySuccess ? "Profile copied!" : "Copy my profile"}
                         </div>
+
                      </div>
                   </div>
                </div>

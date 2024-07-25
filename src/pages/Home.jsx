@@ -3,6 +3,23 @@ import Button from "../components/Button.jsx";
 import { useState, useEffect } from "react";
 import {turaChainId} from "../config/config.js";
 
+const ExpandableStep = ({ title, children }) => {
+   const [isExpanded, setIsExpanded] = useState(false);
+
+   const toggleExpand = () => {
+      setIsExpanded(!isExpanded);
+   };
+
+   return (
+       <div onClick={toggleExpand} className="flex flex-col gap-0 items-center border border-[#BE7123] p-4 rounded-lg text-center cursor-pointer w-[1000px]">
+          <h2 className="text-xl font-bold text-green-600">
+             {title}
+          </h2>
+          {isExpanded && <div className="text-green-600 mt-2">{children}</div>}
+       </div>
+   );
+};
+
 const Home = () => {
 
    const [walletAddress, setWalletAddress] = useState(null);
@@ -113,6 +130,86 @@ const Home = () => {
                </div>
             </div>
          </div>
+
+
+
+         <div className="w-full flex-1 flex justify-center items-center px-4 mb-32">
+            <div className="w-full max-w-6xl mx-auto flex flex-col gap-6 mt-28 items-center">
+               <ExpandableStep title="Step1:  Connect Wallet">
+                  <p>
+                     Download Keplr from app store or download the keplr google chrom extension. To successfully connect wallet, please add the Tura chain to kelpr first, then sent out 0.01 Tura to activate the account,
+                     <a href="https://tagfusion.gitbook.io/announcement/user-manual/wallet-connect" target="_blank" rel="noopener noreferrer" className="text-green-600 underline">
+                        more details
+                     </a>
+                     .
+                  </p>
+               </ExpandableStep>
+
+               <ExpandableStep title="Step2:  Set Your Profile">
+                  <p>Create your personal profile. Please make sure you have connected your Keplr wallet.</p>
+               </ExpandableStep>
+
+               <ExpandableStep title="Step3:  Get Some Gas">
+                  <p>
+                     To get some gas, please apply our{' '}
+                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSfsxVaJhbctPg5sFbFP2QY63bpBYmomw8ranw3dJ-IyxadHZA/viewform" target="_blank" rel="noopener noreferrer" className="text-green-600 underline">
+                        form
+                     </a>
+                     , Or join our{' '}
+                     <a href="https://t.me/tagfusion" target="_blank" rel="noopener noreferrer" className="text-green-600 underline">
+                        Telegram
+                     </a>{' '}
+                     and send your Keplr wallet address to the channel.
+                  </p>
+               </ExpandableStep>
+
+               <ExpandableStep title="Step4:  Create Tags">
+                  <p>
+                     Make sure your wallet has enough Tura, then create Tagger DAO as your first tag,{' '}
+                     <a href="https://tagfusion.gitbook.io/announcement/user-manual/create-tags" target="_blank" rel="noopener noreferrer" className="text-green-600 underline">
+                        more details
+                     </a>
+                     .
+                  </p>
+               </ExpandableStep>
+
+               <ExpandableStep title="Step5:  Verify Tags">
+                  <p>
+                     Choose the tag you want to verify, then copy your profile and send to our{' '}
+                     <a href="https://t.me/tagfusion" target="_blank" rel="noopener noreferrer" className="text-green-600 underline">
+                        Telegram
+                     </a>
+                     {' '} channel,{' '}
+                     <a href="https://tagfusion.gitbook.io/announcement/user-manual/verify-tags" target="_blank" rel="noopener noreferrer" className="text-green-600 underline">
+                        more details
+                     </a>{' '}
+                     .
+                  </p>
+               </ExpandableStep>
+
+               <ExpandableStep title="Step6:  Tags Score Reward">
+                  <p className="text-green-600">
+                     To confirm the rewards you received, you can find the reward info here.
+                  </p>
+               </ExpandableStep>
+            </div>
+         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
          <div className="w-full flex-1 flex justify-center items-center px-4 mb-32 mt-30">
             <div className="w-full max-w-6xl mx-auto flex flex-col gap-8 md:gap-10 mt-16 text-center">

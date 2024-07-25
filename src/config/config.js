@@ -23,11 +23,14 @@ const axiosInstance = axios.create({
 });
 
 
-
-
 const turaChainId = "testnet-tura";
 // const turaChainId = "mainnet-tura";
 
+
+// const tag_url = "https://tagfusion.org";
+const tag_url = "https://testnet1.turablockchain.com";
+
+
 const profileImageUrlPrefix = config.endpoint + "media";
 
-export { axiosInstance, profileImageUrlPrefix, turaChainId,endpoint_rpc };
+export { axiosInstance, profileImageUrlPrefix, turaChainId,endpoint_rpc,tag_url };

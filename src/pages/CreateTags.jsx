@@ -86,7 +86,7 @@ const CreateTags = () => {
 
             const toAddress = address;
             const denom = "utura";
-            const toSend = "100000000"; // 最小交易金额
+            const toSend = "1000000"; // 最小交易金额
 
             const offlineSigner = window.getOfflineSigner(chainId);
             const signingClient = await SigningStargateClient.connectWithSigner(
