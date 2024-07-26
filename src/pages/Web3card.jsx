@@ -3,7 +3,9 @@ import { axiosInstance, profileImageUrlPrefix } from "../config/config";
 import Web3CreateCard from "../components/Web3CreateCard";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import '../assets/customStyles.css'; // 引入自定义CSS文件
+import '../assets/customStyles.css';
+import  { UserAvatarBig } from "../components/Avatar.jsx"; // 引入自定义CSS文件
+
 
 const getAddress = async () => {
    let address = localStorage.getItem("tura_address");
@@ -27,14 +29,11 @@ const Web3card = () => {
    });
    const [selectedTag, setSelectedTag] = useState(null);
    const [copySuccess, setCopySuccess] = useState(false);
-   const [copyVerifySuccess, setCopyVerifySuccess] = useState(false); // Add state for the new button
 
    // const [status, setStatus] = useState(false);
    const location = useLocation();
 
-
    useEffect(() => {
-
       const fetchData = async () => {
          const address = await getAddress();
          toast.info("Loading...", {
@@ -83,6 +82,9 @@ const Web3card = () => {
    //       console.error("Could not copy text: ", err);
    //    });
    // };
+
+
+
    const copyProfile = () => {
 
       if (!selectedTag) {
@@ -95,7 +97,7 @@ const Web3card = () => {
       const type = 'verifyTag';
       const tagName = selectedTag ? selectedTag.tag_name : '';
       const recognition = 'positive';
-      const url = `${currentDomain}/tgcreate_tag?to_address=${encodeURIComponent(to_address)}&tag_version=${encodeURIComponent(tagVersion)}&type=${encodeURIComponent(type)}&tag_name=${encodeURIComponent(tagName)}&recognization=${encodeURIComponent(recognition)}`;
+      const verify_url = `${currentDomain}/tgcreate_tag?to_address=${encodeURIComponent(to_address)}&tag_version=${encodeURIComponent(tagVersion)}&type=${encodeURIComponent(type)}&tag_name=${encodeURIComponent(tagName)}&recognization=${encodeURIComponent(recognition)}`;
 
       const profileText = `
         UserName: ${data.info.username[0]}
@@ -103,15 +105,8 @@ const Web3card = () => {
         Bio: ${data.info.bio[0]}
         Link: ${data.info.link[0]}
         TagName: ${selectedTag ? selectedTag.tag_name : ''}
-        VerifyInfoMemo:
-        {
-         "tag_version":${tagVersion},
-         "type":${type},
-         "tag_name":${tagName},
-         "recognization":${recognition},
-        }
         VerifyInfoLink:
-        ${url}
+        ${verify_url}
     `;
 
       const textArea = document.createElement("textarea");
@@ -136,7 +131,7 @@ const Web3card = () => {
    if (data.code === 0) {
       profileImageUrl = profileImageUrlPrefix + `/${data.info.profile_image[0]}`; // 替换成你的基本 URL
    }
-
+   console.log(profileImageUrl)
 
    if (data.code === 1) {
       return <Web3CreateCard />
@@ -178,10 +173,9 @@ const Web3card = () => {
                      <div className="w-full  h-auto gradient-button rounded-2xl overflow-hidden shadow-lg relative text-white flex flex-col ">
                         <div className="px-5 py-5">
                            <div className="mt-2 flex flex-col items-center">
-                              {profileImageUrl === "" ? (
+                              {profileImageUrl === "https://testnet1.turablockchain.com/media/" ? (
                                  <>
-                                    <div className="w-28 h-28 rounded-full overflow-hidden">
-                                    </div>
+                                    <UserAvatarBig username={data.info.username[0]} />
                                  </>
                               ) : (
                                  <div className="w-28 h-28 bg-gray-200 rounded-full overflow-hidden">

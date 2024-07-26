@@ -39,7 +39,10 @@ const CustomForm = () => {
             toast.error("Please add bio");
             return;
          }
-
+         if (!nickname) {
+            toast.error("Please add username");
+            return;
+         }
    // 显示正在创建中的提示
    //       toast.info("Creating...", {
    //          position: "top-center", // 设置位置为右上角

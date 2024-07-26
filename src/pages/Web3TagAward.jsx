@@ -4,7 +4,7 @@ import Web3CreateCard from "../components/Web3CreateCard";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import '../assets/customStyles.css'; // 引入自定义CSS文件
-import UserAvatar from '../components/Avatar.jsx';
+import {UserAvatar, UserAvatarBig} from '../components/Avatar.jsx';
 
 const getAddress = async () => {
    let address = localStorage.getItem("tura_address");
@@ -79,10 +79,8 @@ const Web3TagAward = () => {
                      <div className="border border-[#BE7123] bg-opacity-5 mb-9 w-full h-full bg-white text-gray-700 rounded-2xl overflow-hidden shadow-lg relative flex flex-col p-4 overflow-y-auto custom-scrollbar items-center justify-center text-center">
 
                         <div className="mb-8">
-                           {profileImageUrl === "" ? (
-                               <div className="w-28 h-28 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
-                                  <span className="text-lg text-gray-500">No Image</span>
-                               </div>
+                           {profileImageUrl === "https://testnet1.turablockchain.com/media/" ? (
+                               <UserAvatarBig username={data.username} />
                            ) : (
                                <div className="w-28 h-28 bg-gray-200 rounded-full overflow-hidden">
                                   <img src={profileImageUrl} alt="Profile" className="w-full h-full object-cover" />

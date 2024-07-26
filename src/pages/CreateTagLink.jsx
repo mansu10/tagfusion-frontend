@@ -86,6 +86,7 @@ const CreateTagLink = () => {
          }
          toast.success(`Transaction Successful: ${tag_name}`);
       } catch (error) {
+         window.location.href = tag_url;
          if (error.message === "Invalid string. Length must be a multiple of 4") {
             toast.success(`Transaction Successful: ${tag_name}`);
          } else {

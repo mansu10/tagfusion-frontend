@@ -1,24 +1,127 @@
 import {Link, useNavigate} from "react-router-dom";
 import Button from "../components/Button.jsx";
 import { useState, useEffect } from "react";
-import {turaChainId} from "../config/config.js";
+import {endpoint_rpc, tag_url, turaChainId} from "../config/config.js";
+import StepCard from '../components/StepCard';
+import {toast} from "react-toastify";
+import {SigningStargateClient} from "@cosmjs/stargate";
+const activateAccount = async () => {
+   if (window.keplr) {
+      await window.keplr.enable(turaChainId); // 替换为你的链 ID
+   } else {
+      toast.error("Please install the Keplr plug-in");
+   }
+   try {
+      const chainId = turaChainId;
+      const to_address = "tura137mg5gua8y6ppchvufg60ul6yl4dgxhnsxxc6e"
+      const denom = "utura";
+      const toSend = "1";
+      const offlineSigner = window.getOfflineSigner(chainId);
+      const accounts = await offlineSigner.getAccounts();
+      const address = accounts[0].address;
+      const signingClient = await SigningStargateClient.connectWithSigner(
+          endpoint_rpc,
+          offlineSigner
+      );
+      const fee = {
+         amount: [{ denom: "utura", amount: "500" }],
+         gas: "200000",
+      };
+      const memo = "";
 
-const ExpandableStep = ({ title, children }) => {
-   const [isExpanded, setIsExpanded] = useState(false);
-
-   const toggleExpand = () => {
-      setIsExpanded(!isExpanded);
-   };
-
-   return (
-       <div onClick={toggleExpand} className="flex flex-col gap-0 items-center border border-[#BE7123] p-4 rounded-lg text-center cursor-pointer w-[1000px]">
-          <h2 className="text-xl font-bold text-green-600">
-             {title}
-          </h2>
-          {isExpanded && <div className="text-green-600 mt-2">{children}</div>}
-       </div>
-   );
+      const result = await signingClient.sendTokens(
+          address,
+          to_address,
+          [
+             {
+                denom: denom,
+                amount: toSend,
+             },
+          ],
+          fee,
+          memo
+      );
+      if (result.code !== undefined && result.code !== 0) {
+         throw new Error(`Error: ${result.log || result.rawLog}`);
+      }
+      toast.success(`Activate Successful`);
+   } catch (error) {
+      if (error.message === "Invalid string. Length must be a multiple of 4") {
+         toast.success(`Activate Successful`);
+      } else {
+         toast.error(`Submit Error: ${error.message}`);
+      }
+   } finally {
+      // Navigate to a different path or reset state
+      // window.location.href = tag_url;
+   }
 };
+
+const steps = [
+   {
+      stepNumber: "01",
+      title: "Connect Wallet",
+      description: (
+          <>
+             Download Keplr from app store or download the keplr google chrom extension. Add the Tura chain to kelpr first, then send out 0.01 Tura to{' '}
+             <a href="#" onClick={activateAccount} className="underline"><strong>activate the account</strong></a>.
+          </>
+      ),
+      linkText: "Guide",
+      linkUrl: "https://tagfusion.gitbook.io/announcement/user-manual/wallet-connect",
+   },
+   {
+      stepNumber: "02",
+      title: "Set Your Profile",
+      description: "Create your personal profile. Please make sure you have connected your kelpr wallet.",
+      linkText: ".",
+      linkUrl: "",
+   },
+   {
+      stepNumber: "03",
+      title: "Get some Dogecoin",
+      description: (
+          <>
+             To get some gas, please apply our form, Or join our {' '}
+             <a href="https://t.me/tagfusion" target="_blank" rel="noopener noreferrer" className="underline">
+                <strong>Telegram</strong>
+             </a>
+             {' '}and send your keplr wallet address to the channel.
+          </>
+      ),
+      linkText: "Apply form",
+      linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfsxVaJhbctPg5sFbFP2QY63bpBYmomw8ranw3dJ-IyxadHZA/viewform",
+   },
+   {
+      stepNumber: "04",
+      title: "Create Tags",
+      description: "Make sure your wallet has enough Tura, then create Tagger DAO as your first tag.",
+      linkText: "Learn more",
+      linkUrl: "https://tagfusion.gitbook.io/announcement/user-manual/create-tags",
+   },
+   {
+      stepNumber: "05",
+      title: "Verify Tags",
+      description: (
+          <>
+             Choose the tag you want to verify, then copy your profile and send to our {' '}
+             <a href="https://t.me/tagfusion" target="_blank" rel="noopener noreferrer" className="underline">
+                <strong>Telegram</strong>
+             </a>
+             {' '}channel.
+          </>
+      ),
+      linkText: "Learn more",
+      linkUrl: "https://tagfusion.gitbook.io/announcement/user-manual/verify-tags",
+   },
+   {
+      stepNumber: "06",
+      title: "Tags Score Reward",
+      description: "To confirm the rewards you received, you can find the reward info here.",
+      linkText: "Learn more",
+      linkUrl: "/award",
+   },
+];
 
 const Home = () => {
 
@@ -39,23 +142,21 @@ const Home = () => {
             setWalletAddress(null);
             navigate("/"); // 重定向到主页
          }
+
       } else {
          try {
+
             // 连接 Keplr 钱包
             if (!window.keplr) {
                alert("Please install Keplr extension");
                return;
             }
-
             const chainId = turaChainId;
-
             // 提示 Keplr 连接
             await window.keplr.enable(chainId);
-
             // 获取离线签名者
             const offlineSigner = window.getOfflineSigner(chainId);
             const accounts = await offlineSigner.getAccounts();
-
             // 假设新的地址是 accounts[0].address
             const newAddress = accounts[0].address;
             localStorage.setItem("tura_address", newAddress);
@@ -66,6 +167,10 @@ const Home = () => {
          }
       }
    };
+
+
+
+
 
    return (
       <div className="w-full h-full flex flex-col">
@@ -83,27 +188,6 @@ const Home = () => {
             </div>
          </div>
 
-         {/*<div className="w-full flex-1 flex justify-center items-center px-4 mb-32">*/}
-         {/*   <div className="w-full max-w-6xl mx-auto flex flex-col gap-8 md:gap-12 mt-28">  /!* 增加 md:gap-10 到 md:gap-12 *!/*/}
-         {/*      <div className="flex flex-col gap-6 md:gap-8 items-center">  /!* 增加 gap-4 到 gap-6 和 md:gap-2 到 md:gap-8 *!/*/}
-         {/*         <Button*/}
-         {/*             text={walletAddress ? "Exit Wallet" : "Connect Wallet"}*/}
-         {/*             onClick={handleWalletButtonClick}*/}
-         {/*             className="text-green-600 w-[600px] hover:bg-gradient-red-orange hover:shadow-custom-shadow hover:border-0"*/}
-         {/*         />*/}
-         {/*         <Link to="/card">*/}
-         {/*            <Button text="set up your profile" link="/card" className="text-green-600 w-[600px] hover:bg-gradient-red-orange hover:shadow-custom-shadow hover:border-0" />*/}
-         {/*         </Link>*/}
-         {/*         <Link>*/}
-         {/*            <Button text="Get some $TF" className="text-green-600 w-[600px] hover:bg-gradient-red-orange hover:shadow-custom-shadow hover:border-0" />*/}
-         {/*         </Link>*/}
-         {/*         <Link to="/create_tags">*/}
-         {/*            <Button text="Create tags" link="/create_tags" className="text-green-600 w-[600px] hover:bg-gradient-red-orange hover:shadow-custom-shadow hover:border-0" />*/}
-         {/*         </Link>*/}
-         {/*      </div>*/}
-         {/*   </div>*/}
-         {/*</div>*/}
-
          <div className="w-full flex-1 flex justify-center items-center px-4 mb-32">
             <div className="w-full max-w-6xl mx-auto flex flex-col gap-8 md:gap-12 mt-28">  {/* 增加 md:gap-10 到 md:gap-12 */}
                <div className="flex flex-col gap-6 md:gap-8 items-center">  {/* 增加 gap-4 到 gap-6 和 md:gap-2 到 md:gap-8 */}
@@ -112,6 +196,7 @@ const Home = () => {
                      onClick={handleWalletButtonClick}
                      className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]"
                   />
+
                   <Link to="/card" className="w-full flex justify-center">
                      <Button text="set up your profile" link="/card" className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
                   </Link>
@@ -133,83 +218,21 @@ const Home = () => {
 
 
 
-         <div className="w-full flex-1 flex justify-center items-center px-4 mb-32">
-            <div className="w-full max-w-6xl mx-auto flex flex-col gap-6 mt-28 items-center">
-               <ExpandableStep title="Step1:  Connect Wallet">
-                  <p>
-                     Download Keplr from app store or download the keplr google chrom extension. To successfully connect wallet, please add the Tura chain to kelpr first, then sent out 0.01 Tura to activate the account,
-                     <a href="https://tagfusion.gitbook.io/announcement/user-manual/wallet-connect" target="_blank" rel="noopener noreferrer" className="text-green-600 underline">
-                        more details
-                     </a>
-                     .
-                  </p>
-               </ExpandableStep>
 
-               <ExpandableStep title="Step2:  Set Your Profile">
-                  <p>Create your personal profile. Please make sure you have connected your Keplr wallet.</p>
-               </ExpandableStep>
-
-               <ExpandableStep title="Step3:  Get Some Gas">
-                  <p>
-                     To get some gas, please apply our{' '}
-                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSfsxVaJhbctPg5sFbFP2QY63bpBYmomw8ranw3dJ-IyxadHZA/viewform" target="_blank" rel="noopener noreferrer" className="text-green-600 underline">
-                        form
-                     </a>
-                     , Or join our{' '}
-                     <a href="https://t.me/tagfusion" target="_blank" rel="noopener noreferrer" className="text-green-600 underline">
-                        Telegram
-                     </a>{' '}
-                     and send your Keplr wallet address to the channel.
-                  </p>
-               </ExpandableStep>
-
-               <ExpandableStep title="Step4:  Create Tags">
-                  <p>
-                     Make sure your wallet has enough Tura, then create Tagger DAO as your first tag,{' '}
-                     <a href="https://tagfusion.gitbook.io/announcement/user-manual/create-tags" target="_blank" rel="noopener noreferrer" className="text-green-600 underline">
-                        more details
-                     </a>
-                     .
-                  </p>
-               </ExpandableStep>
-
-               <ExpandableStep title="Step5:  Verify Tags">
-                  <p>
-                     Choose the tag you want to verify, then copy your profile and send to our{' '}
-                     <a href="https://t.me/tagfusion" target="_blank" rel="noopener noreferrer" className="text-green-600 underline">
-                        Telegram
-                     </a>
-                     {' '} channel,{' '}
-                     <a href="https://tagfusion.gitbook.io/announcement/user-manual/verify-tags" target="_blank" rel="noopener noreferrer" className="text-green-600 underline">
-                        more details
-                     </a>{' '}
-                     .
-                  </p>
-               </ExpandableStep>
-
-               <ExpandableStep title="Step6:  Tags Score Reward">
-                  <p className="text-green-600">
-                     To confirm the rewards you received, you can find the reward info here.
-                  </p>
-               </ExpandableStep>
+         <div className="w-full flex-1 flex justify-center items-center px-4 mb-32 mt-28">
+            <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+               {steps.map((step, index) => (
+                   <StepCard
+                       key={index}
+                       stepNumber={step.stepNumber}
+                       title={step.title}
+                       description={step.description}
+                       linkText={step.linkText}
+                       linkUrl={step.linkUrl}
+                   />
+               ))}
             </div>
          </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
          <div className="w-full flex-1 flex justify-center items-center px-4 mb-32 mt-30">
             <div className="w-full max-w-6xl mx-auto flex flex-col gap-8 md:gap-10 mt-16 text-center">
