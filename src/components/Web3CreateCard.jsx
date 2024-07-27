@@ -102,7 +102,7 @@ const CustomForm = () => {
    };
 
    return (
-       <div className="relative flex items-center justify-center min-h-screen">
+       <div className="relative flex items-center justify-center min-h-screen mt-[4em]">
           {/*<ParticleBackground />*/}
           <div
               className="relative flex flex-col md:flex-row w-[90%] max-w-[1024px] shadow-lg rounded-3xl bg-clip-padding bg-opacity-5 border border-[#BE7123] bg-black bg-opacity-50"
@@ -194,19 +194,7 @@ const CustomForm = () => {
                          )}
                       </div>
                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                   <div className="flex items-center mt-4">
+                   <div className="flex items-center justify-between mt-4">
                       <div className="flex items-center justify-center">
                          <div className="h-24 w-24 rounded-lg flex items-center justify-center mr-4">
                             {uploadPic && (
@@ -220,7 +208,7 @@ const CustomForm = () => {
                       </div>
                       <button
                           type="submit"
-                          className="ml-40 px-4 py-2 ml-4 font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                          className=" mr-[4em] px-4 py-2 ml-4 font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                       >
                          Create
                       </button>

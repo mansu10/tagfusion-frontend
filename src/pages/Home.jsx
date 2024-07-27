@@ -197,42 +197,32 @@ const Home = () => {
                      className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]"
                   />
 
-                  <Link to="/card" className="w-full flex justify-center">
-                     <Button text="set up your profile" link="/card" className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
-                  </Link>
+                  <Button text="set up your profile" link="/card" className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
 
-                  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfsxVaJhbctPg5sFbFP2QY63bpBYmomw8ranw3dJ-IyxadHZA/viewform" target="_blank" rel="noopener noreferrer" className="w-full flex justify-center">
-                     <Button text="Get Some Gas" className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
-                  </a>
+                  <Button text="Get Some Gas" link="https://docs.google.com/forms/d/e/1FAIpQLSfsxVaJhbctPg5sFbFP2QY63bpBYmomw8ranw3dJ-IyxadHZA/viewform" className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
 
-                  <Link to="/create_tags" className="w-full flex justify-center">
-                     <Button text="Create tags" link="/create_tags" className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
-                  </Link>
+                  <Button text="Create tags" link="/create_tags" className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
 
-                  <Link to="/award" className="w-full flex justify-center">
-                     <Button text="Tags Score" link="/award" className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
-                  </Link>
+                  <Button text="Tags Score" link="/award" className="text-green-600 w-full md:w-[600px] transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
                </div>
             </div>
          </div>
 
-
-
-
          <div className="w-full flex-1 flex justify-center items-center px-4 mb-32 mt-28">
-            <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                {steps.map((step, index) => (
-                   <StepCard
-                       key={index}
-                       stepNumber={step.stepNumber}
-                       title={step.title}
-                       description={step.description}
-                       linkText={step.linkText}
-                       linkUrl={step.linkUrl}
-                   />
+                  <StepCard
+                     key={index}
+                     stepNumber={step.stepNumber}
+                     title={step.title}
+                     description={step.description}
+                     linkText={step.linkText}
+                     linkUrl={step.linkUrl}
+                  />
                ))}
             </div>
          </div>
+
 
          <div className="w-full flex-1 flex justify-center items-center px-4 mb-32 mt-30">
             <div className="w-full max-w-6xl mx-auto flex flex-col gap-8 md:gap-10 mt-16 text-center">
