@@ -182,11 +182,11 @@ const Web3card = () => {
                                     <img src={profileImageUrl} alt="Profile" className="w-full h-full object-cover" />
                                  </div>
                               )}
-                              <div className="mt-12 text-lg font-bold">{data.info.username[0]}</div>
+                              <div className="mt-12 text-lg font-bold min-h-7">{data.info.username[0]}</div>
                               {/*<div className="mt-8 text-sm text-white/80 underline">{data.info.address || "Loading..."}</div>*/}
-                              <div className="mt-8 text-lg text-sm text-white/80 underline break-all">{data.info.address}</div>
-                              <div className="mt-8 text-lg text-sm text-white/80 underline">{data.info.link || ""}</div>
-                              <div className="mt-8 text-lg text-center text-xs">
+                              <div className="mt-8 text-lg text-sm text-white/80 underline break-all min-h-5">{data.info.address}</div>
+                              <div className="mt-8 text-lg text-sm text-white/80 underline min-h-5">{data.info.link || ""}</div>
+                              <div className="mt-8 text-lg text-center text-xs min-h-4">
                                  <p>{data.info.bio[0]}</p>
                               </div>
                               <div className="mt-8 w-full h-5 mt-4 text-center text-xs rounded flex items-center justify-center">
