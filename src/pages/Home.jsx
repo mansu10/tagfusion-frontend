@@ -79,7 +79,7 @@ const steps = [
    },
    {
       stepNumber: "03",
-      title: "Get some Dogecoin",
+      title: "Get Some Gas",
       description: (
           <>
              To get some gas, please apply our form, Or join our {' '}
