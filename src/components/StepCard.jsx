@@ -2,7 +2,7 @@ import React from 'react';
 
 const StepCard = ({ stepNumber, title, description, linkText, linkUrl }) => {
     return (
-        <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-md w-80 h-80">
+        <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-md h-80">
             <div className="flex items-center justify-center bg-yellow-400 text-white font-bold rounded-full w-12 h-12 mb-4">
                 {stepNumber}
             </div>

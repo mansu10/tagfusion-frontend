@@ -133,7 +133,7 @@ const CreateTags = () => {
    };
 
    return (
-      <div className="w-full h-full flex justify-center items-center p-8 my-8">
+      <div className="w-full h-full flex justify-center items-center p-8 px-0 md:px-8 my-8">
          <div className="flex flex-col w-full justify-center md:flex-row mt-[4em]">
 
             {/* 左侧导航 */}
