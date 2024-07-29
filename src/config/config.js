@@ -8,8 +8,6 @@ const config = {
 };
 
 
-// const endpoint_rpc = "http://43.135.26.222:26657"
-// const endpoint_rpc = "http://43.135.33.137:26657"
 const endpoint_rpc = "https://rpc-beta1.turablockchain.com"
 const axiosInstance = axios.create({
     baseURL: config.endpoint,
@@ -21,12 +19,15 @@ const axiosInstance = axios.create({
 
 });
 
-
-
-
-// const turaChainId = "turatest";
 const turaChainId = "mainnet-tura";
+// const turaChainId = "testnet-tura";
+
+
+
+const tag_url = "https://tagfusion.org";
+// const tag_url = "https://testnet1.turablockchain.com";
+
 
 const profileImageUrlPrefix = config.endpoint + "media";
 
-export { axiosInstance, profileImageUrlPrefix, turaChainId,endpoint_rpc };
+export { axiosInstance, profileImageUrlPrefix, turaChainId,endpoint_rpc,tag_url };
