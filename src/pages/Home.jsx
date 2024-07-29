@@ -177,8 +177,8 @@ const Home = () => {
          <div className="w-full flex flex-col justify-center items-center px-4 my-28">
             <div className="w-full max-w-6xl mx-auto flex flex-col gap-8 md:gap-10 mt-28 text-center">
                <div id="tagfusion" className="flex flex-col gap-4 md:gap-0">
-                  <h1 className="text-green-600 text-6xl md:text-[8rem] font-extrabold leading-none">WHAT’S</h1>
-                  <h1 className="text-green-600 text-6xl md:text-[8rem] font-extrabold leading-none mt-0">TAGFUSION</h1>
+                  <h1 className="text-green-600 text-4xl md:text-[8rem] font-extrabold leading-none">WHAT’S</h1>
+                  <h1 className="text-green-600 text-4xl md:text-[8rem] font-extrabold leading-none mt-0">TAGFUSION</h1>
                   <div className="flex justify-center">
                      <h2 className="mt-4 text-green-600 w-full md:w-4/5 text-xl md:text-2xl font-medium leading-relaxed">
                         Tag Fusion Protocol is an innovative decentralized system that increases user creditworthiness by accumulating certified tags, which also serves as endorsements for individuals and win trust from others.

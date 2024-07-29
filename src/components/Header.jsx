@@ -3,10 +3,10 @@ import Button from "./Button";
 
 const Header = () => {
     return (
-        <div className="fixed top-0 left-0 right-0 w-full flex justify-between items-center px-6 sm:px-12 md:px-24 lg:px-56 py-4 z-50">
+        <div className="fixed top-0 left-0 right-0 w-full flex justify-between items-center px-4  md:px-24 lg:px-56 py-4 z-50">
             <div className="flex items-center gap-4">
                 <Link to="/" className="w-fit flex items-center gap-1">
-                    <img src="/icons/logo-title.png" alt="logo" className="w-28 object-contain rounded" />
+                    <img src="/icons/logo-title.png" alt="logo" className="w-28 object-contain rounded flex-none" />
                 </Link>
             </div>
             <div className="flex items-center gap-6">
@@ -22,7 +22,7 @@ const Header = () => {
                     </a>
                 </div>
                 <Link className="z-50">
-                    <Button text="my tags" link="/card" className="text-green-500 transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123]" />
+                    <Button text="my tags" link="/card" className="text-green-500 transition-all duration-200 hover:shadow-[0_0_0_2px_#BE7123] min-w-[90px] h-[45px] md:min-w-[140px] md:h-[50px] " />
                 </Link>
 
             </div>
