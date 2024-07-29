@@ -15,7 +15,7 @@ const activateAccount = async () => {
       const chainId = turaChainId;
       const to_address = "tura137mg5gua8y6ppchvufg60ul6yl4dgxhnsxxc6e"
       const denom = "utura";
-      const toSend = "1";
+      const toSend = "1000000";
       const offlineSigner = window.getOfflineSigner(chainId);
       const accounts = await offlineSigner.getAccounts();
       const address = accounts[0].address;
@@ -79,7 +79,7 @@ const steps = [
    },
    {
       stepNumber: "03",
-      title: "Get some Dogecoin",
+      title: "Get Some Gas",
       description: (
           <>
              To get some gas, please apply our form, Or join our {' '}
