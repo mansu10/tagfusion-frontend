@@ -21,8 +21,12 @@ const Web3TagAward = () => {
       register_ct    : 0,
       verify_award   : 0,
       verify_ct      : 0,
-      invite_award   : 0,
-      invite_ct      : 0,
+      invite_one_award   : 0,
+      invite_one_ct      : 0,
+      invite_two_award   : 0,
+      invite_two_ct      : 0,
+      invite_three_award : 0,
+      invite_three_ct    : 0,
       total_award    : 0,
       top50:[],
       profile_image : ""
@@ -69,52 +73,111 @@ const Web3TagAward = () => {
    if (data.code === 0) {
       profileImageUrl = profileImageUrlPrefix + `/${data.profile_image}`; // 替换成你的基本 URL
    }
+   console.log( getAddress())
+   console.log(data)
       return (
          <>
             <div className="w-full h-full flex flex-wrap justify-center md:justify-around items-center max-w-[1200px] mx-auto py-12">
+
+
                {/* 标签部分 */}
-               <div className="w-full h-[36em]  max-w-[460px] max-h[650px] md:w-[45%] flex flex-col items-center justify-center md:my-28 mt-12" >
+               <div className="w-full h-[36em] max-w-[460px] max-h-[650px] md:w-[45%] flex flex-col items-center justify-center md:my-28 mt-12">
                   <div className="w-full h-full flex flex-col p-7 justify-center items-center shadow-lg rounded-3xl bg-clip-padding bg-opacity-5 border-2 border-[#BE7123] backdrop-blur-[5px]">
-                     <h1 className="text-3xl uppercase font-bold text-green-600">Rewars</h1>
-                     <div className="border border-[#BE7123] bg-opacity-5 mb-9 w-full h-full bg-white text-gray-700 rounded-2xl overflow-hidden shadow-lg relative flex flex-col p-4 overflow-y-auto custom-scrollbar items-center justify-center text-center">
+                     <h1 className="text-3xl font-bold text-center  mt-6">My Rewards</h1>
+                     <hr className="border-green-600" style={{ height: '4px', marginBottom: '24px' }} />
 
-                        <div className="mb-8">
-                           {profileImageUrl === "https://testnet1.turablockchain.com/media/" ? (
-                               <UserAvatarBig username={data.username} />
-                           ) : (
-                               <div className="w-28 h-28 bg-gray-200 rounded-full overflow-hidden">
-                                  <img src={profileImageUrl} alt="Profile" className="w-full h-full object-cover" />
-                               </div>
-                           )}
-                        </div>
-
-                        <div className="text-green-600">
-                           <span className="font-bold">{formatNumber(data.total_award)}</span> TAGS
-                        </div>
-                        <br /><br />
-                        <div className="mt-4 text-left text-green-600">
-                           <div className="flex justify-between">
-                              <span className="mr-20">Tagger DAO Member:</span>
-                              <span><span className="font-bold">{formatNumber(data.register_award)}</span> TAGS</span>
-                           </div>
-                           <div className="flex justify-between mt-2">
-                              <span className="mr-20">Verified Tags:</span>
-                              <span><span className="font-bold">{formatNumber(data.verify_award)}</span> TAGS</span>
-                           </div>
-                           <div className="flex justify-between mt-2">
-                              <span className="mr-20">Invite Friends:</span>
-                              <span><span className="font-bold">{formatNumber(data.invite_award)}</span> TAGS</span>
+                     <div className="text-lg w-full px-0">
+                        <div className="mb-2">
+                           <div className="flex justify-between items-center">
+                              <span className="font-bold">Current Reward</span>
+                              <span className="font-bold ml-auto">{formatNumber(data.total_award)} Tags</span>
                            </div>
                         </div>
+                        <hr className="my-2" />
 
+                        <div className="mb-2">
+                           <div className="flex justify-between items-center">
+                              <span className="font-bold">Member Reward</span>
+                              <span className="font-bold ml-auto">{formatNumber(data.register_award)} Tags</span>
+                           </div>
+                           <div className="flex justify-between items-center">
+                              <span className="text-sm italic">Tagger DAO Member:</span>
+                              <span className="text-sm italic ml-auto pr-10">+{formatNumber(data.register_award)}</span>
+                           </div>
+                        </div>
+                        <hr className="my-2" />
 
-
-
+                        <div className="mb-2">
+                           <div className="flex justify-between items-center">
+                              <span className="font-bold">Verification Reward</span>
+                              <span className="font-bold ml-auto">{formatNumber(data.verify_award)} Tags</span>
+                           </div>
+                           <div className="flex justify-between items-center">
+                              <span className="text-sm italic">Total Count:</span>
+                              <span className="text-sm italic ml-auto pr-10">+{formatNumber(data.verify_ct)}</span>
+                           </div>
+                           <div className="flex justify-between items-center">
+                              <span className="text-sm italic">Verified Tags:</span>
+                              <span className="text-sm italic ml-auto pr-10">+{formatNumber(data.verify_award)}</span>
+                           </div>
+                        </div>
+                        <hr className="my-2" />
+                        <div className="mb-2">
+                           <div className="flex justify-between items-center">
+                              <span className="font-bold">Refer Reward</span>
+                              <span className="font-bold ml-auto">{formatNumber(data.invite_one_award + data.invite_two_award + data.invite_three_award)} Tags</span>
+                           </div>
+                        </div>
+                        <div className="mb-2">
+                           <div className="flex justify-between items-center">
+                              <span className="font-semibold">Layer1 Refer</span>
+                           </div>
+                           <div className="flex justify-between items-center">
+                              <span className="text-sm italic">L1 Count:</span>
+                              <span className="text-sm italic ml-auto pr-10">+{formatNumber(data.invite_one_ct)}</span>
+                           </div>
+                           <div className="flex justify-between items-center">
+                              <span className="text-sm italic">L1 Invite Friends:</span>
+                              <span className="text-sm italic ml-auto pr-10">+{formatNumber(data.invite_one_award)}</span>
+                           </div>
+                        </div>
+                        <div className="mb-2">
+                           <div className="flex justify-between items-center">
+                              <span className="font-semibold">Layer2 Refer</span>
+                           </div>
+                           <div className="flex justify-between items-center">
+                              <span className="text-sm italic">L2 Count:</span>
+                              <span className="text-sm italic ml-auto pr-10">+{formatNumber(data.invite_two_ct)}</span>
+                           </div>
+                           <div className="flex justify-between items-center">
+                              <span className="text-sm italic">L2 Invite Friends:</span>
+                              <span className="text-sm italic ml-auto pr-10">+{formatNumber(data.invite_two_award)}</span>
+                           </div>
+                        </div>
+                        <div className="mb-2">
+                           <div className="flex justify-between items-center">
+                              <span className="font-semibold">Layer3 Refer</span>
+                           </div>
+                           <div className="flex justify-between items-center">
+                              <span className="text-sm italic">L3 Count:</span>
+                              <span className="text-sm italic ml-auto pr-10">+{formatNumber(data.invite_three_ct)}</span>
+                           </div>
+                           <div className="flex justify-between items-center">
+                              <span className="text-sm italic">L3 Invite Friends:</span>
+                              <span className="text-sm italic ml-auto pr-10">+{formatNumber(data.invite_three_award)}</span>
+                           </div>
+                        </div>
+                        <hr className="my-2" />
                      </div>
-
-
                   </div>
                </div>
+
+
+
+
+
+
+
                <div className="w-full h-[36em]  max-w-[460px] max-h[650px] md:w-[45%] flex flex-col items-center justify-center md:my-28 mt-12" >
                   <div className="w-full h-full flex flex-col p-7 justify-center items-center shadow-lg rounded-3xl bg-clip-padding bg-opacity-5 border-2 border-[#BE7123] backdrop-blur-[5px]">
                      <h1 className="text-3xl uppercase font-bold text-green-600">Leaderboard</h1>
@@ -136,10 +199,7 @@ const Web3TagAward = () => {
                                </div>
                             </div>
                         ))}
-
                      </div>
-
-
                   </div>
                </div>
 
