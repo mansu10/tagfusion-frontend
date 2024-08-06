@@ -63,7 +63,7 @@ const steps = [
       title: "Connect Wallet",
       description: (
           <>
-             Download Keplr from app store or download the keplr google chrom extension. Add the Tura chain to kelpr first, then send out 0.01 Tura to{' '}
+             Download Keplr from app store or download the keplr google chrom extension. Add the Tura chain to keplr first, then send out 0.01 Tura to{' '}
              <a href="#" onClick={activateAccount} className="underline"><strong>activate the account</strong></a>.
           </>
       ),
@@ -73,7 +73,7 @@ const steps = [
    {
       stepNumber: "02",
       title: "Set Your Profile",
-      description: "Create your personal profile. Please make sure you have connected your kelpr wallet.",
+      description: "Create your personal profile. Please make sure you have connected your keplr wallet.",
       linkText: ".",
       linkUrl: "",
    },
