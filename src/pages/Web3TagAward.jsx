@@ -100,10 +100,10 @@ const Web3TagAward = () => {
                               <span className="font-bold">Member Reward</span>
                               <span className="font-bold ml-auto">{formatNumber(data.register_award)} Tags</span>
                            </div>
-                           <div className="flex justify-between items-center">
-                              <span className="text-sm italic">Tagger DAO Member:</span>
-                              <span className="text-sm italic ml-auto pr-10">+{formatNumber(data.register_award)}</span>
-                           </div>
+                           {/*<div className="flex justify-between items-center">*/}
+                           {/*   <span className="text-sm italic">Tagger DAO Member:</span>*/}
+                           {/*   <span className="text-sm italic ml-auto pr-10">+{formatNumber(data.register_award)}</span>*/}
+                           {/*</div>*/}
                         </div>
                         <hr className="my-2" />
 
