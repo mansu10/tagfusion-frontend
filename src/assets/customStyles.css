@@ -56,3 +56,9 @@
     background-color: #ffffff; /* 将背景颜色设置为白色 */
 }
 
+body {
+    background-color: #121212;
+}
+.mb15 {
+    margin-bottom: 15px;
+}
