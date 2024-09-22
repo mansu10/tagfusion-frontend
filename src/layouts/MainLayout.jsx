@@ -13,13 +13,13 @@ const MainLayout = () => {
       className={
         " bg-dark min-h-screen flex flex-col overflow-auto " + isHome
           ? "bg-dark"
-          : "bg-gradient-bg"
+          : "bg-[#2b2b2b]"
       }
     >
       <div className="z-50 px-6 sm:px-12 md:px-24">
         <Header />
       </div>
-      <div className="flex-1">
+      <div>
         <Outlet />
       </div>
       <Footer />

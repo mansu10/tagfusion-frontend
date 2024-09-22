@@ -14,7 +14,8 @@ export default {
         black: '#121212',
         dark: '#2B2B2B',
         txtgreen: '#8AE288',
-        txtgray: '#D1D1D1'
+        txtgray: '#D1D1D1',
+        btngreen: '#79C077'
       },
       backgroundImage: {
         // 'gradient-red-orange': 'linear-gradient(213deg, rgba(255,77,39,0.7) 0%, rgba(78,27,27,1) 100%)',
