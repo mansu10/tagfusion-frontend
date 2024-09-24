@@ -7,9 +7,9 @@ import TFButton from "../components/TFButton";
 
 const PageCard = () => {
   return (
-    <div className="flex flex-col items-center pt-[176px]">
+    <div className="flex flex-col items-center pt-[176px] px-[20px]">
       <div className="text-txtgreen text-[48px]">Create My Tagfusion Card</div>
-      <div className="grid grid-cols-2 gap-x-[28px] gap-y-[45px] w-[804px] mt-[98px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[28px] gap-y-[45px] w-full md:w-[804px] mt-[98px]">
         <div>
           <InputCustom label="User Name*"></InputCustom>
         </div>
@@ -22,9 +22,9 @@ const PageCard = () => {
         <div>
           <InputCustom label="Link*"></InputCustom>
         </div>
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           <UploadCustom></UploadCustom>
-          <div className="flex justify-between mt-[60px]">
+          <div className="flex flex-col md:flex-row justify-between mt-[60px]">
             <div className=" text-white flex items-start leading-[22px] text-[16px]">
               <div className="h-[22px] mt-[1px]">
                 <CheckBoxCustom></CheckBoxCustom>

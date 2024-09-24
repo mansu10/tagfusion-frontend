@@ -89,46 +89,147 @@ const AboutItem = () => {
   );
 }
 
-const PageHome = () => {
-  const cardList = [
-    {
-      title: "Connect Wallet",
-      desc: "Download Keplr from app store or download the keplr google chrom extension. Add the Tura chain to kelpr first, then send out 0.01 Tura to",
-      btnTitle: "Guide",
-      btnLink: "",
-    },
-    {
-      title: "Set Your Profile",
-      desc: "Create your personal profile. Please make sure you have connected your kelpr wallet.",
-      btnTitle: "Set your profile",
-      btnLink: "",
-    },
-    {
-      title: "Get Some Gas",
-      desc: "To get some gas, please apply our form, Or join our",
-      btnTitle: "Apply form",
-      btnLink: "",
-    },
-    {
-      title: "Create Tags",
-      desc: "Make sure your wallet has enough Tura, then create Tagger DAO as your first tag.",
-      btnTitle: "Create Tags",
-      btnLink: "",
-    },
-    {
-      title: "Verify Tags",
-      desc: "Choose the tag you want to verify, then copy your profile and send to our Telegram channel.",
-      btnTitle: "Create Tags",
-      btnLink: "",
-    },
-    {
-      title: "Tags Score Reward",
-      desc: "To confirm the rewards you received, you can find the reward info here.",
-      btnTitle: "Tags Score",
-      btnLink: "",
-    },
-  ];
+const activateAccount = async () => {
+  if (window.keplr) {
+    await window.keplr.enable(turaChainId); // 替换为你的链 ID
+  } else {
+    toast.error("Please install the Keplr plug-in");
+  }
+  try {
+    const chainId = turaChainId;
+    const to_address = "tura137mg5gua8y6ppchvufg60ul6yl4dgxhnsxxc6e";
+    const denom = "utura";
+    const toSend = "1000000";
+    const offlineSigner = window.getOfflineSigner(chainId);
+    const accounts = await offlineSigner.getAccounts();
+    const address = accounts[0].address;
+    const signingClient = await SigningStargateClient.connectWithSigner(
+      endpoint_rpc,
+      offlineSigner
+    );
+    const fee = {
+      amount: [{ denom: "utura", amount: "500" }],
+      gas: "200000",
+    };
+    const memo = "";
 
+    const result = await signingClient.sendTokens(
+      address,
+      to_address,
+      [
+        {
+          denom: denom,
+          amount: toSend,
+        },
+      ],
+      fee,
+      memo
+    );
+    if (result.code !== undefined && result.code !== 0) {
+      throw new Error(`Error: ${result.log || result.rawLog}`);
+    }
+    toast.success(`Activate Successful`);
+  } catch (error) {
+    if (error.message === "Invalid string. Length must be a multiple of 4") {
+      toast.success(`Activate Successful`);
+    } else {
+      toast.error(`Submit Error: ${error.message}`);
+    }
+  } finally {
+    // Navigate to a different path or reset state
+    // window.location.href = tag_url;
+  }
+};
+
+const steps = [
+  {
+    stepNumber: "01",
+    title: "Connect Wallet",
+    description: (
+      <>
+        Download Keplr from app store or download the keplr google chrom
+        extension. Add the Tura chain to keplr first, then send out 0.01 Tura to{" "}
+        <a href="#" onClick={activateAccount} className="underline">
+          <strong>activate the account</strong>
+        </a>
+        .
+      </>
+    ),
+    linkText: "Guide",
+    linkUrl:
+      "https://tagfusion.gitbook.io/announcement/user-manual/wallet-connect",
+  },
+  {
+    stepNumber: "02",
+    title: "Set Your Profile",
+    description:
+      "Create your personal profile. Please make sure you have connected your keplr wallet.",
+    linkText: "",
+    linkUrl: "",
+  },
+  {
+    stepNumber: "03",
+    title: "Get Some Gas",
+    description: (
+      <>
+        To get some gas, please apply our form, Or join our{" "}
+        <a
+          href="https://t.me/tagfusion"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline"
+        >
+          <strong>Telegram</strong>
+        </a>{" "}
+        and send your keplr wallet address to the channel.
+      </>
+    ),
+    linkText: "Apply form",
+    linkUrl:
+      "https://docs.google.com/forms/d/e/1FAIpQLSfsxVaJhbctPg5sFbFP2QY63bpBYmomw8ranw3dJ-IyxadHZA/viewform",
+  },
+  {
+    stepNumber: "04",
+    title: "Create Tags",
+    description:
+      "Make sure your wallet has enough Tura, then create Tagger DAO as your first tag.",
+    linkText: "Learn more",
+    linkUrl:
+      "https://tagfusion.gitbook.io/announcement/user-manual/create-tags",
+  },
+  {
+    stepNumber: "05",
+    title: "Verify Tags",
+    description: (
+      <>
+        Choose the tag you want to verify, then copy your profile and send to
+        our{" "}
+        <a
+          href="https://t.me/tagfusion"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline"
+        >
+          <strong>Telegram</strong>
+        </a>{" "}
+        channel.
+      </>
+    ),
+    linkText: "Learn more",
+    linkUrl:
+      "https://tagfusion.gitbook.io/announcement/user-manual/verify-tags",
+  },
+  {
+    stepNumber: "06",
+    title: "Tags Score Reward",
+    description:
+      "To confirm the rewards you received, you can find the reward info here.",
+    linkText: "Learn more",
+    linkUrl: "/award",
+  },
+];
+
+const PageHome = () => {
   const introItemList = [
     {
       title: "Did all the packages at N2O Gaming available",
@@ -212,12 +313,13 @@ const PageHome = () => {
           desc="Join a movement shaping the future of<br/> consumer-focused blockchain applications."
         ></PageIntro>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-[60px] mt-20 mx-[18px] md:mx-0">
-          {cardList.map((item, idx) => {
+          {steps.map((item, idx) => {
             return (
               <CardBox
                 title={item.title}
-                desc={item.desc}
-                btnTitle={item.btnTitle}
+                desc={item.description}
+                btnTitle={item.linkText}
+                btnLink={item.linkUrl}
                 idx={idx}
               ></CardBox>
             );

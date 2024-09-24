@@ -199,3 +199,36 @@ body {
     text-align: center;
     line-height: 1;
 }
+.bgpoly {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: url('/images/bg_poly.png') no-repeat bottom left/100% auto;
+    pointer-events: none;
+    z-index: 0;
+}
+.bgpoly::before {
+    content: "";
+    position: fixed;
+    left: -30px;
+    top: 50%;
+    display: block;
+    width: 100px;
+    height: 100px;
+    background: url('/images/poly_green.png') no-repeat center/contain;
+    pointer-events: none;
+
+}
+.bgpoly::after {
+    content: "";
+    position: fixed;
+    right: 0;
+    top: 30%;
+    display: block;
+    width: 100px;
+    height: 100px;
+    background: url('/images/poly_yellow.png') no-repeat center/contain;
+    pointer-events: none;
+}

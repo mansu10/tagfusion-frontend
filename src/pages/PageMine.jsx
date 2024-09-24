@@ -3,8 +3,8 @@ import PanelBox from '../components/PanelBox'
 const MyTags = () => {
   return (
     <PanelBox title="My Tags">
-      <div className="">
-        <div className="grid grid-cols-2 gap-x-[50px] gap-y-[30px] text-white">
+      <div className="md:min-h-[700px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[50px] gap-y-[30px] text-white">
           <div className="inline-flex justify-center items-center min-w-[200px] min-h-[40px] border border-[#FFFFFF33] rounded-[8px]">
             123
           </div>
@@ -26,8 +26,8 @@ const MyTags = () => {
 const MyPositions = () => {
   return (
     <PanelBox title="My Positions">
-      <div className="">
-        <div class="relative overflow-x-auto">
+      <div className="md:min-h-[700px]">
+        <div className="relative overflow-x-auto">
           <div className="table w-full p-[20px] text-sm text-left  text-gray-500 ">
             <div className="table-row">
               <div className="table-cell">Borrowed Date</div>
@@ -67,7 +67,7 @@ const MyPositions = () => {
 const MyRewards = () => {
   return (
     <PanelBox title="My Rewards">
-      <div className="">
+      <div className="md:min-h-[700px]">
         <div className="bg-white px-[44px] py-[30px] rounded-[20px]">
           <div className="flex justify-between pb-[26px] border-b font-semibold">
             <div>My Rewards</div>
@@ -139,20 +139,23 @@ const PageMine = () => {
   const [tags, setTags] = useState([123,123]);
 
   return (
-    <div className="relative flex justify-center">
+    <div className="relative flex justify-center flex-col md:flex-row px-[20px] md:px-0  z-10">
       <div>
         <div className="sticky top-[140px] flex-none">
-          <div className="flex flex-col items-center w-[213px] p-[25px] rounded-[20px] bg-[#424242] text-white leading-[22px]">
+          <div className="flex md:flex-col items-center w-full md:w-[213px] p-[25px] rounded-[20px] bg-[#424242] text-white leading-[22px]">
             <div className="flex-none rounded-full bg-white w-[84px] h-[84px]"></div>
-            <div className="mt-[30px]">name</div>
-            <div className="mt-[30px]">1231</div>
-            <div>1231</div>
+            <div className="ml-[30px] md:ml-0">
+              <div className="mt-[30px]">name</div>
+              <div className="mt-[30px]">1231</div>
+              <div>1231</div>
+            </div>
           </div>
-          <div className="flex flex-col w-[213px] mt-[60px]">
+          <div className="flex md:flex-col md:w-[213px] mt-[60px]">
             {tabs.map((item, idx) => {
               return (
                 <div
-                  className={`h-[50px] mt-[10px] text-[#388379] flex items-center justify-center cursor-pointer hover:bg-btngreen hover:text-white transition-all ${
+                  key={item.title}
+                  className={`flex-1 md:flex-none h-[50px] mt-[10px] text-[#388379] flex items-center justify-center cursor-pointer hover:bg-btngreen hover:text-white transition-all ${
                     idx === active ? "bg-btngreen text-white" : ""
                   }`}
                   onClick={() => handleTabClick(idx)}
@@ -164,7 +167,7 @@ const PageMine = () => {
           </div>
         </div>
       </div>
-      <div className="pt-36 min-h-screen">
+      <div className="pt-36 md:ml-[40px] md:w-[909px] ">
         {active === 0 && <MyTags></MyTags>}
         {active === 1 && <MyPositions></MyPositions>}
         {active === 2 && <MyRewards></MyRewards>}
