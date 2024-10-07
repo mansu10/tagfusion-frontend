@@ -1,10 +1,18 @@
 const Footer = () => {
   return (
-    <div className="w-full max-w-[1240px] h-[205px] mx-auto pt-[40px] text-white">
+    <div className="w-full max-w-[1240px] md:h-[205px] mx-auto pt-[40px] pb-[40px] md:pb-0 text-white">
       <div className="flex flex-col md:flex-row justify-around items-center h-[80px]">
-        <div className="text-[20px] underline">TagFusion Announcement</div>
+        <div className="text-[20px] underline">
+          <a
+            href="https://tagfusion.gitbook.io/announcement/user-manual/create-tags"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            TagFusion Announcement
+          </a>
+        </div>
         <div className="flex flex-col md:flex-row">
-          <div className="flex items-center mr-[50px]">
+          {/* <div className="flex items-center mr-[50px]">
             <img
               className="w-[22px] mr-[16px]"
               src="/images/icon_phone.png"
@@ -19,12 +27,47 @@ const Footer = () => {
               alt=""
             />
             <span>alicealison@gmail.com</span>
-          </div>
+          </div> */}
         </div>
-        <div className="flex">
-          <div className="w-[32px] h-[32px] ml-[33px] bg-white"></div>
-          <div className="w-[32px] h-[32px] ml-[33px] bg-white"></div>
-          <div className="w-[32px] h-[32px] ml-[33px] bg-white"></div>
+        <div className="flex mt-[30px] md:mt-0">
+          <div className="w-[32px] h-[32px] mx-[16px] ">
+            <a
+              href="https://x.com/tagfusion0707"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1"
+            >
+              <img className="w-full" src="/images/icon_x.svg" alt="X" />
+            </a>
+          </div>
+          <div className="w-[32px] h-[32px] mx-[16px]">
+            <a
+              href="https://t.me/tagfusion"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1"
+            >
+              <img
+                className="w-full"
+                src="/images/icon_discord.svg"
+                alt="Discord"
+              />
+            </a>
+          </div>
+          <div className="w-[32px] h-[32px] mx-[16px]">
+            <a
+              href="https://discord.gg/h244Ue3UsW"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1"
+            >
+              <img
+                className="w-full"
+                src="/images/icon_telegram.svg"
+                alt="Telegram"
+              />
+            </a>
+          </div>
         </div>
       </div>
       <div className="mt-[20px] text-center">

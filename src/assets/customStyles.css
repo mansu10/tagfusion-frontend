@@ -1,3 +1,7 @@
+:root {
+    --toastify-z-index: 9999;
+}
+
 /* 自定义滚动条样式 */
 .custom-scrollbar::-webkit-scrollbar {
     width: 12px;
@@ -72,6 +76,12 @@ body {
 .bg-line {
     background: url('/images/bg_line.png') no-repeat right top/3931px 1914px;
 }
+.bg-global {
+    background: url('/images/bg_global.png') no-repeat top 40px center/986px 884px;
+}
+.bg-global-fill {
+    background: url('/images/bg_global.png') no-repeat center/100%;
+}
 
 .flex-start {
     justify-content: start !important;
@@ -106,13 +116,14 @@ body {
     padding: 24px 11px 0;
     border: none;
     border-bottom: 1px solid transparent;
-    color: #fff;
+    color: #ffffffd3;
     background: rgba(255, 255, 255, .1);
     outline: none;
 }
 
 .custom-ipt input:focus~label,
-.custom-ipt input:valid~label {
+.custom-ipt input:valid~label,
+.custom-ipt.filled label {
     color: #FF6F00FF;
     transform: translateY(-100%) scale(.625) !important;
 }
@@ -231,4 +242,9 @@ body {
     height: 100px;
     background: url('/images/poly_yellow.png') no-repeat center/contain;
     pointer-events: none;
+}
+
+.custom-dialog::deep>.fui-DialogSurface::part(control) {
+    --dialog-width: 500px;
+    --dialog-height: 350px;
 }

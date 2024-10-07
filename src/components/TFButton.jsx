@@ -25,12 +25,12 @@ const TFButton = ({
         document.getElementById(to)?.scrollIntoView({ behavior: "smooth" });
       }, 100); // Adding a small delay to ensure navigation is complete before scrolling
     }
-    onClick();
+    onClick(e);
   };
 
   return (
     <button
-      className={`px-[30px] py-[15px] text-white bg-btngreen ${className}`}
+      className={`px-[30px] py-[15px] text-white bg-btngreen  ${className}`}
       onClick={handleClick}
     >
       {children}

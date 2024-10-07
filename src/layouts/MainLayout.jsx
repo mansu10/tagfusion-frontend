@@ -7,7 +7,6 @@ import Footer from "../components/Footer";
 const MainLayout = () => {
   const location = useLocation();
   const isHome = location.pathname === '/'
-console.log(isHome, '>>>>>>>>>.');
   return (
     <>
       <div
@@ -15,10 +14,10 @@ console.log(isHome, '>>>>>>>>>.');
           isHome ? "bg-dark" : "bg-[#2b2b2b]"
         }`}
       >
-        <div className="z-50 px-6 sm:px-12 md:px-24">
+        <div className="z-30 px-6 sm:px-12 md:px-24">
           <Header />
         </div>
-        <div>
+        <div className="min-h-[calc(100vh-205px)]">
           <Outlet />
         </div>
         <Footer />

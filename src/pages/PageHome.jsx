@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import CardBox from "../components/CardBox";
 import ModalLoan from "../components/ModalLoan";
+import { endpoint_rpc, tag_url, turaChainId } from "../config/config.js";
 
 const PagePanel = ({ children, cls }) => {
   return (
@@ -20,27 +23,27 @@ const PageIntro = ({ title, heading, desc }) => {
       <div className="relative  text-txtgray leading-7 opacity-70 text-[14px] md:text-[18px]">
         {title}
       </div>
-      <div
-        className="relative mt-4 text-txtgreen text-center font-semibold leading-none text-[36px] md:text-[90px]"
-        dangerouslySetInnerHTML={{ __html: heading }}
-      ></div>
-      <div
-        className="relative mt-4 text-lg text-txtgray text-center w-[335px] opacity-70"
-        dangerouslySetInnerHTML={{ __html: desc }}
-      ></div>
+      <div className="relative mt-4 text-txtgreen text-center font-semibold leading-none text-[36px] md:text-[90px]">
+        {heading}
+      </div>
+      <div className="relative mt-4 text-lg text-txtgray text-center max-w-[1440px] opacity-70">
+        {desc}
+      </div>
     </>
   );
 };
 
-const IntroItem = ({question, answer, active, handleClick = () => {}}) => {
+const IntroItem = ({ question, answer, active, handleClick = () => {} }) => {
   return (
     <div
-      className={`w-full md:w-[71.5625rem] px-[12px] md:px-[40px] py-[30px] rounded-[16px] ${
-        active ? "bg-[#555555] shadow-[0_-1px_10px_0px_rgba(255,255,255,1)]" : ""
+      className={`w-full md:max-w-[1145px] px-[12px] md:px-[40px] py-[30px] rounded-[16px] ${
+        active
+          ? "bg-[#555555] shadow-[0_-1px_10px_0px_rgba(255,255,255,1)]"
+          : ""
       }`}
     >
       <div className="flex justify-between items-center">
-        <div className="text-white text-2xl">{question}</div>
+        <div className="pr-[16px] text-[#f8f8f8cf] text-[18px]">{question}</div>
         <div
           onClick={() => {
             handleClick?.call();
@@ -63,16 +66,19 @@ const IntroItem = ({question, answer, active, handleClick = () => {}}) => {
       </div>
     </div>
   );
-}
+};
 
 const AboutItem = () => {
   return (
     <div className="flex mb-12 px-[18px]">
       <div className="flex-none w-14 px-0.5">
-        <img src="/images/icon_edit.png" alt="" srcset="" />
+        <img
+          alt=""
+          srcSet="/images/icon_edit.png"
+        />
       </div>
       <div className="flex flex-col max-w-[61.625rem] ml-8">
-        <div className="text-white">
+        <div className="text-[#EBEBEB] text-[24px]">
           TagFusion Protocol: Enhancing User Credibility with Certification Tags
         </div>
         <div className="mt-5 text-[#d1d1d1]">
@@ -87,7 +93,7 @@ const AboutItem = () => {
       </div>
     </div>
   );
-}
+};
 
 const activateAccount = async () => {
   if (window.keplr) {
@@ -141,95 +147,182 @@ const activateAccount = async () => {
   }
 };
 
-const steps = [
-  {
-    stepNumber: "01",
-    title: "Connect Wallet",
-    description: (
-      <>
-        Download Keplr from app store or download the keplr google chrom
-        extension. Add the Tura chain to keplr first, then send out 0.01 Tura to{" "}
-        <a href="#" onClick={activateAccount} className="underline">
-          <strong>activate the account</strong>
-        </a>
-        .
-      </>
-    ),
-    linkText: "Guide",
-    linkUrl:
-      "https://tagfusion.gitbook.io/announcement/user-manual/wallet-connect",
-  },
-  {
-    stepNumber: "02",
-    title: "Set Your Profile",
-    description:
-      "Create your personal profile. Please make sure you have connected your keplr wallet.",
-    linkText: "",
-    linkUrl: "",
-  },
-  {
-    stepNumber: "03",
-    title: "Get Some Gas",
-    description: (
-      <>
-        To get some gas, please apply our form, Or join our{" "}
-        <a
-          href="https://t.me/tagfusion"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline"
-        >
-          <strong>Telegram</strong>
-        </a>{" "}
-        and send your keplr wallet address to the channel.
-      </>
-    ),
-    linkText: "Apply form",
-    linkUrl:
-      "https://docs.google.com/forms/d/e/1FAIpQLSfsxVaJhbctPg5sFbFP2QY63bpBYmomw8ranw3dJ-IyxadHZA/viewform",
-  },
-  {
-    stepNumber: "04",
-    title: "Create Tags",
-    description:
-      "Make sure your wallet has enough Tura, then create Tagger DAO as your first tag.",
-    linkText: "Learn more",
-    linkUrl:
-      "https://tagfusion.gitbook.io/announcement/user-manual/create-tags",
-  },
-  {
-    stepNumber: "05",
-    title: "Verify Tags",
-    description: (
-      <>
-        Choose the tag you want to verify, then copy your profile and send to
-        our{" "}
-        <a
-          href="https://t.me/tagfusion"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline"
-        >
-          <strong>Telegram</strong>
-        </a>{" "}
-        channel.
-      </>
-    ),
-    linkText: "Learn more",
-    linkUrl:
-      "https://tagfusion.gitbook.io/announcement/user-manual/verify-tags",
-  },
-  {
-    stepNumber: "06",
-    title: "Tags Score Reward",
-    description:
-      "To confirm the rewards you received, you can find the reward info here.",
-    linkText: "Learn more",
-    linkUrl: "/award",
-  },
-];
-
 const PageHome = () => {
+  const [walletAddress, setWalletAddress] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const address = localStorage.getItem("tura_address");
+    setWalletAddress(address);
+    
+  }, []);
+
+  const handleWalletButtonClick = async () => {
+    if (walletAddress) {
+      const confirmed = window.confirm(
+        "Confirm to log out of the current account?"
+      );
+      if (confirmed) {
+        localStorage.removeItem("tura_address");
+        localStorage.removeItem("tura_login_status");
+        setWalletAddress(null);
+        navigate("/"); // 重定向到主页
+      }
+    } else {
+      try {
+        // 连接 Keplr 钱包
+        if (!window.keplr) {
+          alert("Please install Keplr extension");
+          return;
+        }
+        const chainId = turaChainId;
+        // 提示 Keplr 连接
+        await window.keplr.enable(chainId);
+        // 获取离线签名者
+        const offlineSigner = window.getOfflineSigner(chainId);
+        const accounts = await offlineSigner.getAccounts();
+        // 假设新的地址是 accounts[0].address
+        const newAddress = accounts[0].address;
+        localStorage.setItem("tura_address", newAddress);
+        setWalletAddress(newAddress);
+      } catch (error) {
+        console.error("Failed to connect to Keplr", error);
+        alert("Failed to connect to Keplr");
+      }
+    }
+  };
+
+  const steps = [
+    {
+      stepNumber: "01",
+      title: walletAddress ? "Exit Wallet" : "Connect Wallet",
+      description: (
+        <>
+          Download Keplr from app store or download the keplr google chrom
+          extension. Add the Tura chain to keplr first, then send out 0.01 Tura
+          to <br />
+          <a href="#" onClick={activateAccount} className="underline">
+            <strong>activate the account</strong>
+          </a>
+          .
+        </>
+      ),
+      linkText: "Guide",
+      linkUrl:
+        "https://tagfusion.gitbook.io/announcement/user-manual/wallet-connect",
+    },
+    {
+      stepNumber: "02",
+      title: "Set Your Profile",
+      description:
+        "Create your personal profile. Please make sure you have connected your keplr wallet.",
+      linkText: "Set Your Profile",
+      linkUrl: "/card",
+    },
+    {
+      stepNumber: "03",
+      title: "Get Some Gas",
+      description: (
+        <>
+          To get some gas, please apply our form, Or join our{" "}
+          <a
+            href="https://t.me/tagfusion"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            <strong>Telegram</strong>
+          </a>{" "}
+          and send your keplr wallet address to the channel.
+        </>
+      ),
+      linkText: "Apply form",
+      linkUrl:
+        "https://docs.google.com/forms/d/e/1FAIpQLSfsxVaJhbctPg5sFbFP2QY63bpBYmomw8ranw3dJ-IyxadHZA/viewform",
+    },
+    {
+      stepNumber: "04",
+      title: "Create Tags",
+      description: (
+        <>
+          Make sure your wallet has enough Tura, then create Tagger DAO as your
+          first tag.
+          <br />
+          <a
+            href="https://tagfusion.gitbook.io/announcement/user-manual/create-tags"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            <strong>Learn More</strong>
+          </a>
+        </>
+      ),
+      linkText: "Create Tags",
+      linkUrl: "/tags",
+      route: "/tags",
+    },
+    {
+      stepNumber: "05",
+      title: "Verify Tags",
+      description: (
+        <>
+          Choose the tag you want to verify, then copy your profile and send to
+          our{" "}
+          <a
+            href="https://t.me/tagfusion"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            <strong>Telegram</strong>
+          </a>{" "}
+          channel.
+          <br />
+          <a
+            href="https://tagfusion.gitbook.io/announcement/user-manual/verify-tags"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            <strong>Learn More</strong>
+          </a>
+        </>
+      ),
+      linkText: "Create Tags",
+      linkUrl: "/tags",
+      route: "/tags",
+    },
+    {
+      stepNumber: "06",
+      title: "Tags Score Reward",
+      description:
+        "To confirm the rewards you received, you can find the reward info here.",
+      linkText: "Learn more",
+      linkUrl: "/my",
+    },
+  ];
+
+  const handleStepClick = (idx) => {
+    const step = steps[idx];
+    if (!step) {
+      return;
+    }
+    switch (idx) {
+      case 0:
+        handleWalletButtonClick();
+        break;
+      case 3:
+        handleLinkClick({ link: step.route });
+        break;
+      case 5:
+        navigate("/my", { replace: true,state: { tab: "reward" } });
+        break;
+      default:
+        handleLinkClick({ link: step.linkUrl });
+        break;
+    }
+  };
   const introItemList = [
     {
       title: "Did all the packages at N2O Gaming available",
@@ -252,15 +345,15 @@ const PageHome = () => {
         "A common source of FUD surrounding Dogecoin is the claim that certain wallets holding a large percentage of the supply are owned by private investors or so-called “whales”. In reality, many of the top Dogecoin wallets are cold wallets or hot wallets controlled by",
     },
   ];
-  const [introIdx, setIntroIdx] = useState(0)
+  const [introIdx, setIntroIdx] = useState(0);
 
   const handleIntroClick = (idx) => {
     if (idx === introIdx) {
       setIntroIdx(-1);
     } else {
-      setIntroIdx(idx)
+      setIntroIdx(idx);
     }
-  }
+  };
 
   const aboutItemList = [
     {
@@ -280,27 +373,69 @@ const PageHome = () => {
         "TagFusion Protocol: Versatile Application of Certification Tags in Finance, Networking, and Recruitment",
       content:
         "Tag Fusion Protocol applies to various fields such as financial services, social networks, and recruitment platforms, where credit ratings and certification tags help users obtain loans, find jobs, or establish new relationships.",
-    }
+    },
   ];
+
+  const handleLinkClick = ({ link, to }) => {
+    if (link) {
+      // If link is an external URL, open it in a new tab
+      if (link.startsWith("http://") || link.startsWith("https://")) {
+        window.open(link, "_blank", "noopener,noreferrer");
+      } else {
+        // e.preventDefault();
+        navigate(link);
+      }
+    } else if (to) {
+      // e.preventDefault();
+      navigate("/", { replace: true });
+      setTimeout(() => {
+        document.getElementById(to)?.scrollIntoView({ behavior: "smooth" });
+      }, 100); // Adding a small delay to ensure navigation is complete before scrolling
+    }
+  };
 
   return (
     <div>
-      <ModalLoan></ModalLoan>
-      <div className="h-screen pt-[98px] flex justify-center items-center bg-intro-bg bg-no-repeat bg-center">
-        <img
-          className="block w-full max-w-[986px]"
-          src="/images/bg_intro.png"
-          alt=""
-        />
-      </div>
+      {/* PAGE 1 */}
+      <PagePanel cls="bg-global-fill md:bg-global">
+        <PageIntro
+          title={<span className="text-txtgreen">Introducing Tagfusion</span>}
+          heading={
+            <span>
+              REVOLUTIONIZING
+              <br />
+              CONSUMER
+              <br />
+              BLOCKCHAIN
+            </span>
+          }
+          desc={
+            <span className="text-txtgreen">
+              Bridging web3 gap by transitioning real-world applications
+              onchain.
+            </span>
+          }
+        ></PageIntro>
+      </PagePanel>
       {/* PAGE 2 */}
       <PagePanel cls="bg-black">
         <PageIntro
           title="Let's dive into"
-          heading="WHAT'S<br />TAGFUSION?"
-          desc="decentralized system that
-          increases user creditworthiness by accumulating certified tags, which
-          also serves as endorsements for individuals and win trust from others."
+          heading={
+            <>
+              WHAT'S
+              <br />
+              TAGFUSION?
+            </>
+          }
+          desc={
+            <p className="w-full px-[20px] md:w-[629px] text-justify">
+              Tag Fusion Protocol is an innovative decentralized system that
+              increases user creditworthiness by accumulating certified tags,
+              which also serves as endorsements for individuals and win trust
+              from others.
+            </p>
+          }
         ></PageIntro>
 
         <img className="w-96 mt-4" src="/images/bg_node.png" alt="" />
@@ -309,14 +444,27 @@ const PageHome = () => {
       <PagePanel cls="py-32">
         <PageIntro
           title="Hey!"
-          heading="GETTING<br/>STARTED"
-          desc="Join a movement shaping the future of<br/> consumer-focused blockchain applications."
+          heading={
+            <>
+              GETTING
+              <br />
+              STARTED
+            </>
+          }
+          desc={
+            <>
+              Join a movement shaping the future of
+              <br /> consumer-focused blockchain applications.
+            </>
+          }
         ></PageIntro>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-[60px] mt-20 mx-[18px] md:mx-0">
           {steps.map((item, idx) => {
             return (
               <CardBox
+              key={idx}
                 title={item.title}
+                onAction={handleStepClick}
                 desc={item.description}
                 btnTitle={item.linkText}
                 btnLink={item.linkUrl}
@@ -333,20 +481,41 @@ const PageHome = () => {
         </div>
         <PageIntro
           title="Learn about"
-          heading="TAGTUSION<br/>CREDIT<br/>LOAN"
-          desc="<p class='mb15'>Unlock the power of your credit - get the funds you need without collateral. Fast, secure, and free.</p>
-          <p>The TagFusion Credit Loan allows borrowers to access funds without the need for collateral. These loans are granted based on the borrower's credit score and financial history, making them an ideal option for individuals who prefer not to tie up their assets.</p>"
+          heading={
+            <>
+              TAGTUSION
+              <br />
+              CREDIT
+              <br />
+              LOAN
+            </>
+          }
+          desc={
+            <>
+              <p className="mb-[15px] w-full px-[20px] md:w-[537px]">
+                Unlock the power of your credit - get the funds you need without
+                collateral. Fast, secure, and free.
+              </p>
+              <p className="w-full px-[20px] md:w-[537px]">
+                The TagFusion Credit Loan allows borrowers to access funds
+                without the need for collateral. These loans are granted based
+                on the borrower's credit score and financial history, making
+                them an ideal option for individuals who prefer not to tie up
+                their assets.
+              </p>
+            </>
+          }
         ></PageIntro>
-        <div className="flex items-center h-12 mt-10 px-24 rounded-full bg-gradient-yellow">
-          BORROW NOW
-        </div>
+        <ModalLoan></ModalLoan>
+        
       </PagePanel>
-      <PagePanel cls="bg-line flex-start pt-[140px]">
+      <PagePanel cls="bg-line flex-start pt-[140px] pb-[100px]">
         <PageIntro heading="FAQS"></PageIntro>
-        <div className="px-[18px]">
+        <div className="px-[18px] pt-[50px]">
           {introItemList.map((item, idx) => {
             return (
               <IntroItem
+                key={idx}
                 active={introIdx === idx}
                 question={item.title}
                 answer={item.content}
@@ -359,11 +528,19 @@ const PageHome = () => {
         </div>
       </PagePanel>
       <PagePanel cls="bg-black py-32">
-        <PageIntro heading="ABOUT<br/>TAGFUSION"></PageIntro>
+        <PageIntro
+          heading={
+            <>
+              ABOUT
+              <br />
+              TAGFUSION
+            </>
+          }
+        ></PageIntro>
         <div className="h-20"></div>
-        {aboutItemList.map((item) => {
+        {aboutItemList.map((item, idx) => {
           return (
-            <AboutItem title={item.title} content={item.content}></AboutItem>
+            <AboutItem key={idx} title={item.title} content={item.content}></AboutItem>
           );
         })}
       </PagePanel>

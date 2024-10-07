@@ -2,11 +2,11 @@ const PanelBox = ({title, children, className}) => {
   return (
     <div
       className={
-        "max-w-[909px] px-[10px] md:px-[86px] py-[76px] bg-[#424242] rounded-[20px] " +
+        "max-w-[909px]  md:px-[86px] py-[30px] md:py-[76px] md:bg-[#424242] rounded-[20px] " +
         className
       }
     >
-      <div className="pb-[40px] text-txtgreen text-5xl text-center">
+      <div className="pb-[40px] text-txtgreen text-[24px] md:text-5xl text-center">
         {title}
       </div>
       {children}
