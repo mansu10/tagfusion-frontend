@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
+import useInfiniteScroll from "react-infinite-scroll-hook";
 import { axiosInstance, profileImageUrlPrefix } from "../config/config";
 import PanelBox from "../components/PanelBox";
 import ModalRepay from "../components/ModalRepay";
@@ -12,6 +13,14 @@ const getAddress = async () => {
   }
 };
 
+const formatDate = (date) => {
+  return new Date(date)
+    .toJSON()
+    .substring(0, 19)
+    .replace("T", " ")
+    .replace(/-/g, ".");
+};
+
 const MyTags = ({ tags = [], selectedTag, onClick }) => {
   return (
     <PanelBox title="My Tags" className="bg-[#424242] mt-[30px]">
@@ -20,8 +29,10 @@ const MyTags = ({ tags = [], selectedTag, onClick }) => {
           {tags.map((tag, index) => (
             <div
               key={index}
-              className={`inline-flex justify-center items-center min-w-[200px] min-h-[40px] mx-[20px] md:mx-0 border border-[#FFFFFF33] rounded-[8px] cursor-pointer hover:border-[#FFA000FF] hover:text-[#FF6F00] transition-all ${
-                selectedTag === tag ? "border-[#FFA000FF] text-[#FF6F00]" : ""
+              className={`inline-flex justify-center items-center min-w-[200px] min-h-[40px] mx-[20px] md:mx-0 border rounded-[8px] cursor-pointer hover:border-[#FFA000FF] hover:text-[#FF6F00] transition-all ${
+                selectedTag === tag
+                  ? "border-[#FFA000FF] text-[#FF6F00]"
+                  : " border-[#FFFFFF33]"
               }`}
               onClick={onClick?.bind(this, tag)}
             >
@@ -34,42 +45,173 @@ const MyTags = ({ tags = [], selectedTag, onClick }) => {
   );
 };
 
+const ButtonStatus = ({ children, isWarn = false }) => {
+  return (
+    <span
+      className={`inline-flex items-center text-[#388379FF] text-[12px] px-[10px] py-[7px] leading-[15px]  ${
+        isWarn
+          ? "text-[#b73b19] bg-[#dc56440d]"
+          : "text-[#388379FF] bg-[#3883790D]"
+      }`}
+    >
+      {children}
+    </span>
+  );
+};
+
 const MyPositions = () => {
+  const navigate = useNavigate();
+  const [loanList, setLoanList] = useState([]);
+  const [pager, setPager] = useState({
+    currentPage: 0,
+    totalPage: 10,
+    pageSize: 10,
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isReload, setIsReload] = useState(false)
+
+  const reloadData = () => {
+    setPager({
+      currentPage: 0,
+      totalPage: 10,
+      pageSize: 10,
+    });
+    setLoanList([])
+    setIsReload(true)
+  }
+
+  useEffect(() => {
+    if (loanList.length === 0 && isReload) {
+      fetchData();
+      setIsReload(false)
+    }
+  }, [loanList, isReload]);
+
+  const fetchData = async () => {
+    const address = await getAddress();
+    if (!address) {
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const response = await axiosInstance.get("tagfusion/api/loan_list", {
+        params: {
+          address,
+          page: pager.currentPage + 1,
+          page_size: pager.pageSize,
+        },
+      });
+
+      const data = response.data;
+      if (data.code === 0) {
+        const originList = loanList || [];
+        const list = originList.concat(data.loans);
+        setLoanList(list || []);
+        setPager({
+          currentPage: data.current_page,
+          totalPage: data.total_pages,
+        });
+      }
+      setIsLoading(false);
+    } catch (e) {
+      console.log(e);
+      setIsLoading(false);
+    }
+  };
+  const goPageRepay = (item) => {
+    sessionStorage.setItem("REPAY_ITEM", JSON.stringify(item));
+    navigate("/repay");
+  }
+  const [sentryRef, { rootRef }] = useInfiniteScroll({
+    loading: isLoading,
+    hasNextPage: pager.currentPage < pager.totalPage,
+    onLoadMore: fetchData,
+    disabled: false,
+    rootMargin: "0px 0px 100px 0px",
+  });
   return (
     <PanelBox title="My Positions">
       <div className="md:min-h-[700px]">
         <div className="relative overflow-x-auto">
-          <div className="table w-full p-[20px] text-[12px] text-left  text-gray-500 ">
+          <div className="table w-full px-[10px] py-[20px] md:px-[26px] md:py-[26px] text-[12px] text-left  text-gray-500 ">
             <div className="table-row">
-              <div className="table-cell">Borrowed Date</div>
-              <div className="table-cell">Borrow Asset</div>
-              <div className="table-cell">Borrow Amount</div>
-              <div className="table-cell">Borrow APY</div>
-              <div className="table-cell">Debt</div>
-              <div className="table-cell"></div>
+              <div className="table-cell w-1/6">Borrowed Date</div>
+              <div className="table-cell w-1/6">Borrow Asset</div>
+              <div className="table-cell w-1/6">Borrow Amount</div>
+              <div className="table-cell w-1/6">Borrow APY</div>
+              <div className="table-cell w-1/6">Debt</div>
+              <div className="hidden md:table-cell"></div>
             </div>
           </div>
-          <div className="table w-full mb-[16px] p-[26px] text-[14px] text-left  text-black bg-white rounded-[10px]">
-            <div className="table-row">
-              <div className="table-cell">12 Dec, 2024 10:15AM</div>
-              <div className="table-cell">Tura</div>
-              <div className="table-cell">$1200</div>
-              <div className="table-cell">10.12%</div>
-              <div className="table-cell">$1761</div>
+          {loanList.map((item, idx) => {
+            return (
+              <div
+                key={item.id}
+                className="table relative w-full mb-[16px] px-[10px] py-[20px] md:px-[26px] md:py-[26px] text-[14px] text-left  text-black bg-white rounded-[10px]"
+              >
+                <div className="table-row">
+                  <div className="table-cell align-middle w-1/6">
+                    {formatDate(item.repayment_date)}
+                  </div>
+                  <div className="table-cell align-middle w-1/6 px-[2px]">
+                    {item.currency}
+                  </div>
+                  <div className="table-cell align-middle w-1/6">
+                    {item.loan_amount}
+                  </div>
+                  <div className="table-cell align-middle w-1/6">
+                    {(item.borrow_APY * 100).toFixed(2)}%
+                  </div>
+                  <div className="table-cell align-middle w-1/6">
+                    {item.amount}
+                  </div>
+                  <div className="hidden md:table-cell align-middle w-1/6">
+                    {item.status === 3 && <ButtonStatus>Paid</ButtonStatus>}
+                    {item.status === 2 && (
+                      <ButtonStatus isWarn={true}>Unpaid</ButtonStatus>
+                    )}
+                    {item.status != 3 && (
+                      <ModalRepay
+                        info={item}
+                        onAction={() => {
+                          reloadData();
+                        }}
+                      ></ModalRepay>
+                    )}
+                  </div>
+                </div>
+                <div className="md:hidden table-row ">
+                  <div className="opacity-0">repay</div>
+                  <div className="absolute right-[10px] bottom-[10px]">
+                    {item.status === 3 && <ButtonStatus>Paid</ButtonStatus>}
+                    {item.status === 2 && (
+                      <ButtonStatus isWarn={true}>Unpaid</ButtonStatus>
+                    )}
+                    {item.status != 3 && (
+                      <span
+                        onClick={goPageRepay.bind(this, item)}
+                        className="inline-flex items-center cursor-pointer text-[#5d6766] text-[12px] px-[10px] py-[7px] leading-[15px] bg-[#3883790D]"
+                      >
+                        <i className="w-[13px] h-[11px] mr-[2px] inline-flex">
+                          <img
+                            src="/images/icon_card.png"
+                            alt=""
+                            className="w-full"
+                          />
+                        </i>
+                        Repay
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+          {(isLoading || pager.currentPage < pager.totalPage) && (
+            <div className="flex justify-center text-white" ref={sentryRef}>
+              loading...
             </div>
-            <div className="table-cell">
-              <ModalRepay></ModalRepay>
-            </div>
-          </div>
-          <div className="table w-full mb-[16px] p-[26px] text-sm text-left  text-black bg-white rounded-[10px]">
-            <div className="table-row">
-              <div className="table-cell">12 Dec, 2024 10:15AM</div>
-              <div className="table-cell">Tura</div>
-              <div className="table-cell">$1200</div>
-              <div className="table-cell">10.12%</div>
-              <div className="table-cell">$1761</div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </PanelBox>
@@ -249,6 +391,12 @@ const RewardItemChild = ({
 };
 
 const PageMine = () => {
+  // get data
+  const [selectedTag, setSelectedTag] = useState(null);
+  const [copySuccess, setCopySuccess] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [data, setData] = useState({
     code: 2,
     info: {
@@ -260,12 +408,6 @@ const PageMine = () => {
       profile_image: [""],
     },
   });
-
-  // get data
-  const [selectedTag, setSelectedTag] = useState(null);
-  const [copySuccess, setCopySuccess] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -347,6 +489,7 @@ const PageMine = () => {
 
   const handleTabClick = (idx) => {
     setActive(idx);
+    // resetData()
   };
 
   const copyProfile = () => {
@@ -398,62 +541,77 @@ const PageMine = () => {
 
   if (localStorage.getItem("tura_login_status")) {
     return (
-      <div className="relative flex justify-center flex-col md:flex-row pt-[130px] md:pt-0 p-[10px] md:px-[20px] z-10">
-        <div>
-          <div className="sticky top-[140px] flex-none px-[10px]">
-            <div className="flex md:flex-col items-center w-full md:w-[213px] p-[25px] rounded-[10px] md:rounded-[20px] bg-[#424242] text-white leading-[22px]">
-              <div className="flex-none rounded-full bg-gray-200 w-[84px] h-[84px] overflow-hidden">
-                <img
-                  className="w-full h-full object-cover"
-                  alt="Profile"
-                  srcSet={profileImageUrl}
-                />
-              </div>
-              <div className="ml-[30px] md:ml-0">
-                <div className="text-left md:mt-[30px] md:text-center">
-                  {data.info.username}
-                </div>
-                <div className="mt-[20px] md:mt-[30px] break-all underline">
-                  {data.info.address}
-                </div>
-                <div>{data.info.link || ""}</div>
-                <div className="mt-[5px] md:mt-0">
-                  <p>{data.info.bio[0]}</p>
-                </div>
-                <div
-                  className="text-white underline flex gap-2 items-center cursor-pointer mt-[5px]"
-                  onClick={copyProfile}
-                >
+      <>
+        <div className="relative flex justify-center flex-col md:flex-row pt-[130px] md:pt-0 p-[10px] md:px-[20px] z-10">
+          <div>
+            <div className="sticky top-[140px] flex-none px-[10px]">
+              <div className="flex md:flex-col items-center w-full md:w-[213px] p-[25px] rounded-[10px] md:rounded-[20px] bg-[#424242] text-white leading-[22px]">
+                <div className="flex-none rounded-full bg-gray-200 w-[84px] h-[84px] overflow-hidden">
                   <img
-                    src={copySuccess ? "/icons/tick.svg" : "/icons/copy.svg"}
-                    alt="copy"
-                    className="w-5 h-5"
+                    className="w-full h-full object-cover"
+                    alt="Profile"
+                    srcSet={profileImageUrl}
                   />
-                  {copySuccess ? "Profile copied!" : "Copy my profile"}
+                </div>
+                <div className="ml-[30px] md:ml-0">
+                  <div className="text-left md:mt-[30px] md:text-center">
+                    {data.info.username}
+                  </div>
+                  <div className="mt-[20px] md:mt-[30px] break-all underline">
+                    {data.info.address}
+                  </div>
+                  <div>{data.info.link || ""}</div>
+                  <div className="mt-[5px] md:mt-0">
+                    <p>{data.info.bio[0]}</p>
+                  </div>
+                  <div
+                    className="text-white underline flex gap-2 items-center cursor-pointer mt-[5px]"
+                    onClick={copyProfile}
+                  >
+                    <img
+                      src={copySuccess ? "/icons/tick.svg" : "/icons/copy.svg"}
+                      alt="copy"
+                      className="w-5 h-5"
+                    />
+                    {copySuccess ? "Profile copied!" : "Copy my profile"}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex md:flex-col md:w-[213px] mt-[30px] md:mt-[60px]">
-              {tabs.map((item, idx) => {
-                return (
-                  <div
-                    key={item.title}
-                    className={`flex-1 md:flex-none h-[50px] mt-[10px] text-[#388379] flex items-center justify-center cursor-pointer hover:bg-btngreen hover:text-white transition-all ${
-                      idx === active ? "bg-btngreen text-white" : ""
-                    }`}
-                    onClick={() => handleTabClick(idx)}
-                  >
-                    {item.title}
-                  </div>
-                );
-              })}
+              <div className="flex md:flex-col md:w-[213px] mt-[30px] md:mt-[60px]">
+                {tabs.map((item, idx) => {
+                  return (
+                    <div
+                      key={item.title}
+                      className={`flex-1 md:flex-none h-[50px] mt-[10px] text-[#388379] flex items-center justify-center cursor-pointer hover:bg-btngreen hover:text-white transition-all ${
+                        idx === active ? "bg-btngreen text-white" : ""
+                      }`}
+                      onClick={() => handleTabClick(idx)}
+                    >
+                      {item.title}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
+          <div className="pt-[10px] md:pt-[40px] md:ml-[40px] md:w-[909px]">
+            {/* {tabs[active].component} */}
+            {active === 0 && (
+              <MyTags
+                tags={data.info?.tags}
+                selectedTag={selectedTag}
+                onClick={(tag) => {
+                  setSelectedTag(tag);
+                }}
+              ></MyTags>
+            )}
+            {/* {active === 1 && <MyPositions list={loanList} loading={isLoading} hasNextPage={pager.currentPage < pager.totalPage} error={false} loadMore={fetchData}></MyPositions>} */}
+            {active === 1 && <MyPositions></MyPositions>}
+            {active === 2 && <MyRewards></MyRewards>}
+          </div>
         </div>
-        <div className="pt-[10px] md:pt-[40px] md:ml-[40px] md:w-[909px]">
-          {tabs[active].component}
-        </div>
-      </div>
+        <ToastContainer></ToastContainer>
+      </>
     );
   }
 };

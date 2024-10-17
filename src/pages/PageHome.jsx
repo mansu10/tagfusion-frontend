@@ -23,10 +23,10 @@ const PageIntro = ({ title, heading, desc }) => {
       <div className="relative  text-txtgray leading-7 opacity-70 text-[14px] md:text-[18px]">
         {title}
       </div>
-      <div className="relative mt-4 text-txtgreen text-center font-semibold leading-none text-[36px] md:text-[90px]">
+      <div className="relative mt-4 text-txtgreen text-center font-semibold leading-[44px] md:leading-none text-[36px] md:text-[90px]">
         {heading}
       </div>
-      <div className="relative mt-4 text-lg text-txtgray text-center max-w-[1440px] opacity-70">
+      <div className="relative mt-4 text-[14px] md:text-[18px] text-txtgray text-center max-w-[1440px] opacity-70">
         {desc}
       </div>
     </>
@@ -36,29 +36,33 @@ const PageIntro = ({ title, heading, desc }) => {
 const IntroItem = ({ question, answer, active, handleClick = () => {} }) => {
   return (
     <div
-      className={`w-full md:max-w-[1145px] px-[12px] md:px-[40px] py-[30px] rounded-[16px] ${
+      className={`w-full md:max-w-[1145px] px-[12px] md:px-[40px]  rounded-[16px] ${
         active
-          ? "bg-[#555555] shadow-[0_-1px_10px_0px_rgba(255,255,255,1)]"
-          : ""
+          ? "bg-[#555555] shadow-[0_-1px_10px_0px_rgba(255,255,255,1)] py-[30px] mb-[20px]"
+          : "py-[0px] pb-0"
       }`}
     >
       <div className="flex justify-between items-center">
-        <div className="pr-[16px] text-[#f8f8f8cf] text-[18px]">{question}</div>
+        <div className="pr-[16px] text-[#f8f8f8cf] text-[18px] md:text-[24px]">
+          {question}
+        </div>
         <div
           onClick={() => {
             handleClick?.call();
           }}
-          className={`flex-none flex justify-center items-center w-16 h-12 text-white  ${
+          className={`flex-none flex justify-center items-center w-[44px] h-[28px] md:w-16 md:h-12 text-white  ${
             active ? "bg-white" : "bg-btngreen"
           }`}
         >
-          <div
-            className={`icon-carot ${active ? "icon-carot-active" : ""}`}
-          ></div>
+          <div className="scale-75 md:scale-100">
+            <div
+              className={`icon-carot ${active ? "icon-carot-active" : ""}`}
+            ></div>
+          </div>
         </div>
       </div>
       <div
-        className={`mt-5 text-[#F8F8F8] text-base ${
+        className={`mt-5 text-[#F8F8F8] text-[14px] md:text-[16px] ${
           active ? "" : "scale-y-0 h-0"
         }`}
       >
@@ -68,27 +72,18 @@ const IntroItem = ({ question, answer, active, handleClick = () => {} }) => {
   );
 };
 
-const AboutItem = () => {
+const AboutItem = ({title, content}) => {
   return (
     <div className="flex mb-12 px-[18px]">
-      <div className="flex-none w-14 px-0.5">
-        <img
-          alt=""
-          srcSet="/images/icon_edit.png"
-        />
+      <div className="flex-none w-[32px] md:w-14 px-0.5">
+        <img alt="" srcSet="/images/icon_edit.png" />
       </div>
-      <div className="flex flex-col max-w-[61.625rem] ml-8">
-        <div className="text-[#EBEBEB] text-[24px]">
-          TagFusion Protocol: Enhancing User Credibility with Certification Tags
+      <div className="flex flex-col max-w-[61.625rem] ml-[8px] md:ml-8">
+        <div className="text-[#EBEBEB] text-[18px] md:text-[24px] leading-[22px] md:leading-[29px]">
+          {title}
         </div>
-        <div className="mt-5 text-[#d1d1d1]">
-          The TagFusion Protocol is designed to enhance user credit through the
-          use of certification tags. By completing tasks or obtaining
-          certificates, users earn these certification tags, which serve as a
-          representation of their abilities and credibility in specific fields.
-          This unique approach not only validates the skills and expertise of
-          individuals but also provides a trustworthy mechanism for others to
-          assess their qualifications.
+        <div className="mt-5 text-[14px] md:text-[16px] leading-[20px] md:leading-[24px] text-[#d1d1d1]">
+          {content}
         </div>
       </div>
     </div>
@@ -325,24 +320,46 @@ const PageHome = () => {
   };
   const introItemList = [
     {
-      title: "Did all the packages at N2O Gaming available",
+      title: "What is Tagfusion?",
       content:
-        "A common source of FUD surrounding Dogecoin is the claim that certain wallets holding a large percentage of the supply are owned by private investors or so-called “whales”. In reality, many of the top Dogecoin wallets are cold wallets or hot wallets controlled by",
+        "Tagfusion is the first Dapp on the Tura chain. Users can add tags on tagfusion, verify between individuals, and obtain verification and data from CEX institutions, which can improve their on-chain credit.",
     },
     {
-      title: "How do I know if a space is available?",
+      title:
+        "Why does Tagfusion want to implement credit calculation and unsecured lending in the blockchain scenario?",
       content:
-        "A common source of FUD surrounding Dogecoin is the claim that certain wallets holding a large percentage of the supply are owned by private investors or so-called “whales”. In reality, many of the top Dogecoin wallets are cold wallets or hot wallets controlled by",
+        "Currently, the main function of the blockchain is distributed ledger, which does not have the ability of distributed computing and cannot realize on-chain credit calculation.The innovation of blockchain applications is weak, and the next biggest application is on-chain data fusion to carry out on-chain credit calculation. The biggest application of on-chain credit is unsecured lending.",
     },
     {
-      title: "How do I know if a space is available?",
+      title: "What determines the credit score?",
       content:
-        "A common source of FUD surrounding Dogecoin is the claim that certain wallets holding a large percentage of the supply are owned by private investors or so-called “whales”. In reality, many of the top Dogecoin wallets are cold wallets or hot wallets controlled by",
+        "On-chain data, transaction history. DEX and CEX data. Relationship data (who your friends are).",
     },
     {
-      title: "How do I know if a space is available?",
-      content:
-        "A common source of FUD surrounding Dogecoin is the claim that certain wallets holding a large percentage of the supply are owned by private investors or so-called “whales”. In reality, many of the top Dogecoin wallets are cold wallets or hot wallets controlled by",
+      title: "How can I see my credit score?",
+      content: (
+        <>
+          On the website(
+          <a
+            className="underline"
+            href="https://tagfusion.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            https://tagfusion.org/
+          </a>
+          ), telegram bot(
+          <a
+            href="https://t.me/tagfusion"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            @tag_fusion_bot
+          </a>
+          ).
+        </>
+      ),
     },
   ];
   const [introIdx, setIntroIdx] = useState(0);
@@ -397,17 +414,17 @@ const PageHome = () => {
   return (
     <div>
       {/* PAGE 1 */}
-      <PagePanel cls="bg-global-fill md:bg-global">
+      <PagePanel cls="bg-bg-global bg-no-repeat bg-center md:bg-[center_top_40px] bg-[length:100%] md:bg-[length:986px_884px]">
         <PageIntro
           title={<span className="text-txtgreen">Introducing Tagfusion</span>}
           heading={
-            <span>
+            <p>
               REVOLUTIONIZING
               <br />
               CONSUMER
               <br />
               BLOCKCHAIN
-            </span>
+            </p>
           }
           desc={
             <span className="text-txtgreen">
@@ -418,7 +435,7 @@ const PageHome = () => {
         ></PageIntro>
       </PagePanel>
       {/* PAGE 2 */}
-      <PagePanel cls="bg-black">
+      <PagePanel cls="bg-black py-[100px]">
         <PageIntro
           title="Let's dive into"
           heading={
@@ -429,7 +446,7 @@ const PageHome = () => {
             </>
           }
           desc={
-            <p className="w-full px-[20px] md:w-[629px] text-justify">
+            <p className="w-full px-[20px] md:w-[629px] text-center">
               Tag Fusion Protocol is an innovative decentralized system that
               increases user creditworthiness by accumulating certified tags,
               which also serves as endorsements for individuals and win trust
@@ -438,7 +455,7 @@ const PageHome = () => {
           }
         ></PageIntro>
 
-        <img className="w-96 mt-4" src="/images/bg_node.png" alt="" />
+        <img className="w-[300px] mt-4" src="/images/bg_node.png" alt="" />
       </PagePanel>
       {/* PAGE 3 */}
       <PagePanel cls="py-32">
@@ -462,7 +479,7 @@ const PageHome = () => {
           {steps.map((item, idx) => {
             return (
               <CardBox
-              key={idx}
+                key={idx}
                 title={item.title}
                 onAction={handleStepClick}
                 desc={item.description}
@@ -475,19 +492,19 @@ const PageHome = () => {
         </div>
       </PagePanel>
       {/* PAGE 4 */}
-      <PagePanel cls="bg-black relative">
-        <div className="absolute top-24 left-1/2 translate-x-[-50%] md:translate-x-24 w-[18.75rem]">
+      <PagePanel cls="bg-black relative py-[100px]">
+        <div className="absolute top-[100px] left-1/2 translate-x-[-50%] md:translate-x-24 w-[18.75rem]">
           <img className="block w-full" src="/images/wallet.png" alt="" />
         </div>
         <PageIntro
-          title="Learn about"
+          title={<span className="text-[18px]">Learn about</span>}
           heading={
             <>
               TAGTUSION
               <br />
-              CREDIT
-              <br />
-              LOAN
+              &nbsp;CREDIT&nbsp;
+              <br className="hidden md:block" />
+              &nbsp;LOAN&nbsp;
             </>
           }
           desc={
@@ -506,8 +523,11 @@ const PageHome = () => {
             </>
           }
         ></PageIntro>
+
         <ModalLoan></ModalLoan>
-        
+        <div className="md:hidden flex items-center h-12 mt-10 px-24 rounded-full bg-gradient-yellow cursor-pointer">
+          <Link to="/loan">BORROW NOW</Link>
+        </div>
       </PagePanel>
       <PagePanel cls="bg-line flex-start pt-[140px] pb-[100px]">
         <PageIntro heading="FAQS"></PageIntro>
@@ -540,7 +560,11 @@ const PageHome = () => {
         <div className="h-20"></div>
         {aboutItemList.map((item, idx) => {
           return (
-            <AboutItem key={idx} title={item.title} content={item.content}></AboutItem>
+            <AboutItem
+              key={idx}
+              title={item.title}
+              content={item.content}
+            ></AboutItem>
           );
         })}
       </PagePanel>

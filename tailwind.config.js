@@ -21,7 +21,8 @@ export default {
         // 'gradient-red-orange': 'linear-gradient(213deg, rgba(255,77,39,0.7) 0%, rgba(78,27,27,1) 100%)',
         'gradient-red-orange': 'linear-gradient(213deg, rgba(255,100,0,0.8) 0%, rgba(255,30,0,0.7) 100%)',
         'gradient-yellow': 'linear-gradient( 135deg, #F7EA76 0%, #D1AF4D 100%)',
-        'gradient-bg': 'linear-gradient( 190deg, #349F31 0%, #FA7107 100%);'
+        'gradient-bg': 'linear-gradient( 190deg, #349F31 0%, #FA7107 100%);',
+        'bg-global': "url('/images/bg_global.png')"
       },
       boxShadow: {
         'custom-shadow': '0 4px 6px rgba(0, 0, 0, 0.1)',

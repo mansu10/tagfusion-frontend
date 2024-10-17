@@ -1,5 +1,6 @@
 :root {
-    --toastify-z-index: 9999;
+    --toastify-z-index: 1000001;
+    --toastify-toast-top: 100px;
 }
 
 /* 自定义滚动条样式 */
@@ -94,6 +95,7 @@ body {
     border-top: 2px solid #fff;
     border-left: 2px solid #fff;
     transform: rotate(-135deg);
+    transform-origin: 42% 30%;
     transition: all .3s;
 }
 
@@ -247,4 +249,9 @@ body {
 .custom-dialog::deep>.fui-DialogSurface::part(control) {
     --dialog-width: 500px;
     --dialog-height: 350px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
 }

@@ -14,10 +14,10 @@ const CardBox = ({ title, desc, btnLink, btnTitle, idx, onAction }) => {
           >
             {title}
           </div>
-          <div className="mt-4 text-xs text-white/[.6]">{desc}</div>
+          <div className="mt-4 text-[12px] text-white/[.6]">{desc}</div>
         </div>
         {btnTitle && (
-          <div className="flex items-center justify-center mt-[22px] rounded-full h-10 border-solid border border-[#79C077] text-white hover:bg-white/[.05] cursor-pointer">
+          <div className="flex items-center justify-center mt-[22px] rounded-full h-10 border-solid border border-[#79C077] text-white text-[14px] hover:bg-white/[.05] cursor-pointer">
             <TFButton className="bg-transparent leading-none " link={btnLink} onClick={btnLink ? () =>{}: onAction?.bind(this, idx)} >
               {btnTitle}
             </TFButton>
