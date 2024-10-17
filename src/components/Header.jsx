@@ -25,7 +25,7 @@ const ShareList = ({onClick}) => {
         </div>
         <div className="flex justify-center items-center w-[48px] h-[48px] p-[6px] ml-[20px] hover:bg-btngreen">
           <a
-            href="https://t.me/tagfusion"
+            href="https://discord.gg/h244Ue3UsW"
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1"
@@ -40,7 +40,7 @@ const ShareList = ({onClick}) => {
         </div>
         <div className="flex justify-center items-center w-[48px] h-[48px] p-[6px] ml-[20px] hover:bg-btngreen">
           <a
-            href="https://discord.gg/h244Ue3UsW"
+            href="https://t.me/tagfusion"
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1"
@@ -54,13 +54,9 @@ const ShareList = ({onClick}) => {
           </a>
         </div>
       </div>
-        <TFButton
-          onClick={onClick?.bind(this)}
-          className="ml-[30px]"
-          link="/my"
-        >
-          <span className="text-[14px] leading-[17px]">My Tags</span>
-        </TFButton>
+      <TFButton onClick={onClick?.bind(this)} className="ml-[30px]" link="/my">
+        <span className="text-[14px] leading-[17px]">My Tags</span>
+      </TFButton>
     </div>
   );
 }
