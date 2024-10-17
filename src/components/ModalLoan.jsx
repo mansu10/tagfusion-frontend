@@ -63,7 +63,6 @@ const ModalLoan = () => {
       const result = response.data.message.data;
       setData(result);
     }
-    console.log(response, ">>>");
   };
   // if (open) {
   //   fetchData();
@@ -127,7 +126,6 @@ const ModalLoan = () => {
       return;
     }
 
-    console.log(obj);
     const formData = new FormData();
     formData.append("address", obj.address);
     formData.append("currency", obj.currency);
@@ -145,7 +143,6 @@ const ModalLoan = () => {
           },
         }
       );
-      console.log(response);
       if (response.data.code === 0) {
         toast.success(`Borrow Successful`);
         setIsLoading(false);
@@ -215,7 +212,6 @@ const ModalLoan = () => {
                               key={idx}
                               onClick={() => {
                                 setSelectDay(idx);
-                                console.log(idx);
                               }}
                               className={`mr-[30px] px-[20px] py-[8px] border  bg-[#FFFFFF1A] hover:border-[#FFA000FF] hover:text-[#FFA000FF] cursor-pointer ${
                                 selectDay === idx

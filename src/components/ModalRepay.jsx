@@ -77,7 +77,6 @@ const ModalRepay = ({ info, onAction }) => {
   };
   const checkListVal = (value) => {
     const val = value;
-    console.log(isNaN(val), "<<<<");
     if (isNaN(val) || typeof val != "number") {
       return;
     }
@@ -94,7 +93,6 @@ const ModalRepay = ({ info, onAction }) => {
     formData.append("address", address);
     formData.append("repay_amount", repayAmount);
     formData.append("id", info.id);
-    console.log(address, repayAmount);
 
     try {
       const response = await axiosInstance.post(
@@ -157,7 +155,6 @@ const ModalRepay = ({ info, onAction }) => {
         gas: "200000",
       };
       const memo = "";
-      console.log(toSend);
 
       const result = await signingClient.sendTokens(
         address,
@@ -171,7 +168,6 @@ const ModalRepay = ({ info, onAction }) => {
         fee,
         memo
       );
-      console.log(result, ">>>>>>>>>>>>>>");
       if (result.code !== undefined && result.code !== 0) {
         throw new Error(`Error: ${result.log || result.rawLog}`);
       }

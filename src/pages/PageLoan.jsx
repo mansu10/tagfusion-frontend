@@ -55,7 +55,6 @@ const PageLoan = () => {
         const result = response.data.message.data;
         setData(result);
       }
-      console.log(response, ">>>");
     };
     fetchData();
   }, []);
@@ -108,7 +107,6 @@ const PageLoan = () => {
     //   return;
     // }
 
-    console.log(obj);
     const formData = new FormData();
     formData.append("address", obj.address);
     formData.append("currency", obj.currency);
@@ -127,7 +125,6 @@ const PageLoan = () => {
         }
       );
       isLoading = false;
-      console.log(response);
       if (response.data.code === 0) {
         toast.success(`Borrow Successful`);
         setAmount("")

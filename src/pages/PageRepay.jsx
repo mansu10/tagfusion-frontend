@@ -14,7 +14,6 @@ const PageRepay = () => {
   const [amount, setAmount] = useState(0);
   useEffect(() => {
     const infoStr = sessionStorage.getItem("REPAY_ITEM");
-    console.log(infoStr);
     if (infoStr) {
       const result = JSON.parse(infoStr);
       // amount = result.amount;
@@ -40,7 +39,6 @@ const PageRepay = () => {
 
   const buildValList = () => {
     try {
-      console.log(amount, "????");
       const list = valList;
       list.forEach((item) => {
         item.amount = Big(amount).times(item.val).toNumber();
@@ -83,7 +81,6 @@ const PageRepay = () => {
   };
   const checkListVal = (value) => {
     const val = value;
-    console.log(isNaN(val), "<<<<");
     if (isNaN(val) || typeof val != "number") {
       return;
     }
@@ -100,7 +97,6 @@ const PageRepay = () => {
     formData.append("address", address);
     formData.append("repay_amount", repayAmount);
     formData.append("id", info.id);
-    console.log(address, repayAmount);
 
     try {
       setIsLoading(true);
@@ -113,7 +109,7 @@ const PageRepay = () => {
           },
         }
       );
-      console.log(response.data?.code, ">>>>>>>>.");
+
       if (response.data?.code === 0) {
         navigate("/my", { replace: true, state: { tab: "position" } });
       } else {
@@ -163,7 +159,6 @@ const PageRepay = () => {
         gas: "200000",
       };
       const memo = "";
-      console.log(toSend);
       const result = await signingClient.sendTokens(
         address,
         to_address,
