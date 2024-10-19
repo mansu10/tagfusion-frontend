@@ -128,7 +128,7 @@ const ModalRepay = ({ info, onAction }) => {
     try {
       const chainId = turaChainId;
       const to_address = "tura1wur29apraq9qfskv6sz8r888cynqwauxkc7zq4";
-      const denom = "utura";
+      const denom = "tags";
       const toSend = 1e8 * repayAmount + "";
       const offlineSigner = window.getOfflineSigner(chainId);
       const accounts = await offlineSigner.getAccounts();
@@ -151,7 +151,7 @@ const ModalRepay = ({ info, onAction }) => {
         offlineSigner
       );
       const fee = {
-        amount: [{ denom: "utura", amount: "500" }],
+        amount: [{ denom: "tags", amount: "500" }],
         gas: "200000",
       };
       const memo = "";
@@ -209,7 +209,9 @@ const ModalRepay = ({ info, onAction }) => {
                   <div className="scale-75 origin-top">
                     <div className="flex justify-center items-center">
                       <div className="flex-none flex flex-col items-center w-[596px] h-[740px] px-[56px] py-[48px]  rounded-[10px] bg-[#424242]">
-                        <div className="text-txtgreen text-[48px]">Tura</div>
+                        <div className="text-txtgreen text-[48px]">
+                          {info.currency}
+                        </div>
                         <div className="w-full">
                           <div className="relative mt-[30px]">
                             <input
@@ -257,7 +259,7 @@ const ModalRepay = ({ info, onAction }) => {
                               </div>
                             </div>
                             <div className="flex justify-between mt-[41px] text-[18px] text-white">
-                              <div>Borrowed(Tura):</div>
+                              <div>Borrowed({info.currency}):</div>
                               <div className="bold">{info.loan_amount}</div>
                             </div>
                           </div>
