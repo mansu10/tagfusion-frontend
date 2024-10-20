@@ -131,8 +131,8 @@ const PageRepay = () => {
     }
     try {
       const chainId = turaChainId;
-      const to_address = "tura1wur29apraq9qfskv6sz8r888cynqwauxkc7zq4";
-      const denom = "tags";
+      const to_address = "tura12g2up77ngna09a3cvcwra3yajy3zhuw7mlrqyx";
+      const denom = "utags";
       const toSend = 1e8 * repayAmount + "";
       const offlineSigner = window.getOfflineSigner(chainId);
       const accounts = await offlineSigner.getAccounts();

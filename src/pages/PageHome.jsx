@@ -221,7 +221,7 @@ const PageHome = () => {
         <>
           To get some gas, please apply our form, Or join our{" "}
           <a
-            href="https://t.me/tagfusion"
+            href="https://t.me/tele_tags_dao"
             target="_blank"
             rel="noopener noreferrer"
             className="underline"
@@ -265,7 +265,7 @@ const PageHome = () => {
           Choose the tag you want to verify, then copy your profile and send to
           our{" "}
           <a
-            href="https://t.me/tagfusion"
+            href="https://t.me/tele_tags_dao"
             target="_blank"
             rel="noopener noreferrer"
             className="underline"
@@ -350,7 +350,7 @@ const PageHome = () => {
           </a>
           ), telegram bot(
           <a
-            href="https://t.me/tagfusion"
+            href="https://t.me/tele_tags_dao"
             target="_blank"
             rel="noopener noreferrer"
             className="underline"
