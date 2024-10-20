@@ -1,23 +1,30 @@
 import React, { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "../components/Header";
-import ParticleBackground from "../components/ParticleBackground";
+import Footer from "../components/Footer";
+
 
 const MainLayout = () => {
-
-
-
-    return (
-        <div className="relative bg-white min-h-screen flex flex-col overflow-auto">
-            <ParticleBackground />
-            <div className="z-50 px-6 sm:px-12 md:px-24">
-                <Header />
-            </div>
-            <div className="z-10 flex-1 px-6">
-                <Outlet />
-            </div>
+  const location = useLocation();
+  const isHome = location.pathname === '/'
+  return (
+    <>
+      <div
+        className={` bg-dark min-h-screen flex flex-col overflow-auto  ${
+          isHome ? "bg-dark" : "bg-[#2b2b2b]"
+        }`}
+      >
+        <div className="z-30 px-6 sm:px-12 md:px-24">
+          <Header />
         </div>
-    );
+        <div className="min-h-[calc(100vh-205px)]">
+          <Outlet />
+        </div>
+        <Footer />
+      </div>
+      {!isHome && <div className="hidden md:block bgpoly"></div>}
+    </>
+  );
 };
 
 export default MainLayout;
