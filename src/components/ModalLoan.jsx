@@ -65,7 +65,7 @@ const ModalLoan = () => {
                       <div className="mt-[32px] text-[18px] text-white text-center">
                         Based on your credit score, your borrowing range: Based
                         on your credit score, your borrowing range: <br />
-                        {data.min_loan_amount} ~ {data.max_loan_amount}
+                        {data.min_loan_amount} ~ {data.max_loan_amount ? Math.floor(data.max_loan_amount):'0'}
                       </div>
                       <div className="w-full">
                         <div className="relative mt-[30px]">

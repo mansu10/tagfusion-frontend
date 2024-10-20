@@ -143,7 +143,7 @@ const PageLoan = () => {
           <div className="text-txtgreen text-[24px]">Borrow Amount</div>
           <div className="mt-[32px] text-[14px] text-white text-center">
             Based on your credit score, your borrowing range: <br />
-            {data.min_loan_amount} - {data.max_loan_amount}
+            {data.min_loan_amount} - {data.max_loan_amount ? Math.floor(data.max_loan_amount):'0'}
           </div>
           <div className="w-full">
             <div className="relative mt-[50px]">
