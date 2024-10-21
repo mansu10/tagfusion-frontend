@@ -32,7 +32,7 @@ const Footer = () => {
         <div className="flex mt-[30px] md:mt-0">
           <div className="w-[32px] h-[32px] mx-[16px] ">
             <a
-              href="https://x.com/tagfusion0707"
+              href="https://x.com/Tag_Fusion"
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1"
@@ -56,7 +56,7 @@ const Footer = () => {
           </div>
           <div className="w-[32px] h-[32px] mx-[16px]">
             <a
-              href="https://t.me/tagfusion"
+              href="https://t.me/tele_tags_dao"
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1"

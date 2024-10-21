@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../assets/customStyles.css"; // 引入自定义CSS文件
+
 import {
   InputCustom,
   UploadCustom,
@@ -115,71 +117,83 @@ const PageRegister = () => {
     }
   };
   return (
-    <div className="flex flex-col items-center pt-[176px] px-[20px]">
-      <div className="text-txtgreen text-[24px] md:text-[48px]">Create My Tagfusion Card</div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[28px] gap-y-[45px] w-full md:w-[804px] mt-[98px]">
-        <div>
-          <InputCustom
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-            label="User Name*"
-          ></InputCustom>
+    <>
+      <div className=" flex flex-col items-center pt-[176px] px-[20px]">
+        <div className="text-txtgreen text-[24px] md:text-[48px]">
+          Create My Tagfusion Card
         </div>
-        <div>
-          <InputCustom
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-            label="Bio*"
-          ></InputCustom>
-        </div>
-        <div>
-          <InputCustom
-            label="Address"
-            value={address}
-            readonly={true}
-          ></InputCustom>
-        </div>
-        <div>
-          <InputCustom
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
-            label="Link*"
-          ></InputCustom>
-        </div>
-        <div className="md:col-span-2">
-          <UploadCustom
-            uploadPic={uploadPic}
-            onChange={(e) => setUploadPic(e.target.files[0])}
-          ></UploadCustom>
-          <div className="flex flex-col md:flex-row justify-between mt-[56px]">
-            <div className=" text-white flex items-start leading-[22px] text-[16px]">
-              <div className="h-[22px] mt-[1px]">
-                <CheckBoxCustom
-                  value={check}
-                  onChange={(e) => {
-                    setCheck(e.target.checked);
-                  }}
-                ></CheckBoxCustom>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[28px] gap-y-[45px] w-full md:w-[804px] mt-[98px]">
+          <div>
+            <InputCustom
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              label="User Name*"
+            ></InputCustom>
+          </div>
+          <div>
+            <InputCustom
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              label="Bio*"
+            ></InputCustom>
+          </div>
+          <div>
+            <InputCustom
+              label="Address"
+              value={address}
+              readonly={true}
+            ></InputCustom>
+          </div>
+          <div>
+            <InputCustom
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
+              label="Link*"
+            ></InputCustom>
+          </div>
+          <div className="md:col-span-2">
+            <UploadCustom
+              uploadPic={uploadPic}
+              onChange={(e) => setUploadPic(e.target.files[0])}
+            ></UploadCustom>
+            <div className="flex flex-col md:flex-row justify-between mt-[56px]">
+              <div className=" text-white flex items-start leading-[22px] text-[16px]">
+                <div className="h-[22px] mt-[1px]">
+                  <CheckBoxCustom
+                    value={check}
+                    onChange={(e) => {
+                      setCheck(e.target.checked);
+                    }}
+                  ></CheckBoxCustom>
+                </div>
+                <div className="ml-[16px]">
+                  I have read and accept the Terms of
+                  <br />
+                  <span className="text-[#8AE288FF]">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                      href="https://tagfusion.gitbook.io"
+                    >
+                      Service & Privacy Policy
+                    </a>
+                    *
+                  </span>
+                </div>
               </div>
-              <div className="ml-[16px]">
-                I have read and accept the Terms of
-                <br />
-                <span className="text-[#8AE288FF]">
-                  <a className="hover:underline" href="#">
-                    Service & Privacy Policy
-                  </a>
-                  *
-                </span>
-              </div>
+              <TFButton
+                onClick={handleSubmit}
+                className="px-[80px] mt-[20px] md:mt-0 leading-[20px]"
+              >
+                Create
+              </TFButton>
             </div>
-            <TFButton onClick={handleSubmit} className="px-[80px] mt-[20px] md:mt-0 leading-[20px]">
-              Create
-            </TFButton>
           </div>
         </div>
       </div>
       <ToastContainer></ToastContainer>
-    </div>
+    </>
   );
 };
 

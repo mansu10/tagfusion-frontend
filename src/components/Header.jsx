@@ -14,7 +14,7 @@ const ShareList = ({onClick}) => {
       <div className="flex">
         <div className="flex justify-center items-center w-[48px] h-[48px] p-[6px] ml-[20px] hover:bg-btngreen">
           <a
-            href="https://x.com/tagfusion0707"
+            href="https://x.com/Tag_Fusion"
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1"
@@ -40,7 +40,7 @@ const ShareList = ({onClick}) => {
         </div>
         <div className="flex justify-center items-center w-[48px] h-[48px] p-[6px] ml-[20px] hover:bg-btngreen">
           <a
-            href="https://t.me/tagfusion"
+            href="https://t.me/tele_tags_dao"
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1"

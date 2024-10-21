@@ -135,7 +135,7 @@ const MyPositions = () => {
         <div className="relative overflow-x-auto">
           <div className="table w-full px-[10px] py-[20px] md:px-[26px] md:py-[26px] text-[12px] text-left  text-gray-500 ">
             <div className="table-row">
-              <div className="table-cell w-1/6">Borrowed Date</div>
+              <div className="table-cell w-1/6">Repay Date</div>
               <div className="table-cell w-1/6">Borrow Asset</div>
               <div className="table-cell w-1/6">Borrow Amount</div>
               <div className="table-cell w-1/6">Borrow APY</div>

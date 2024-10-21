@@ -4,7 +4,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { SigningStargateClient } from "@cosmjs/stargate";
 
-import { axiosInstance, endpoint_rpc, turaChainId } from "../config/config";
+import {
+  axiosInstance,
+  endpoint_rpc,
+  turaChainId,
+  repayAddress,
+} from "../config/config";
 import { useEffect } from "react";
 
 const PageRepay = () => {
@@ -131,8 +136,8 @@ const PageRepay = () => {
     }
     try {
       const chainId = turaChainId;
-      const to_address = "tura1wur29apraq9qfskv6sz8r888cynqwauxkc7zq4";
-      const denom = "tags";
+      const to_address = repayAddress;
+      const denom = "utags";
       const toSend = 1e8 * repayAmount + "";
       const offlineSigner = window.getOfflineSigner(chainId);
       const accounts = await offlineSigner.getAccounts();
@@ -155,7 +160,7 @@ const PageRepay = () => {
         offlineSigner
       );
       const fee = {
-        amount: [{ denom: "tags", amount: "500" }],
+        amount: [{ denom: "utags", amount: "500" }],
         gas: "200000",
       };
       const memo = "";
