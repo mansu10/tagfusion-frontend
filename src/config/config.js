@@ -9,6 +9,7 @@ const config = {
 
 
 const endpoint_rpc = "https://rpc-beta1.turablockchain.com"
+
 // const endpoint_rpc = "https://rpc-testnet1.turablockchain.com"
 const axiosInstance = axios.create({
     baseURL: config.endpoint,
@@ -25,8 +26,10 @@ const turaChainId = "mainnet-tura";
 
 
 
+
 const tag_url = "https://tagfusion.org";
 //  const tag_url = "https://testnet1.turablockchain.com";
+
 
 
 const profileImageUrlPrefix = config.endpoint + "media";
