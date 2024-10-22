@@ -267,9 +267,7 @@ const MyRewards = () => {
   const formatNumber = (number) => {
     return new Intl.NumberFormat().format(number);
   };
-  if (data.code === 0) {
-    profileImageUrl = profileImageUrlPrefix + `/${data.profile_image}`; // 替换成你的基本 URL
-  }
+
   return (
     <PanelBox title="My Rewards">
       <div className="md:min-h-[700px]">
