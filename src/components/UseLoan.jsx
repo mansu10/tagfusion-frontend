@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-
-import { axiosInstance } from "../config/config";
+import { axiosInstance, turaChainId } from "../config/config";
 const options = [{ value: "tags", label: "tags" }];
 
 const useLoan = () => {
@@ -83,6 +82,7 @@ const useLoan = () => {
       const newAddress = accounts[0].address;
       localStorage.setItem("tura_address", newAddress);
       setWalletAddress(newAddress);
+      fetchData()
     } catch (error) {
       console.error("Failed to connect to Keplr", error);
       alert("Failed to connect to Keplr");
