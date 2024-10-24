@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { axiosInstance } from "../config/config";
+import { axiosInstance, turaChainId } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/customStyles.css"; // 引入自定义CSS文件
@@ -116,6 +116,30 @@ const PageRegister = () => {
       toast.error("Error submitting form.");
     }
   };
+
+ const handleWalletButtonClick = async () => {
+   try {
+     // 连接 Keplr 钱包
+     if (!window.keplr) {
+       alert("Please install Keplr extension");
+       return;
+     }
+     const chainId = turaChainId;
+     // 提示 Keplr 连接
+     await window.keplr.enable(chainId);
+     // 获取离线签名者
+     const offlineSigner = window.getOfflineSigner(chainId);
+     const accounts = await offlineSigner.getAccounts();
+     // 假设新的地址是 accounts[0].address
+     const newAddress = accounts[0].address;
+     localStorage.setItem("tura_address", newAddress);
+     setAddress(newAddress);
+   } catch (error) {
+     console.error("Failed to connect to Keplr", error);
+     alert("Failed to connect to Keplr");
+   }
+ };
+
   return (
     <>
       <div className=" flex flex-col items-center pt-[176px] px-[20px]">
@@ -182,12 +206,21 @@ const PageRegister = () => {
                   </span>
                 </div>
               </div>
-              <TFButton
-                onClick={handleSubmit}
-                className="px-[80px] mt-[20px] md:mt-0 leading-[20px]"
-              >
-                Create
-              </TFButton>
+              {address ? (
+                <TFButton
+                  onClick={handleSubmit}
+                  className="px-[80px] mt-[20px] md:mt-0 leading-[20px]"
+                >
+                  Create
+                </TFButton>
+              ) : (
+                <TFButton
+                  onClick={handleWalletButtonClick}
+                  className="px-[80px] mt-[20px] md:mt-0 leading-[20px]"
+                >
+                  Connect Wallet
+                </TFButton>
+              )}
             </div>
           </div>
         </div>
