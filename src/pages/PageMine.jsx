@@ -602,7 +602,7 @@ const PageMine = () => {
               </div>
             </div>
           </div>
-          <div className="pt-[10px] md:pt-[40px] md:ml-[40px] md:w-[909px]">
+          <div className="pt-[10px] md:pt-[110px] md:ml-[40px] md:w-[909px]">
             {/* {tabs[active].component} */}
             {active === 0 && (
               <MyTags

@@ -57,6 +57,9 @@ const ShareList = ({onClick}) => {
       <TFButton onClick={onClick?.bind(this)} className="ml-[30px]" link="/my">
         <span className="text-[14px] leading-[17px]">My Tags</span>
       </TFButton>
+      <TFButton onClick={onClick?.bind(this)} className="ml-[30px]" link="/project">
+        <span className="text-[14px] leading-[17px]">Tags List</span>
+      </TFButton>
     </div>
   );
 }
