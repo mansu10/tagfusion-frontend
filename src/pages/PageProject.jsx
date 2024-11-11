@@ -86,6 +86,7 @@ const ModalChain = ({ children, chain }) => {
         icon: false,
         toastId: "customId",
       });
+      setIsLoading(true)
       const result = await signingClient.sendTokens(
         address,
         toAddress,
@@ -154,6 +155,7 @@ const ModalChain = ({ children, chain }) => {
       const formData = new FormData();
       formData.append("tura_address", address);
       formData.append("json", jsonStr);
+      formData.append("uuid", json["uuid"]);
       const response = await axiosInstance.post(
         "tagfusion/api/create_up_chain_data/",
         formData,
