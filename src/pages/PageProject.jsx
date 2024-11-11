@@ -18,7 +18,7 @@ import {
   DialogContent,
 } from "@fluentui/react-dialog";
 import { ToastContainer, toast } from "react-toastify";
-// EBYYDbav6QgAM7JgYJcJgSKDgDvV8edgYJH5QmaAtZ6N;
+// EBYYDbav6QgAM7JgYJcJgSKDgDvV8edgYJH5QmaAtZ6N
 const ModalChain = ({ children, chain }) => {
   const [nftAddress, setNftAddress] = useState("");
   // 96NQqG3umVDmQA6Jx3B3Etds4afTY3VEg9f32nNbuKXb
@@ -28,6 +28,7 @@ const ModalChain = ({ children, chain }) => {
   const [intro, setIntro] = useState();
   const [keplrLoaded, setKeplrLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const loadKeplr = async () => {
@@ -43,7 +44,6 @@ const ModalChain = ({ children, chain }) => {
 
   const handleSubmitClick = async (event) => {
     event.preventDefault();
-
     if (!keplrLoaded) {
       toast.error("Keplr is not loaded");
       return;
@@ -109,7 +109,6 @@ const ModalChain = ({ children, chain }) => {
         toast.dismiss();
         toast.success(`Transaction Successfully`);
         fetchCreateData();
-
       } else {
         toast.error(`Submit Error: ${error.message}`);
       }
@@ -133,6 +132,8 @@ const ModalChain = ({ children, chain }) => {
           setJson(data);
           setJsonStr(JSON.stringify(data));
         }
+      } else {
+        toast.error(response.data.message);
       }
       toast.dismiss();
 
@@ -150,16 +151,24 @@ const ModalChain = ({ children, chain }) => {
         return;
       }
       setIsLoading(true);
-      const response = await axiosInstance.get(
-        "tagfusion/api/create_up_chain_data",
+      const formData = new FormData();
+      formData.append("tura_address", address);
+      formData.append("json", jsonStr);
+      const response = await axiosInstance.post(
+        "tagfusion/api/create_up_chain_data/",
+        formData,
         {
-          params: {
-            tura_address: address,
-            json: json,
+          headers: {
+            "Content-Type": "multipart/form-data",
           },
         }
       );
       console.log(response);
+      if (response.data.code === 0) {
+        setOpen(false);
+      } else {
+        toast.error(response.data.message);
+      }
       setIsLoading(false);
     } catch (e) {
       console.log(e);
@@ -187,6 +196,8 @@ const ModalChain = ({ children, chain }) => {
         const result = response.data.data;
         const info = result.Introduction;
         setIntro(info);
+      } else {
+        toast.error(response.data.message);
       }
       setIsLoading(false);
     } catch (e) {
@@ -205,6 +216,7 @@ const ModalChain = ({ children, chain }) => {
   };
 
   const handleOpenDialog = (event, data) => {
+    setOpen(data.open);
     if (data.open) {
       fetchInfo();
     } else {
@@ -223,17 +235,17 @@ const ModalChain = ({ children, chain }) => {
     setMintAddress(val);
   };
   return (
-    <Dialog onOpenChange={handleOpenDialog}>
+    <Dialog open={open} onOpenChange={handleOpenDialog}>
       <DialogTrigger disableButtonEnhancement>{children}</DialogTrigger>
       <DialogSurface style={{ maxWidth: "fit-content" }}>
         <DialogBody>
           <DialogContent>
-            <div className="mwx-w-[1200px]">
+            <div className="max-w-[1200px]">
               <div className="origin-top">
                 <div className="flex justify-center items-center">
-                  <div className="flex-none flex flex-col items-center w-[596px]  px-[56px] py-[48px]  rounded-[10px] bg-[#424242]">
-                    <div className="w-full max-h-[200] overflow-auto mt-[32px] text-[14px] text-white text-left whitespace-pre-line">
-                      {intro?.replaceAll("\\n", "\n")}
+                  <div className="relative flex-none flex flex-col items-center min-w-[200px] w-[85%] md:w-[596px] px-[20px] md:px-[56px] py-[20px] md:py-[48px]  rounded-[10px] bg-[#424242]">
+                    <div className="max-h-[200px] overflow-auto mt-[32px] text-[14px] text-white text-left whitespace-pre-line">
+                      <p>{intro?.replaceAll("\\n", "\n")}</p>
                     </div>
                     <div className="w-full">
                       <div className="relative mt-[30px]">
@@ -259,7 +271,7 @@ const ModalChain = ({ children, chain }) => {
                           className="w-full px-[10px] py-[10px] border border-[#FFFFFF1F] text-[#FFFFFF8A] text-[16px] bg-[#FFFFFF1A] outline-none focus:border-b-[#FFA000FF]"
                         />
                       </div>
-                      <div className="flex gap-[8px]">
+                      <div className="flex flex-col md:flex-row gap-[8px]">
                         <div
                           onClick={handleConfirmClick}
                           className={`flex justify-center items-center h-[40px] mt-[28px] px-[15px] bg-btngreen text-white cursor-pointer ${
@@ -295,6 +307,12 @@ const ModalChain = ({ children, chain }) => {
                         >
                           Submit
                         </div>
+                        <div
+                          onClick={() => {setOpen(false)}}
+                          className={`flex justify-center items-center h-[40px] mt-[28px] ml-[8px] px-[15px] bg-btngreen text-white cursor-pointer `}
+                        >
+                          close
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -324,7 +342,7 @@ const PageProject = () => {
 
   return (
     <div className="flex justify-center pt-[140px]">
-      <PanelBox title="" className="max-w-[1200px] bg-[#424242] mt-[30px]">
+      <PanelBox title="" className="min-w-[300px] max-w-[1200px] bg-[#424242] mt-[30px]">
         <div className="min-h-[150px] md:min-h-[500px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[50px] gap-y-[30px] text-white">
             {tags.map((tag, index) => (
