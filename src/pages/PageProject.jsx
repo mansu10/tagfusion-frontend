@@ -245,12 +245,12 @@ const ModalChain = ({ children, chain }) => {
             <div className="max-w-[1200px]">
               <div className="origin-top">
                 <div className="flex justify-center items-center">
-                  <div className="relative flex-none flex flex-col items-center min-w-[200px] w-[85%] md:w-[596px] px-[20px] md:px-[56px] py-[20px] md:py-[48px]  rounded-[10px] bg-[#424242]">
-                    <div className="max-h-[200px] overflow-auto mt-[32px] text-[14px] text-white text-left whitespace-pre-line">
+                  <div className="relative flex-none flex flex-col items-center  w-[85%] md:w-[596px] px-[20px] md:px-[56px] py-[20px] md:py-[48px]  rounded-[10px] bg-[#424242]">
+                    <div className="max-h-[200px] min-w-[260px] overflow-auto mt-[32px] text-[14px] text-white text-left whitespace-pre-line">
                       <p>{intro?.replaceAll("\\n", "\n")}</p>
                     </div>
                     <div className="w-full">
-                      <div className="relative mt-[30px]">
+                      <div className="relative mt-[20px]">
                         <input
                           onChange={handleAddressChange}
                           value={nftAddress}
@@ -264,7 +264,7 @@ const ModalChain = ({ children, chain }) => {
                             Please enter a number in the range of
                           </div> */}
                       </div>
-                      <div className="relative mt-[30px]">
+                      <div className="relative mt-[20px]">
                         <input
                           onChange={handleMintAddressChange}
                           value={mintAddress}
@@ -276,7 +276,7 @@ const ModalChain = ({ children, chain }) => {
                       <div className="flex flex-col md:flex-row gap-[8px]">
                         <div
                           onClick={handleConfirmClick}
-                          className={`flex justify-center items-center h-[40px] mt-[28px] px-[15px] bg-btngreen text-white cursor-pointer ${
+                          className={`flex justify-center items-center h-[40px] mt-[20px] px-[15px] bg-btngreen text-white cursor-pointer ${
                             !nftAddress || !mintAddress || isLoading
                               ? "opacity-50"
                               : ""
@@ -286,7 +286,7 @@ const ModalChain = ({ children, chain }) => {
                         </div>
 
                         <div
-                          className={`flex justify-center items-center h-[40px] mt-[28px] px-[15px] bg-btngreen text-white cursor-pointer`}
+                          className={`flex justify-center items-center h-[40px] mt-[20px] px-[15px] bg-btngreen text-white cursor-pointer`}
                         >
                           <a
                             href="https://faucet.tagfusion.org/"
@@ -297,21 +297,23 @@ const ModalChain = ({ children, chain }) => {
                           </a>
                         </div>
                       </div>
-                      <div className="w-full h-[150px] mt-[32px] p-[8px] border border-[#FFA000FF] text-[14px] text-white text-left overflow-auto text-wrap whitespace-pre break-words">
+                      <div className="w-full h-[150px] mt-[20px] p-[8px] border border-[#FFA000FF] text-[14px] text-white text-left overflow-auto text-wrap whitespace-pre break-words">
                         {jsonStr}
                       </div>
                       <div className="flex justify-center">
                         <div
                           onClick={handleSubmitClick}
-                          className={`flex justify-center items-center h-[40px] mt-[28px] px-[15px] bg-btngreen text-white cursor-pointer ${
+                          className={`flex justify-center items-center h-[40px] mt-[20px] px-[15px] bg-btngreen text-white cursor-pointer ${
                             isLoading || !jsonStr ? "opacity-50" : ""
                           }`}
                         >
                           Submit
                         </div>
                         <div
-                          onClick={() => {setOpen(false)}}
-                          className={`flex justify-center items-center h-[40px] mt-[28px] ml-[8px] px-[15px] bg-btngreen text-white cursor-pointer `}
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                          className={`flex justify-center items-center h-[40px] mt-[20px] ml-[8px] px-[15px] bg-btngreen text-white cursor-pointer `}
                         >
                           close
                         </div>
