@@ -5,14 +5,14 @@ import {
   PopoverTrigger,
   PopoverSurface,
 } from "@fluentui/react-popover";
-
+import { twMerge } from "tailwind-merge";
 import TFButton from "./TFButton";
 
-const ShareList = ({onClick}) => {
+const ShareList = ({ onClick, isPop = false }) => {
   return (
-    <div className="flex items-center">
+    <div className={`flex items-center ${isPop ? "flex-col " : ""}`}>
       <div className="flex">
-        <div className="flex justify-center items-center w-[48px] h-[48px] p-[6px] ml-[20px] hover:bg-btngreen">
+        <div className="flex justify-center items-center w-[48px] h-[48px] p-[6px] hover:bg-btngreen">
           <a
             href="https://x.com/Tag_Fusion"
             target="_blank"
@@ -54,12 +54,27 @@ const ShareList = ({onClick}) => {
           </a>
         </div>
       </div>
-      <TFButton onClick={onClick?.bind(this)} className="ml-[30px]" link="/my">
-        <span className="text-[14px] leading-[17px]">My Tags</span>
-      </TFButton>
+      <div className={`flex ${isPop ? "w-full" : ""}`}>
+        <TFButton
+          onClick={onClick?.bind(this)}
+          className={twMerge("ml-[30px]", isPop ? "ml-0 w-full mt-[8px]" : "")}
+          link="/my"
+        >
+          <span className="text-[14px] leading-[17px]">My Tags</span>
+        </TFButton>
+      </div>
+      <div className={`flex ${isPop ? "w-full" : ""}`}>
+        <TFButton
+          onClick={onClick?.bind(this)}
+          className={twMerge("ml-[30px]", isPop ? "ml-0 w-full mt-[8px]" : "")}
+          link="/project"
+        >
+          <span className="text-[14px] leading-[17px]">Tags List</span>
+        </TFButton>
+      </div>
     </div>
   );
-}
+};
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -95,7 +110,7 @@ const Header = () => {
 
           <PopoverSurface>
             <div className="p-[16px] bg-[#424242] rounded text-white">
-              <ShareList onClick={()=> setOpen(false)}></ShareList>
+              <ShareList isPop={true} onClick={()=> setOpen(false)}></ShareList>
             </div>
           </PopoverSurface>
         </Popover>
