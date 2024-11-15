@@ -254,7 +254,7 @@ const ModalChain = ({ children, chain }) => {
                           onChange={handleAddressChange}
                           value={nftAddress}
                           type="text"
-                          placeholder="NFT Address"
+                          placeholder="Wallet Address"
                           className="w-full px-[10px] py-[10px] border border-[#FFFFFF1F] text-[#FFFFFF8A] text-[16px] bg-[#FFFFFF1A] outline-none focus:border-b-[#FFA000FF]"
                         />
                         {/* <div
