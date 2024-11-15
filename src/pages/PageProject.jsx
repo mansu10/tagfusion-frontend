@@ -122,8 +122,7 @@ const ModalChain = ({ children, chain }) => {
       toast.info("Loading...");
       const response = await axiosInstance.get("tagfusion/api/get_nft_data", {
         params: {
-          nft_address: nftAddress,
-          mint_address: mintAddress,
+          walletAddress: nftAddress,
         },
       });
       console.log(response);
@@ -209,7 +208,7 @@ const ModalChain = ({ children, chain }) => {
   };
 
   const handleConfirmClick = () => {
-    if (!nftAddress || !mintAddress || isLoading) {
+    if (!nftAddress || isLoading) {
       toast.error("Please enter address");
 
       return;
@@ -264,7 +263,7 @@ const ModalChain = ({ children, chain }) => {
                             Please enter a number in the range of
                           </div> */}
                       </div>
-                      <div className="relative mt-[20px]">
+                      {/* <div className="relative mt-[20px]">
                         <input
                           onChange={handleMintAddressChange}
                           value={mintAddress}
@@ -272,12 +271,12 @@ const ModalChain = ({ children, chain }) => {
                           placeholder="Mint Address"
                           className="w-full px-[10px] py-[10px] border border-[#FFFFFF1F] text-[#FFFFFF8A] text-[16px] bg-[#FFFFFF1A] outline-none focus:border-b-[#FFA000FF]"
                         />
-                      </div>
+                      </div> */}
                       <div className="flex flex-col md:flex-row gap-[8px]">
                         <div
                           onClick={handleConfirmClick}
                           className={`flex justify-center items-center h-[40px] mt-[20px] px-[15px] bg-btngreen text-white cursor-pointer ${
-                            !nftAddress || !mintAddress || isLoading
+                            !nftAddress || isLoading
                               ? "opacity-50"
                               : ""
                           }`}
