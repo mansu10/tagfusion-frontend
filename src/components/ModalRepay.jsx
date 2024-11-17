@@ -26,6 +26,7 @@ const ModalRepay = ({ info, onAction }) => {
     { amount: 0, val: 1, title: "All" },
   ];
   const amount = info.amount;
+  const loanId = info.id
   const [valList, setValList] = useState(defaultValList);
   const [selectDay, setSelectDay] = useState();
   const [repayAmount, setRepayAmount] = useState("");
@@ -159,7 +160,9 @@ const ModalRepay = ({ info, onAction }) => {
         amount: [{ denom: "utags", amount: "500" }],
         gas: "200000",
       };
-      const memo = "";
+      const memo = JSON.stringify({
+        loan_id: loanId
+      });
 
       const result = await signingClient.sendTokens(
         address,

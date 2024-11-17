@@ -163,7 +163,9 @@ const PageRepay = () => {
         amount: [{ denom: "utags", amount: "500" }],
         gas: "200000",
       };
-      const memo = "";
+      const memo = JSON.stringify({
+        loan_id: info.id,
+      });
       const result = await signingClient.sendTokens(
         address,
         to_address,
