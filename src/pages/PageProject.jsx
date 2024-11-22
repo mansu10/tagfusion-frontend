@@ -340,24 +340,57 @@ const PageProject = () => {
     {
       tag_name: "Solana",
       id: 1,
-    },
+      status: "ready"
+    }, 
+    {
+      tag_name: "Ethereum",
+      id: 2,
+      status: ""
+    }, 
+    {
+      tag_name: "Polygan",
+      id: 3,
+      status: ""
+    }, 
+    {
+      tag_name: "Immutable X",
+      id: 4,
+      status: ""
+    }, 
+    {
+      tag_name: "BSC",
+      id: 5,
+      status: ""
+    }, 
   ];
 
   return (
     <div className="flex justify-center pt-[140px]">
-      <PanelBox title="" className="min-w-[300px] max-w-[1200px] bg-[#424242] mt-[30px]">
+      <PanelBox
+        title=""
+        className="min-w-[300px] max-w-[1200px] bg-[#424242] mt-[30px]"
+      >
         <div className="min-h-[150px] md:min-h-[500px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[50px] gap-y-[30px] text-white">
-            {tags.map((tag, index) => (
-              <ModalChain key={index} chain={tag}>
+            {tags.map((tag, index) =>
+              tag.status === "ready" ? (
+                <ModalChain key={index} chain={tag}>
+                  <div
+                    key={index}
+                    className={`inline-flex justify-center items-center min-w-[200px] min-h-[40px] mx-[20px] md:mx-0 border rounded-[8px] cursor-pointer hover:border-[#FFA000FF] hover:text-[#FF6F00] transition-all`}
+                  >
+                    {tag.tag_name}
+                  </div>
+                </ModalChain>
+              ) : (
                 <div
                   key={index}
-                  className={`inline-flex justify-center items-center min-w-[200px] min-h-[40px] mx-[20px] md:mx-0 border rounded-[8px] cursor-pointer hover:border-[#FFA000FF] hover:text-[#FF6F00] transition-all`}
+                  className={`inline-flex justify-center items-center min-w-[200px] min-h-[40px] mx-[20px] md:mx-0 px-[5px] border rounded-[8px] cursor-pointer hover:border-[#FFA000FF] hover:text-[#FF6F00] transition-all`}
                 >
-                  {tag.tag_name}
+                  {tag.tag_name} (In Preparation)
                 </div>
-              </ModalChain>
-            ))}
+              )
+            )}
           </div>
           <ModalChain></ModalChain>
         </div>
