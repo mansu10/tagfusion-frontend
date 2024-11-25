@@ -25,7 +25,7 @@ const ShareList = ({ onClick, isPop = false }) => {
         </div>
         <div className="flex justify-center items-center w-[48px] h-[48px] p-[6px] ml-[20px] hover:bg-btngreen">
           <a
-            href="https://discord.gg/h244Ue3UsW"
+            href="https://discord.gg/jSdZFPZ5"
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1"
