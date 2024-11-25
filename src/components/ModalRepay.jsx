@@ -12,7 +12,12 @@ import {
 import { toast } from "react-toastify";
 import { SigningStargateClient } from "@cosmjs/stargate";
 
-import { axiosInstance, endpoint_rpc, turaChainId } from "../config/config";
+import {
+  axiosInstance,
+  endpoint_rpc,
+  turaChainId,
+  repayAddress,
+} from "../config/config";
 const ModalRepay = ({ info, onAction }) => {
   const defaultValList = [
     { amount: 0, val: 0.25, title: "1/4" },
@@ -21,6 +26,7 @@ const ModalRepay = ({ info, onAction }) => {
     { amount: 0, val: 1, title: "All" },
   ];
   const amount = info.amount;
+  const loanId = info.id
   const [valList, setValList] = useState(defaultValList);
   const [selectDay, setSelectDay] = useState();
   const [repayAmount, setRepayAmount] = useState("");
@@ -127,7 +133,7 @@ const ModalRepay = ({ info, onAction }) => {
     }
     try {
       const chainId = turaChainId;
-      const to_address = "tura12g2up77ngna09a3cvcwra3yajy3zhuw7mlrqyx";
+      const to_address = repayAddress;
       const denom = "utags";
       const toSend = 1e8 * repayAmount + "";
       const offlineSigner = window.getOfflineSigner(chainId);
@@ -151,10 +157,12 @@ const ModalRepay = ({ info, onAction }) => {
         offlineSigner
       );
       const fee = {
-        amount: [{ denom: "tags", amount: "500" }],
+        amount: [{ denom: "utags", amount: "500" }],
         gas: "200000",
       };
-      const memo = "";
+      const memo = JSON.stringify({
+        loan_id: loanId
+      });
 
       const result = await signingClient.sendTokens(
         address,

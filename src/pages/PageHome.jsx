@@ -500,7 +500,7 @@ const PageHome = () => {
           title={<span className="text-[18px]">Learn about</span>}
           heading={
             <>
-              TAGTUSION
+              TAGFUSION
               <br />
               &nbsp;CREDIT&nbsp;
               <br className="hidden md:block" />

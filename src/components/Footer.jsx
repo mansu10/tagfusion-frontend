@@ -42,7 +42,7 @@ const Footer = () => {
           </div>
           <div className="w-[32px] h-[32px] mx-[16px]">
             <a
-              href="https://discord.gg/h244Ue3UsW"
+              href="https://discord.gg/jSdZFPZ5"
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1"

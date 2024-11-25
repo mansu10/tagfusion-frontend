@@ -14,11 +14,21 @@ const getAddress = async () => {
 };
 
 const formatDate = (date) => {
-  return new Date(date)
-    .toJSON()
-    .substring(0, 19)
-    .replace("T", " ")
-    .replace(/-/g, ".");
+  if (!date) {
+    return;
+  }
+  try {
+    const dateTime = +new Date(date);
+    const stamp = dateTime + 8 * 3600 * 1000;
+    return new Date(stamp + 8 * 3600 * 1000)
+      .toJSON()
+      .substring(0, 19)
+      .replace("T", " ")
+      .replace(/-/g, ".");
+  } catch (e) {
+    console.log(e);
+  }
+  return date;
 };
 
 const MyTags = ({ tags = [], selectedTag, onClick }) => {
@@ -68,7 +78,7 @@ const MyPositions = () => {
     pageSize: 10,
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [isReload, setIsReload] = useState(false)
+  const [isReload, setIsReload] = useState(false);
 
   const reloadData = () => {
     setPager({
@@ -76,14 +86,14 @@ const MyPositions = () => {
       totalPage: 10,
       pageSize: 10,
     });
-    setLoanList([])
-    setIsReload(true)
-  }
+    setLoanList([]);
+    setIsReload(true);
+  };
 
   useEffect(() => {
     if (loanList.length === 0 && isReload) {
       fetchData();
-      setIsReload(false)
+      setIsReload(false);
     }
   }, [loanList, isReload]);
 
@@ -121,7 +131,7 @@ const MyPositions = () => {
   const goPageRepay = (item) => {
     sessionStorage.setItem("REPAY_ITEM", JSON.stringify(item));
     navigate("/repay");
-  }
+  };
   const [sentryRef, { rootRef }] = useInfiniteScroll({
     loading: isLoading,
     hasNextPage: pager.currentPage < pager.totalPage,
@@ -267,9 +277,7 @@ const MyRewards = () => {
   const formatNumber = (number) => {
     return new Intl.NumberFormat().format(number);
   };
-  if (data.code === 0) {
-    profileImageUrl = profileImageUrlPrefix + `/${data.profile_image}`; // 替换成你的基本 URL
-  }
+
   return (
     <PanelBox title="My Rewards">
       <div className="md:min-h-[700px]">
@@ -594,7 +602,7 @@ const PageMine = () => {
               </div>
             </div>
           </div>
-          <div className="pt-[10px] md:pt-[40px] md:ml-[40px] md:w-[909px]">
+          <div className="pt-[10px] md:pt-[110px] md:ml-[40px] md:w-[909px]">
             {/* {tabs[active].component} */}
             {active === 0 && (
               <MyTags

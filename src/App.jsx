@@ -8,7 +8,8 @@ import PageTags from "./pages/PageTags";
 import PageLoan from "./pages/PageLoan";
 import PageRepay from "./pages/PageRepay";
 import ScrollToTop from "./components/ScrollToTop";
-
+import CreateTagLink from "./pages/CreateTagLink.jsx";
+import PageProject from "./pages/PageProject"
 const App = () => {
 
   return (
@@ -21,6 +22,8 @@ const App = () => {
           <Route path="/tags" element={<PageTags />} />
           <Route path="/loan" element={<PageLoan />} />
           <Route path="/repay" element={<PageRepay />} />
+          <Route path="/tgcreate_tag" element={<CreateTagLink />} />
+          <Route path="/project" element={<PageProject />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
