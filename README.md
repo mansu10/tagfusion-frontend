@@ -1,8 +1,18 @@
-# React + Vite
+# Tagfusion
+tagfusion-frontend is an open-source front-end application, It's developed using advanced front-end technologies like React, Tailwind, vite。
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Installation
+Make sure you have installed Node.js, npm.
+In the project root directory, open the terminal and run the following commands to install the required dependency packages:
+```bash
+npm install
+# Or if using yarn
+yarn install
+```
+# Running the App
+```bash
+npm run dev
+# Or if using yarn
+yarn dev
+```
+The app will start at http://localhost:5173
