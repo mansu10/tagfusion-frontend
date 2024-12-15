@@ -1,3 +1,4 @@
+import TFButton from "./TFButton";
 const Footer = () => {
   return (
     <div className="w-full max-w-[1240px] md:h-[205px] mx-auto pt-[60px] pb-[80px] md:pt-[40px] md:pb-0 text-white">
@@ -29,7 +30,7 @@ const Footer = () => {
             <span>alicealison@gmail.com</span>
           </div> */}
         </div>
-        <div className="flex mt-[30px] md:mt-0">
+        <div className="flex items-center mt-[30px] md:mt-0">
           <div className="w-[32px] h-[32px] mx-[16px] ">
             <a
               href="https://x.com/Tag_Fusion"
@@ -40,7 +41,7 @@ const Footer = () => {
               <img className="w-full" src="/images/icon_x.svg" alt="X" />
             </a>
           </div>
-          <div className="w-[32px] h-[32px] mx-[16px]">
+          {/* <div className="w-[32px] h-[32px] mx-[16px]">
             <a
               href="https://discord.gg/jSdZFPZ5"
               target="_blank"
@@ -53,7 +54,7 @@ const Footer = () => {
                 alt="Discord"
               />
             </a>
-          </div>
+          </div> */}
           <div className="w-[32px] h-[32px] mx-[16px]">
             <a
               href="https://t.me/tele_tags_dao"
@@ -67,6 +68,9 @@ const Footer = () => {
                 alt="Telegram"
               />
             </a>
+          </div>
+          <div className="ml-[16px]">
+            <TFButton className="leading-[20px]" link="/chain">Data on Chain</TFButton>
           </div>
         </div>
       </div>
