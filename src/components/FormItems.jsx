@@ -29,7 +29,7 @@ const UploadCustom = ({onChange, uploadPic}) => {
   );
 };
 
-const InputCustom = ({ label, value, onChange, readonly }) => {
+const InputCustom = ({ label, value, onChange, readonly}) => {
   return (
     <div className={`custom-ipt ${value ? "filled" : ""}`}>
       <input
@@ -45,6 +45,17 @@ const InputCustom = ({ label, value, onChange, readonly }) => {
   );
 };
 
+const SelectCustom = ({value, options, onChange}) => {
+  return (
+  <div className="custom-select">
+    <select>
+      <option>GET</option>
+      <option>POST</option>
+    </select>
+  </div>
+  )
+}
+
 const CheckBoxCustom = ({check, onChange}) => {
   return (
     <div className="custom-ckb">
@@ -58,4 +69,27 @@ const CheckBoxCustom = ({check, onChange}) => {
   );
 };
 
-export { InputCustom, UploadCustom, CheckBoxCustom };
+const TextareaCustom = ({ label, value, onChange, readonly }) => {
+  return (
+    <div className={`custom-area ${value ? "filled" : ""}`}>
+      <textarea
+        value={value}
+        placeholder={label}
+        size="large"
+        type="textarea"
+        required
+        readOnly={readonly}
+        className=""
+        onChange={onChange?.bind(this)}
+      />
+    </div>
+  );
+};
+
+export {
+  InputCustom,
+  UploadCustom,
+  CheckBoxCustom,
+  TextareaCustom,
+  SelectCustom,
+};

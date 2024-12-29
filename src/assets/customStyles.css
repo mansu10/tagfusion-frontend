@@ -77,9 +77,11 @@ body {
 .bg-line {
     background: url('/images/bg_line.png') no-repeat right top/3931px 1914px;
 }
+
 .bg-global {
     background: url('/images/bg_global.png') no-repeat top 40px center/986px 884px;
 }
+
 .bg-global-fill {
     background: url('/images/bg_global.png') no-repeat center/100%;
 }
@@ -142,6 +144,39 @@ body {
     transform: translateY(-50%) scale(1);
     transform-origin: 0 50%;
     transition: all .3s;
+}
+
+.custom-select {
+    height: 46px;
+    padding: 0 11px;
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: #ffffffd3;
+    background: rgba(255, 255, 255, .1);
+    outline: none;
+}
+.custom-select select {
+    background-color: transparent;
+    height: 46px;
+    padding: 0 11px;
+}
+
+.custom-select select:focus {
+    outline: none;
+    border: none;
+}
+
+.custom-area textarea {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    min-height: 146px;
+    padding: 0 11px 0;
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: #ffffffd3;
+    background: rgba(255, 255, 255, .1);
+    outline: none;
 }
 
 .custom-upload {
@@ -212,6 +247,7 @@ body {
     text-align: center;
     line-height: 1;
 }
+
 .bgpoly {
     position: fixed;
     left: 0;
@@ -222,6 +258,7 @@ body {
     pointer-events: none;
     z-index: 0;
 }
+
 .bgpoly::before {
     content: "";
     position: fixed;
@@ -234,6 +271,7 @@ body {
     pointer-events: none;
 
 }
+
 .bgpoly::after {
     content: "";
     position: fixed;

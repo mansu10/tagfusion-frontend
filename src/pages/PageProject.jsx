@@ -18,6 +18,7 @@ import {
   DialogContent,
 } from "@fluentui/react-dialog";
 import { ToastContainer, toast } from "react-toastify";
+import SideBar from "../components/SideBar";
 // EBYYDbav6QgAM7JgYJcJgSKDgDvV8edgYJH5QmaAtZ6N
 const ModalChain = ({ children, chain }) => {
   const [nftAddress, setNftAddress] = useState("");
@@ -217,6 +218,14 @@ const ModalChain = ({ children, chain }) => {
   };
 
   const handleOpenDialog = (event, data) => {
+    if (data.open) {
+      const address = localStorage.getItem("tura_address");
+      if (!address) {
+        toast.error("Please connect wallet");
+        return;
+      }
+    }
+
     setOpen(data.open);
     if (data.open) {
       fetchInfo();
@@ -276,9 +285,7 @@ const ModalChain = ({ children, chain }) => {
                         <div
                           onClick={handleConfirmClick}
                           className={`flex justify-center items-center h-[40px] mt-[20px] px-[15px] bg-btngreen text-white cursor-pointer ${
-                            !nftAddress || isLoading
-                              ? "opacity-50"
-                              : ""
+                            !nftAddress || isLoading ? "opacity-50" : ""
                           }`}
                         >
                           Confirm
@@ -299,7 +306,14 @@ const ModalChain = ({ children, chain }) => {
                       <div className="w-full h-[150px] mt-[20px] p-[8px] border border-[#FFA000FF] text-[14px] text-white text-left overflow-auto text-wrap whitespace-pre break-words">
                         {jsonStr}
                       </div>
-                      <div className="flex justify-center">
+                      <DialogActions>
+                        <DialogTrigger disableButtonEnhancement>
+                          <div
+                            className={`flex justify-center items-center h-[40px] mt-[20px] ml-[8px] px-[15px] bg-btngreen text-white cursor-pointer `}
+                          >
+                            close
+                          </div>
+                        </DialogTrigger>
                         <div
                           onClick={handleSubmitClick}
                           className={`flex justify-center items-center h-[40px] mt-[20px] px-[15px] bg-btngreen text-white cursor-pointer ${
@@ -308,13 +322,98 @@ const ModalChain = ({ children, chain }) => {
                         >
                           Submit
                         </div>
+                      </DialogActions>
+                      <div className="flex justify-center"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        </DialogBody>
+      </DialogSurface>
+    </Dialog>
+  );
+};
+
+const DialogDetails = ({children}) => {
+  return (
+    <Dialog>
+      <DialogTrigger disableButtonEnhancement>{children}</DialogTrigger>
+      <DialogSurface style={{ maxWidth: "fit-content" }}>
+        <DialogBody>
+          <DialogContent>
+            <div className="max-w-[1200px]">
+              <div className="origin-top">
+                <div className="flex justify-center items-center">
+                  <div className="relative flex-none flex flex-col items-center  w-[85%] md:w-[596px] px-[20px] md:px-[56px] py-[20px] md:py-[48px]  rounded-[10px] bg-[#7c7c7c]">
+                    <div className="max-h-[200px] min-w-[260px] overflow-auto mt-[32px] text-[14px] text-white text-left whitespace-pre-line">
+                      12312321312
+                    </div>
+                    <DialogActions>
+                      <DialogTrigger disableButtonEnhancement>
                         <div
-                          onClick={() => {
-                            setOpen(false);
-                          }}
                           className={`flex justify-center items-center h-[40px] mt-[20px] ml-[8px] px-[15px] bg-btngreen text-white cursor-pointer `}
                         >
                           close
+                        </div>
+                      </DialogTrigger>
+                    </DialogActions>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        </DialogBody>
+      </DialogSurface>
+    </Dialog>
+  );
+}
+
+const DialogTags = ({open, onOpenChange = () => {}}) => {
+  const handleOpenDialog = (event, data) => {
+    onOpenChange?.call(null, data.open);
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={handleOpenDialog}>
+      <DialogTrigger disableButtonEnhancement></DialogTrigger>
+      <DialogSurface style={{ maxWidth: "fit-content" }}>
+        <DialogBody>
+          <DialogContent>
+            <div className="max-w-[1200px]">
+              <div className="origin-top">
+                <div className="flex justify-center items-center">
+                  <div className="relative flex-none flex flex-col items-center  w-[85%] md:w-[596px] px-[20px] md:px-[56px] py-[20px] md:py-[48px]  rounded-[10px] bg-[#424242]">
+                    <div className="max-h-[200px] min-w-[260px] overflow-auto mt-[32px] text-[14px] text-white text-left whitespace-pre-line">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[50px] gap-y-[30px] text-white">
+                        <div
+                          className={`inline-flex justify-center items-center min-w-[200px] min-h-[40px] mx-[20px] md:mx-0 px-[5px] border rounded-[8px] cursor-pointer hover:border-[#FFA000FF] hover:text-[#FF6F00] transition-all`}
+                        >
+                          <DialogDetails>
+                            <span>123213</span>
+                          </DialogDetails>
+                        </div>
+                        <div
+                          className={`inline-flex justify-center items-center min-w-[200px] min-h-[40px] mx-[20px] md:mx-0 px-[5px] border rounded-[8px] cursor-pointer hover:border-[#FFA000FF] hover:text-[#FF6F00] transition-all`}
+                        >
+                          123213
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="w-full">
+                      <div className="relative mt-[20px]">
+                        <div className="flex justify-center">
+                          <DialogActions>
+                            <DialogTrigger disableButtonEnhancement>
+                              <div
+                                className={`flex justify-center items-center h-[40px] mt-[20px] ml-[8px] px-[15px] bg-btngreen text-white cursor-pointer `}
+                              >
+                                close
+                              </div>
+                            </DialogTrigger>
+                          </DialogActions>
                         </div>
                       </div>
                     </div>
@@ -323,17 +422,12 @@ const ModalChain = ({ children, chain }) => {
               </div>
             </div>
           </DialogContent>
-          <DialogActions>
-            <DialogTrigger disableButtonEnhancement>
-              {/* <Button appearance="secondary">Close</Button> */}
-            </DialogTrigger>
-            {/* <Button appearance="primary">Do Something</Button> */}
-          </DialogActions>
         </DialogBody>
       </DialogSurface>
     </Dialog>
   );
-};
+}
+
 
 const PageProject = () => {
   const tags = [
@@ -363,9 +457,40 @@ const PageProject = () => {
       status: ""
     }, 
   ];
+  const [open, setOpen] = useState(false);
+  const handleOpenDialog = (isShow) => {
+    fetchTagsData().then(res => {
+      if (res) {
+        setOpen(isShow);
+      } else {
+        toast.error(res.message)
+      }
+    })
+  };
+
+  const fetchTagsData = () => {
+    return new Promise((resolve) => {
+      resolve(true)
+    })
+  }
+  const handleTabClick = (idx) => {
+    console.log(idx);
+    switch (idx) {
+      case 1:
+        setOpen(true)
+        break;
+    
+      default:
+        break;
+    }
+  };
+
 
   return (
     <div className="flex justify-center pt-[140px]">
+      <div className="pr-[16px]">
+        <SideBar onTabClick={handleTabClick}></SideBar>
+      </div>
       <PanelBox
         title=""
         className="min-w-[300px] max-w-[1200px] bg-[#424242] mt-[30px]"
@@ -395,6 +520,7 @@ const PageProject = () => {
           <ModalChain></ModalChain>
         </div>
       </PanelBox>
+      <DialogTags open={open} onOpenChange={handleOpenDialog}></DialogTags>
       <ToastContainer />
     </div>
   );
