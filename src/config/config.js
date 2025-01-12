@@ -2,7 +2,8 @@
 import axios from "axios";
 
 const config = {
-    endpoint: 'https://tagfusion.org/'
+    // endpoint: 'https://tagfusion.org/'
+    endpoint: 'http://43.135.127.231:8001/'
     // endpoint: 'https://testnet1.turablockchain.com/'
     // endpoint: 'http://127.0.0.1:8000/'
 };

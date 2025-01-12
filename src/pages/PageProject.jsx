@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { SigningStargateClient } from "@cosmjs/stargate";
+import { useNavigate } from "react-router-dom";
 
 import PanelBox from "../components/PanelBox";
 import {
@@ -19,6 +20,8 @@ import {
 } from "@fluentui/react-dialog";
 import { ToastContainer, toast } from "react-toastify";
 import SideBar from "../components/SideBar";
+
+import { fetchAllProjects, fetchAllProjectHistory } from "../api/index";
 // EBYYDbav6QgAM7JgYJcJgSKDgDvV8edgYJH5QmaAtZ6N
 const ModalChain = ({ children, chain }) => {
   const [nftAddress, setNftAddress] = useState("");
@@ -87,7 +90,7 @@ const ModalChain = ({ children, chain }) => {
         icon: false,
         toastId: "customId",
       });
-      setIsLoading(true)
+      setIsLoading(true);
       const result = await signingClient.sendTokens(
         address,
         toAddress,
@@ -244,6 +247,7 @@ const ModalChain = ({ children, chain }) => {
     let val = e.target.value;
     setMintAddress(val);
   };
+
   return (
     <Dialog open={open} onOpenChange={handleOpenDialog}>
       <DialogTrigger disableButtonEnhancement>{children}</DialogTrigger>
@@ -336,7 +340,7 @@ const ModalChain = ({ children, chain }) => {
   );
 };
 
-const DialogDetails = ({children}) => {
+const DialogDetails = ({ children }) => {
   return (
     <Dialog>
       <DialogTrigger disableButtonEnhancement>{children}</DialogTrigger>
@@ -368,11 +372,23 @@ const DialogDetails = ({children}) => {
       </DialogSurface>
     </Dialog>
   );
-}
+};
 
-const DialogTags = ({open, onOpenChange = () => {}}) => {
+const DialogTags = ({ open, onOpenChange = () => {} }) => {
+  const [project, setProject] = useState([]);
   const handleOpenDialog = (event, data) => {
     onOpenChange?.call(null, data.open);
+    if (data.open) {
+      fetchUserTags();
+    }
+  };
+  const fetchUserTags = () => {
+    const address = localStorage.getItem("tura_address");
+    if (!address) {
+      toast.error("Please connect to your wallet");
+      return;
+    }
+    fetchAllProjectHistory();
   };
 
   return (
@@ -426,64 +442,79 @@ const DialogTags = ({open, onOpenChange = () => {}}) => {
       </DialogSurface>
     </Dialog>
   );
-}
-
+};
 
 const PageProject = () => {
   const tags = [
     {
       tag_name: "Solana",
       id: 1,
-      status: "ready"
-    }, 
+      status: "ready",
+    },
     {
       tag_name: "Ethereum",
       id: 2,
-      status: ""
-    }, 
+      status: "",
+    },
     {
       tag_name: "Polygan",
       id: 3,
-      status: ""
-    }, 
+      status: "",
+    },
     {
       tag_name: "Immutable X",
       id: 4,
-      status: ""
-    }, 
+      status: "",
+    },
     {
       tag_name: "BSC",
       id: 5,
-      status: ""
-    }, 
+      status: "",
+    },
   ];
   const [open, setOpen] = useState(false);
+  const [projectList, setProjectList] = useState([]);
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
   const handleOpenDialog = (isShow) => {
-    fetchTagsData().then(res => {
+    fetchTagsData().then((res) => {
       if (res) {
         setOpen(isShow);
       } else {
-        toast.error(res.message)
+        toast.error(res.message);
       }
-    })
+    });
+  };
+
+  const fetchProjects = () => {
+    fetchAllProjects().then((res) => {
+      console.log(res);
+      const { code, data } = res.data;
+      if (code === 0) {
+        setProjectList(data);
+      }
+    });
   };
 
   const fetchTagsData = () => {
     return new Promise((resolve) => {
-      resolve(true)
-    })
-  }
+      resolve(true);
+    });
+  };
   const handleTabClick = (idx) => {
     console.log(idx);
     switch (idx) {
       case 1:
-        setOpen(true)
+        setOpen(true);
         break;
-    
+
       default:
         break;
     }
   };
+  const navigate = useNavigate();
 
 
   return (
@@ -510,12 +541,23 @@ const PageProject = () => {
               ) : (
                 <div
                   key={index}
-                  className={`inline-flex justify-center items-center min-w-[200px] min-h-[40px] mx-[20px] md:mx-0 px-[5px] border rounded-[8px] cursor-pointer hover:border-[#FFA000FF] hover:text-[#FF6F00] transition-all`}
+                  className={`inline-flex justify-center items-center min-w-[200px] min-h-[40px] mx-[20px] md:mx-0 px-[5px] border rounded-[8px] text-[#ffffffa0] cursor-pointer hover:border-[#FFA000a0] hover:text-[#FF6F00a0] transition-all`}
                 >
                   {tag.tag_name} (In Preparation)
                 </div>
               )
             )}
+            {projectList.map((project, index) => (
+              <div
+                key={index}
+                onClick={() => {
+                   navigate(`/chainid/${project.id}`);
+                }}
+                className={`inline-flex justify-center items-center min-w-[200px] min-h-[40px] mx-[20px] md:mx-0 border rounded-[8px] cursor-pointer hover:border-[#FFA000FF] hover:text-[#FF6F00] transition-all`}
+              >
+                {project.project_name}
+              </div>
+            ))}
           </div>
           <ModalChain></ModalChain>
         </div>

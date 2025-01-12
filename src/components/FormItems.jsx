@@ -47,13 +47,14 @@ const InputCustom = ({ label, value, onChange, readonly}) => {
 
 const SelectCustom = ({value, options, onChange}) => {
   return (
-  <div className="custom-select">
-    <select>
-      <option>GET</option>
-      <option>POST</option>
-    </select>
-  </div>
-  )
+    <div className="custom-select">
+      <select onChange={onChange.bind(this)} value={value}>
+        {options.map((item) => (
+          <option key={item.value} name={item.value}>{item.title}</option>
+        ))}
+      </select>
+    </div>
+  );
 }
 
 const CheckBoxCustom = ({check, onChange}) => {

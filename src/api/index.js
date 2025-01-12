@@ -8,12 +8,12 @@ const BASE_URL = "/tagfusion/api"
 
 // get api
 const fetchApiByUrl = (data) => {
-  return axiosInstance.get(`${BASE_URL}/execute_request`, data)
+  return axiosInstance.post(`${BASE_URL}/execute_request/`, data)
 }
 
 // generate project
 const generateProject = (data) => {
-  return axiosInstance.post(`${BASE_URL}/submit_project_details`, data)
+  return axiosInstance.post(`${BASE_URL}/submit_project_details/`, data)
 }
 
 // project list
@@ -29,7 +29,7 @@ const fetchAllProjectHistory = (data) => {
 
 // user chain page
 const getProjectById = (data) => {
-  return axiosInstance.get(`${BASE_URL}/get_project_by_id`, data)
+  return axiosInstance.get(`${BASE_URL}/get_project_by_id`, {params: data})
 }
 
 // pick chain data
